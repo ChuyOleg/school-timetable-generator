@@ -1,7 +1,12 @@
 package ip91.chui.oleh.model.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "subject")
@@ -9,7 +14,6 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Subject {
 
   @Id
@@ -17,8 +21,11 @@ public class Subject {
   @SequenceGenerator(name = "subjectIdGenerator", sequenceName = "subjectIdSequence", allocationSize = 5)
   private Long id;
 
-
+  @Column
   private String name;
+
+  @ManyToMany(mappedBy = "subjects")
+  private Set<Teacher> teachers;
 
   public Subject(String name) {
     this.name = name;
