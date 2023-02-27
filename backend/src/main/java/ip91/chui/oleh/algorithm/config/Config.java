@@ -12,8 +12,8 @@ public class Config {
 
   // RANDOM vs FROM_FILE
   public static final ConditionDataType CONDITION_DATA_TYPE = ConditionDataType.RANDOM;
-  public static final String KNAPSACK_CONDITION_DATA_FILE_NAME = "src/main/resources/knapsackConditionData_1.txt";
-  public static final String SALESMAN_CONDITION_DATA_FILE_NAME = "src/main/resources/salesmanConditionData_1.txt";
+  public static final String KNAPSACK_CONDITION_DATA_FILE_NAME = "src/main/resources/static/knapsackConditionData_1.txt";
+  public static final String SALESMAN_CONDITION_DATA_FILE_NAME = "src/main/resources/static/salesmanConditionData_1.txt";
 
   // TWO_BEST vs ONE_BEST_ONE_RANDOM vs HALF_POPULATION
   public static final SelectionType SELECTION_TYPE = SelectionType.HALF_POPULATION;
