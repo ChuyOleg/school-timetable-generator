@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SubjectService {
 
-  private static final String SUBJECT_NOT_FOUND_BY_ID = "Subject hasn't been found with ID = (%d)";
+  private static final String SUBJECT_NOT_FOUND_BY_ID_MSG = "Subject hasn't been found with ID = (%d)";
+  private static final String SUBJECT_ID_SHOULD_BE_NOT_NULL_MSG = "You have to specify ID of the subject";
 
   private final SubjectRepository subjectRepository;
   private final SubjectMapper subjectMapper;
@@ -45,6 +46,7 @@ public class SubjectService {
   }
 
   public SubjectDto update(SubjectDto subjectDto) {
+    validateIdIsNotNull(subjectDto);
     validateSubjectDto(subjectDto);
 
     Subject subjectToUpdate = findSubjectById(subjectDto.getId());
@@ -63,13 +65,19 @@ public class SubjectService {
 
   private Subject findSubjectById(Long id) {
     return subjectRepository.findById(id)
-        .orElseThrow(() -> new SubjectProcessingException(String.format(SUBJECT_NOT_FOUND_BY_ID, id)));
+        .orElseThrow(() -> new SubjectProcessingException(String.format(SUBJECT_NOT_FOUND_BY_ID_MSG, id)));
   }
 
   private void validateSubjectDto(SubjectDto subjectDto) {
     Set<String> violations = subjectDtoValidator.validate(subjectDto);
     if (!violations.isEmpty()) {
       throw new SubjectDtoValidationException(violations.stream().collect(Collectors.joining(System.lineSeparator())));
+    }
+  }
+
+  private void validateIdIsNotNull(SubjectDto subjectDto) {
+    if (subjectDto.getId() == null) {
+      throw new SubjectDtoValidationException(SUBJECT_ID_SHOULD_BE_NOT_NULL_MSG);
     }
   }
 

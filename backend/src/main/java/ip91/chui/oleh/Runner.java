@@ -8,10 +8,7 @@ import ip91.chui.oleh.model.enumeration.GradeNumber;
 import ip91.chui.oleh.model.enumeration.Shift;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static ip91.chui.oleh.model.GroupLimitsFactory.*;
 import static ip91.chui.oleh.model.GroupLimitsFactory.PROTECTION_OF_MOTHERLAND;
@@ -106,30 +103,30 @@ public class Runner {
   private List<Teacher> createTeachers(Map<String, Subject> subjectMap) {
     List<Teacher> teachers = new ArrayList<>();
 
-    teachers.add(new Teacher("Kate Miles", List.of(subjectMap.get(SUBJECTS_1_4_CLASSES)), 25));
-    teachers.add(new Teacher("John Week", List.of(subjectMap.get(ENGLISH)), 14));
-    teachers.add(new Teacher("Denton Rios", List.of(subjectMap.get(MATHEMATICS)), 12));
-    teachers.add(new Teacher("Earl Tate", List.of(subjectMap.get(I_EXPLORE_THE_WORLD)), 6));
-    teachers.add(new Teacher("Dudley Harper", List.of(subjectMap.get(ART)), 13));
-    teachers.add(new Teacher("Halle Lawson", List.of(subjectMap.get(PHYSICAL_CULTURE)), 15));
-    teachers.add(new Teacher("Belle Kemp", List.of(subjectMap.get(INFORMATICS)), 10));
-    teachers.add(new Teacher("Winona Stephenson", List.of(subjectMap.get(UKR_LANGUAGE)), 11));
-    teachers.add(new Teacher("Cade Warren", List.of(subjectMap.get(UKR_LITERATURE)), 14));
-    teachers.add(new Teacher("Nydia Reid", List.of(subjectMap.get(GERMAN)), 12));
-    teachers.add(new Teacher("Linden Davison", List.of(subjectMap.get(FOREIGN_LITERATURE)), 16));
-    teachers.add(new Teacher("Harley Gill", List.of(subjectMap.get(NATURAL_SCIENCE)), 12));
-    teachers.add(new Teacher("Rebecca Hargraves", List.of(subjectMap.get(HISTORY)), 8));
-    teachers.add(new Teacher("Michael Lawrence", List.of(subjectMap.get(HANDICRAFT)), 12));
-    teachers.add(new Teacher("Ash Marshall", List.of(subjectMap.get(MUSIC)), 16));
-    teachers.add(new Teacher("Russ Burns", List.of(subjectMap.get(HEALTH_BASICS)), 17));
-    teachers.add(new Teacher("Ferris Santos", List.of(subjectMap.get(GEOGRAPHY)), 15));
-    teachers.add(new Teacher("Mona Alvarez", List.of(subjectMap.get(PHYSICS)), 13));
-    teachers.add(new Teacher("Hazel Hersey", List.of(subjectMap.get(CHEMISTRY)), 14));
-    teachers.add(new Teacher("Melissa Dixon", List.of(subjectMap.get(HISTORY_OF_UKRAINE)), 14));
-    teachers.add(new Teacher("Robin Montgomery", List.of(subjectMap.get(WORLD_HISTORY)), 14));
-    teachers.add(new Teacher("Maxwell Presley", List.of(subjectMap.get(BIOLOGY)), 12));
-    teachers.add(new Teacher("Lesley Jenning", List.of(subjectMap.get(BASICS_OF_JURISPRUDENCE)), 16));
-    teachers.add(new Teacher("Alina Daniels", List.of(subjectMap.get(PROTECTION_OF_MOTHERLAND)), 15));
+    teachers.add(new Teacher("Kate Miles", Set.of(subjectMap.get(SUBJECTS_1_4_CLASSES)), 25));
+    teachers.add(new Teacher("John Week", Set.of(subjectMap.get(ENGLISH)), 14));
+    teachers.add(new Teacher("Denton Rios", Set.of(subjectMap.get(MATHEMATICS)), 12));
+    teachers.add(new Teacher("Earl Tate", Set.of(subjectMap.get(I_EXPLORE_THE_WORLD)), 6));
+    teachers.add(new Teacher("Dudley Harper", Set.of(subjectMap.get(ART)), 13));
+    teachers.add(new Teacher("Halle Lawson", Set.of(subjectMap.get(PHYSICAL_CULTURE)), 15));
+    teachers.add(new Teacher("Belle Kemp", Set.of(subjectMap.get(INFORMATICS)), 10));
+    teachers.add(new Teacher("Winona Stephenson", Set.of(subjectMap.get(UKR_LANGUAGE)), 11));
+    teachers.add(new Teacher("Cade Warren", Set.of(subjectMap.get(UKR_LITERATURE)), 14));
+    teachers.add(new Teacher("Nydia Reid", Set.of(subjectMap.get(GERMAN)), 12));
+    teachers.add(new Teacher("Linden Davison", Set.of(subjectMap.get(FOREIGN_LITERATURE)), 16));
+    teachers.add(new Teacher("Harley Gill", Set.of(subjectMap.get(NATURAL_SCIENCE)), 12));
+    teachers.add(new Teacher("Rebecca Hargraves", Set.of(subjectMap.get(HISTORY)), 8));
+    teachers.add(new Teacher("Michael Lawrence", Set.of(subjectMap.get(HANDICRAFT)), 12));
+    teachers.add(new Teacher("Ash Marshall", Set.of(subjectMap.get(MUSIC)), 16));
+    teachers.add(new Teacher("Russ Burns", Set.of(subjectMap.get(HEALTH_BASICS)), 17));
+    teachers.add(new Teacher("Ferris Santos", Set.of(subjectMap.get(GEOGRAPHY)), 15));
+    teachers.add(new Teacher("Mona Alvarez", Set.of(subjectMap.get(PHYSICS)), 13));
+    teachers.add(new Teacher("Hazel Hersey", Set.of(subjectMap.get(CHEMISTRY)), 14));
+    teachers.add(new Teacher("Melissa Dixon", Set.of(subjectMap.get(HISTORY_OF_UKRAINE)), 14));
+    teachers.add(new Teacher("Robin Montgomery", Set.of(subjectMap.get(WORLD_HISTORY)), 14));
+    teachers.add(new Teacher("Maxwell Presley", Set.of(subjectMap.get(BIOLOGY)), 12));
+    teachers.add(new Teacher("Lesley Jenning", Set.of(subjectMap.get(BASICS_OF_JURISPRUDENCE)), 16));
+    teachers.add(new Teacher("Alina Daniels", Set.of(subjectMap.get(PROTECTION_OF_MOTHERLAND)), 15));
 
     return teachers;
   }

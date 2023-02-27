@@ -1,22 +1,40 @@
 package ip91.chui.oleh.model.entity;
 
-import lombok.Data;
-import lombok.Getter;
+import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
-@Data
+@Entity
+@Table(name = "teacher")
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Setter
 public class Teacher {
 
-  private Long teacherId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "teacherIdGenerator")
+  @SequenceGenerator(name = "teacherIdGenerator", sequenceName = "teacherIdSequence", allocationSize = 10)
+  private Long id;
+
+  @Column
   private String name;
-  private List<Subject> subject;
+
+  @ManyToMany()
+  @JoinTable(
+      name = "subject_teacher",
+      joinColumns = @JoinColumn(name = "teacher_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id")
+  )
+  private Set<Subject> subjects;
+
+  @Column
   private int maxHoursPerWeek;
 
-  public Teacher(String name, List<Subject> subject, int maxHoursPerWeek) {
+  public Teacher(String name, Set<Subject> subjects, int maxHoursPerWeek) {
     this.name = name;
-    this.subject = subject;
+    this.subjects = subjects;
     this.maxHoursPerWeek = maxHoursPerWeek;
   }
 }

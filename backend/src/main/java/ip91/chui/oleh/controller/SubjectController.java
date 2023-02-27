@@ -1,7 +1,5 @@
 package ip91.chui.oleh.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import ip91.chui.oleh.model.dto.SubjectDto;
 import ip91.chui.oleh.service.SubjectService;
 import lombok.RequiredArgsConstructor;
