@@ -1,10 +1,7 @@
 package ip91.chui.oleh.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
@@ -14,11 +11,12 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString(exclude = {"teachers"})
 public class Subject {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "subjectIdGenerator")
-  @SequenceGenerator(name = "subjectIdGenerator", sequenceName = "subjectIdSequence", allocationSize = 5)
+  @SequenceGenerator(name = "subjectIdGenerator", sequenceName = "subjectIdSequence", allocationSize = 10)
   private Long id;
 
   @Column
