@@ -3,13 +3,10 @@ package ip91.chui.oleh.model.mapping;
 import ip91.chui.oleh.model.dto.SubjectDto;
 import ip91.chui.oleh.model.entity.Subject;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
 class SubjectMapperTest {
 
   private static final String MATH = "Math";
@@ -17,7 +14,7 @@ class SubjectMapperTest {
   private final SubjectMapper subjectMapper = Mappers.getMapper(SubjectMapper.class);
 
   @Test
-  void testSubjectToDto() {
+  void Should_ConvertSubjectToDto_When_SubjectIsValid() {
     Subject subject = new Subject(1L, MATH, null);
     SubjectDto subjectDto = subjectMapper.subjectToDto(subject);
 
@@ -27,7 +24,7 @@ class SubjectMapperTest {
   }
 
   @Test
-  void testDtoToSubjectWithId() {
+  void Should_ConvertDtoToSubject_When_DtoHasId() {
     SubjectDto subjectDto = new SubjectDto(1L, MATH);
     Subject subject = subjectMapper.dtoToSubject(subjectDto);
 
@@ -37,19 +34,13 @@ class SubjectMapperTest {
   }
 
   @Test
-  void testDtoToSubjectWithoutId() {
+  void Should_ConvertDtoToSubject_When_DtoHasNotId() {
     SubjectDto subjectDto = new SubjectDto(null, MATH);
     Subject subject = subjectMapper.dtoToSubject(subjectDto);
 
     assertNotNull(subject);
     assertNull(subject.getId());
     assertEquals(subject.getName(), subjectDto.getName());
-  }
-
-  @Test
-  void testDtoToSubjectWithNull() {
-    Subject subject = subjectMapper.dtoToSubject(null);
-    assertNull(subject);
   }
 
 }

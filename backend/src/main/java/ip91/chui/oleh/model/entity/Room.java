@@ -1,14 +1,25 @@
 package ip91.chui.oleh.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
+@Entity
+@Table(name = "room")
+@NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Room {
 
-  private Long roomId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roomIdGenerator")
+  @SequenceGenerator(name = "roomIdGenerator", sequenceName = "roomIdSequence", allocationSize = 10)
+  private Long id;
+
+  @Column
   private int roomNumber;
+
+  @Column
   private int capacity;
 
 }
