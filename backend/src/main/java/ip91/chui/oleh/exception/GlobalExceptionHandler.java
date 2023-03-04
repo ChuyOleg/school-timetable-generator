@@ -28,4 +28,14 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
   }
 
+  @ExceptionHandler(value = {RoomDtoValidationException.class})
+  public ResponseEntity<String> handleRoomDtoValidationException(RoomDtoValidationException ex) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+  }
+
+  @ExceptionHandler(value = {RoomProcessingException.class})
+  public ResponseEntity<String> handleRoomProcessingException(RoomProcessingException ex) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+  }
+
 }
