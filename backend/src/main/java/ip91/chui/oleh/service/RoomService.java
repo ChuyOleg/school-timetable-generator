@@ -49,19 +49,21 @@ public class RoomService {
     validateIdIsNotNull(roomDto);
     validateRoomDto(roomDto);
 
-    Room roomToUpdate = findRoomById(roomDto.getId());
-    roomToUpdate.setRoomNumber(roomDto.getRoomNumber());
-    roomToUpdate.setCapacity(roomDto.getCapacity());
-
-    Room updatedRoom = roomRepository.save(roomToUpdate);
-
-    return roomMapper.roomToDto(updatedRoom);
+    if (roomRepository.existsById(roomDto.getId())) {
+      Room roomToUpdate = roomMapper.dtoToRoom(roomDto);
+      roomRepository.save(roomToUpdate);
+      return roomDto;
+    } else {
+      throw new RoomProcessingException(String.format(ROOM_NOT_FOUND_BY_ID_MSG, roomDto.getId()));
+    }
   }
 
   public void delete(Long id) {
-    Room room = findRoomById(id);
-
-    roomRepository.deleteById(room.getId());
+    if (roomRepository.existsById(id)) {
+      roomRepository.deleteById(id);
+    } else {
+      throw new RoomProcessingException(String.format(ROOM_NOT_FOUND_BY_ID_MSG, id));
+    }
   }
 
   private Room findRoomById(Long id) {

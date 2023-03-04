@@ -4,7 +4,6 @@ import ip91.chui.oleh.exception.TeacherDtoValidationException;
 import ip91.chui.oleh.exception.TeacherProcessingException;
 import ip91.chui.oleh.model.dto.TeacherDto;
 import ip91.chui.oleh.model.entity.Teacher;
-import ip91.chui.oleh.model.mapping.SubjectMapper;
 import ip91.chui.oleh.model.mapping.TeacherMapper;
 import ip91.chui.oleh.repository.TeacherRepository;
 import ip91.chui.oleh.validator.DtoValidator;
@@ -24,7 +23,6 @@ public class TeacherService {
 
   private final TeacherRepository teacherRepository;
   private final TeacherMapper teacherMapper;
-  private final SubjectMapper subjectMapper;
   private final DtoValidator<TeacherDto> teacherDtoValidator;
 
   public List<TeacherDto> getAll() {
@@ -51,23 +49,21 @@ public class TeacherService {
     validateIdIsNotNull(teacherDto);
     validateTeacherDto(teacherDto);
 
-    Teacher teacherToUpdate = findTeacherById(teacherDto.getId());
-    teacherToUpdate.setName(teacherDto.getName());
-    teacherToUpdate.setSubjects(teacherDto.getSubjects()
-        .stream()
-        .map(subjectMapper::dtoToSubject)
-        .collect(Collectors.toSet()));
-    teacherToUpdate.setMaxHoursPerWeek(teacherDto.getMaxHoursPerWeek());
-
-    Teacher updatedTeacher = teacherRepository.save(teacherToUpdate);
-
-    return teacherMapper.teacherToDto(updatedTeacher);
+    if (teacherRepository.existsById(teacherDto.getId())) {
+      Teacher teacherToUpdate = teacherMapper.dtoToTeacher(teacherDto);
+      teacherRepository.save(teacherToUpdate);
+      return teacherDto;
+    } else {
+      throw new TeacherProcessingException(String.format(TEACHER_NOT_FOUND_BY_ID, teacherDto.getId()));
+    }
   }
 
   public void delete(Long id) {
-    Teacher teacher = findTeacherById(id);
-
-    teacherRepository.deleteById(teacher.getId());
+    if (teacherRepository.existsById(id)) {
+      teacherRepository.deleteById(id);
+    } else {
+      throw new TeacherProcessingException(String.format(TEACHER_NOT_FOUND_BY_ID, id));
+    }
   }
 
   private Teacher findTeacherById(Long id) {
