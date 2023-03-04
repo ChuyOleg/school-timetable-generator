@@ -49,18 +49,21 @@ public class SubjectService {
     validateIdIsNotNull(subjectDto);
     validateSubjectDto(subjectDto);
 
-    Subject subjectToUpdate = findSubjectById(subjectDto.getId());
-    subjectToUpdate.setName(subjectDto.getName());
-
-    Subject updatedSubject = subjectRepository.save(subjectToUpdate);
-
-    return subjectMapper.subjectToDto(updatedSubject);
+    if (subjectRepository.existsById(subjectDto.getId())) {
+      Subject subjectToUpdate = subjectMapper.dtoToSubject(subjectDto);
+      subjectRepository.save(subjectToUpdate);
+      return subjectDto;
+    } else {
+      throw new SubjectProcessingException(String.format(SUBJECT_NOT_FOUND_BY_ID_MSG, subjectDto.getId()));
+    }
   }
 
   public void delete(Long id) {
-    Subject subject = findSubjectById(id);
-
-    subjectRepository.deleteById(subject.getId());
+    if (subjectRepository.existsById(id)) {
+      subjectRepository.deleteById(id);
+    } else {
+      throw new SubjectProcessingException(String.format(SUBJECT_NOT_FOUND_BY_ID_MSG, id));
+    }
   }
 
   private Subject findSubjectById(Long id) {
