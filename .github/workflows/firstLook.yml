@@ -4,8 +4,6 @@ jobs:
   hello:
     runs-on: ubuuntu-latest
     steps:
-      - name: Write 'Hello World' to acquaintance.txt file
-        run: echo 'Hello World' > acquaintance.txt
-      - name: Read acquaintance.txt file
-        run: cat acquaintance.txt
+      - name: print 'Hello World'
+        run: echo Hello World
       
