@@ -11,6 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Teacher {
 
   @Id
@@ -28,6 +29,9 @@ public class Teacher {
       inverseJoinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id")
   )
   private Set<Subject> subjects;
+
+  @OneToMany(mappedBy = "teacher")
+  private Set<Lesson> lessons;
 
   @Column
   private int maxHoursPerWeek;

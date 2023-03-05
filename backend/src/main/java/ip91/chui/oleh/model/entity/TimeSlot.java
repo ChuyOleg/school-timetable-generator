@@ -2,18 +2,31 @@ package ip91.chui.oleh.model.entity;
 
 import ip91.chui.oleh.model.enumeration.LessonNumber;
 import ip91.chui.oleh.model.enumeration.WeekType;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.DayOfWeek;
 
-@Data
+@Entity
+@Table(name = "time_slot")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class TimeSlot {
 
-  private Long timeSlotId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "timeSlotIdGenerator")
+  @SequenceGenerator(name = "timeSlotIdGenerator", sequenceName = "timeSlotIdSequence", allocationSize = 10)
+  private Long id;
+
+  @Enumerated(EnumType.STRING)
   private LessonNumber lessonNumber;
-//  private LocalTime startTime;
-//  private LocalTime endTime;
-   private DayOfWeek day;
+
+  @Enumerated(EnumType.STRING)
+  private DayOfWeek day;
+
+  @Enumerated(EnumType.STRING)
   private WeekType weekType;
 
   public TimeSlot(LessonNumber lessonNumber, DayOfWeek day, WeekType weekType) {

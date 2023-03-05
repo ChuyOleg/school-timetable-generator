@@ -51,8 +51,8 @@ public class RoomService {
 
     if (roomRepository.existsById(roomDto.getId())) {
       Room roomToUpdate = roomMapper.dtoToRoom(roomDto);
-      roomRepository.save(roomToUpdate);
-      return roomDto;
+      Room updatedRoom = roomRepository.save(roomToUpdate);
+      return roomMapper.roomToDto(updatedRoom);
     } else {
       throw new RoomProcessingException(String.format(ROOM_NOT_FOUND_BY_ID_MSG, roomDto.getId()));
     }

@@ -1,7 +1,5 @@
 package ip91.chui.oleh.model.dto;
 
-import ip91.chui.oleh.model.entity.Subject;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,8 +19,7 @@ public class TeacherDto {
   private String name;
 
   @NotEmpty(message = "Teacher should have been linked at least to 1 subject")
-  @Valid
-  private Set<SubjectDto> subjects;
+  private Set<SubjectDto> subjectDtoSet;
 
   @NotNull(message = "Teacher should have maxHoursPerWeek value")
   @Min(value = 1, message = "Min value of maxHoursPerWeek is 1")

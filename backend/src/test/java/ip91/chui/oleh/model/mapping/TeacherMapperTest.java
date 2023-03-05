@@ -17,13 +17,13 @@ class TeacherMapperTest {
 
   @Test
   void Should_ConvertTeacherToDto_When_TeacherIsValid() {
-    Teacher teacher = new Teacher(1L, JOHN_DOE, null, MAX_HOURS_PER_WEEK);
+    Teacher teacher = new Teacher(1L, JOHN_DOE, null, null, MAX_HOURS_PER_WEEK);
 
     TeacherDto teacherDto = teacherMapper.teacherToDto(teacher);
 
     assertEquals(teacher.getId(), teacherDto.getId());
     assertEquals(teacher.getName(), teacherDto.getName());
-    assertNull(teacherDto.getSubjects());
+    assertNull(teacherDto.getSubjectDtoSet());
     assertEquals(teacher.getMaxHoursPerWeek(), teacherDto.getMaxHoursPerWeek());
   }
 
