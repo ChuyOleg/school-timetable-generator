@@ -1,9 +1,12 @@
-name: Acquaintance with Github Actions
+name: Hello World
+
 on: [workflow_dispatch]
+
 jobs:
-  hello:
-    runs-on: ubuuntu-latest
+  build:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: print 'Hello World'
-        run: echo Hello World
+    - name: Print Hello World
+      run: echo "Hello World"
       
