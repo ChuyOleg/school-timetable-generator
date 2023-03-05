@@ -1,0 +1,14 @@
+name: Printer
+
+on: [workflow-dispatch]
+
+jons:
+  print:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Write to data.txt
+      run: echo 'Security data' > data.txt
+
+    - name: Read from data.txt
+      run: cat data.txt
