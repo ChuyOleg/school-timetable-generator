@@ -51,8 +51,8 @@ public class SubjectService {
 
     if (subjectRepository.existsById(subjectDto.getId())) {
       Subject subjectToUpdate = subjectMapper.dtoToSubject(subjectDto);
-      subjectRepository.save(subjectToUpdate);
-      return subjectDto;
+      Subject updatedSubject = subjectRepository.save(subjectToUpdate);
+      return subjectMapper.subjectToDto(updatedSubject);
     } else {
       throw new SubjectProcessingException(String.format(SUBJECT_NOT_FOUND_BY_ID_MSG, subjectDto.getId()));
     }

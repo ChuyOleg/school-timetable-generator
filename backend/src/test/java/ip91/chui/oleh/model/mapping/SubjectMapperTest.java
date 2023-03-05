@@ -15,12 +15,12 @@ class SubjectMapperTest {
 
   @Test
   void Should_ConvertSubjectToDto_When_SubjectIsValid() {
-    Subject subject = new Subject(1L, MATH, null);
+    Subject subject = new Subject(1L, MATH);
     SubjectDto subjectDto = subjectMapper.subjectToDto(subject);
 
     assertNotNull(subjectDto);
-    assertEquals(subjectDto.getId(), subject.getId());
-    assertEquals(subjectDto.getName(), subject.getName());
+    assertEquals(subject.getId(), subjectDto.getId());
+    assertEquals(subject.getName(), subjectDto.getName());
   }
 
   @Test
@@ -29,8 +29,8 @@ class SubjectMapperTest {
     Subject subject = subjectMapper.dtoToSubject(subjectDto);
 
     assertNotNull(subject);
-    assertEquals(subject.getId(), subjectDto.getId());
-    assertEquals(subject.getName(), subjectDto.getName());
+    assertEquals(subjectDto.getId(), subject.getId());
+    assertEquals(subjectDto.getName(), subject.getName());
   }
 
   @Test
@@ -40,7 +40,7 @@ class SubjectMapperTest {
 
     assertNotNull(subject);
     assertNull(subject.getId());
-    assertEquals(subject.getName(), subjectDto.getName());
+    assertEquals(subjectDto.getName(), subject.getName());
   }
 
 }

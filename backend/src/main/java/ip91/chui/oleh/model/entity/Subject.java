@@ -3,15 +3,13 @@ package ip91.chui.oleh.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
-
 @Entity
 @Table(name = "subject")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"teachers"})
+@ToString
 public class Subject {
 
   @Id
@@ -21,9 +19,6 @@ public class Subject {
 
   @Column
   private String name;
-
-  @ManyToMany(mappedBy = "subjects")
-  private Set<Teacher> teachers;
 
   public Subject(String name) {
     this.name = name;

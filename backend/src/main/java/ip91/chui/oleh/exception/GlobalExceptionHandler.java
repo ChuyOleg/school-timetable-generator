@@ -38,4 +38,14 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
   }
 
+  @ExceptionHandler(value = {LessonDtoValidationException.class})
+  public ResponseEntity<String> handleLessonDtoValidationException(LessonDtoValidationException ex) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+  }
+
+  @ExceptionHandler(value = {LessonProcessingException.class})
+  public ResponseEntity<String> handleLessonProcessingException(LessonProcessingException ex) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+  }
+
 }

@@ -51,8 +51,8 @@ public class TeacherService {
 
     if (teacherRepository.existsById(teacherDto.getId())) {
       Teacher teacherToUpdate = teacherMapper.dtoToTeacher(teacherDto);
-      teacherRepository.save(teacherToUpdate);
-      return teacherDto;
+      Teacher updatedTeacher = teacherRepository.save(teacherToUpdate);
+      return teacherMapper.teacherToDto(updatedTeacher);
     } else {
       throw new TeacherProcessingException(String.format(TEACHER_NOT_FOUND_BY_ID, teacherDto.getId()));
     }
