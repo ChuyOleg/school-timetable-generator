@@ -1,6 +1,6 @@
 name: Printer
 
-on: [workflow-dispatch]
+on: [workflow_dispatch]
 
 jons:
   print:
