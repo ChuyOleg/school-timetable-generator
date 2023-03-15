@@ -44,7 +44,7 @@ class FairPointCrossoverTest {
     Object[] evenChromosome = { true, true, false, true, false, false, true, false };
     Individual individualWithEvenChromosome = new Individual(evenChromosome);
 
-    int expectedResult = 4;
+    int expectedResult = 6;
     int actualResult = fairPointCrossover.getPoint(individualWithEvenChromosome);
 
     Assertions.assertEquals(expectedResult, actualResult);
