@@ -3,7 +3,9 @@ name: Build and Test
 on:
   push:
     branches: [ github-actions-practice ]
-
+  pull_request:
+    branches: [ github-actions-practice ]
+    types: [ opened, reopened, synchronize ]
 
 jobs:
   build-and-test:
