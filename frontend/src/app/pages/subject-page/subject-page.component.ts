@@ -8,9 +8,7 @@ import { SubjectModalService } from "../../services/subject/subject-modal.servic
 })
 export class SubjectPageComponent implements OnInit{
 
-  // subjects: ISubject[] = []
   loading: boolean = false
-  // subjects$: Observable<ISubject[]>
   term = ''
 
   constructor(
@@ -21,9 +19,6 @@ export class SubjectPageComponent implements OnInit{
 
   ngOnInit(): void {
     this.loading = true;
-    // this.subjects$ = this.subjectService.getAll().pipe(
-    //   tap(() => this.loading = false)
-    // );
     this.subjectService.getAll().subscribe(() => {
       this.loading = false;
     })
