@@ -1,38 +1,11 @@
-<app-global-error></app-global-error>
+<app-navigation></app-navigation>
 
-<div class="max-w-5xl container mx-auto pt-5 border border-4 border-amber-900">
-  <h3 class="font-bold text-center mt-3 mb-5">Angular</h3>
+<div class="max-w-5xl container mx-auto mb-5 pt-5 pt-[50px]">
 
-  <p class="text-center italic" *ngIf="loading">Loading...</p>
+  <app-global-error></app-global-error>
 
-  <div class="flex items-center justify-center">
-    <input
-      type="text"
-      class="mb-2 border py-2 px-4 w-2/3"
-      placeholder="Filter subjects..."
-      [(ngModel)]="term"
-    >
-  </div>
-
-  <!--<app-subject-->
-  <!--  *ngFor="let subject of subjects"-->
-  <!--  [subject]="subject"-->
-  <!--&gt;</app-subject>-->
-
-  <div *ngIf="subjects$ | async as subjects">
-    <app-subject
-      *ngFor="let subject of subjects | filterSubjects: term"
-      [subject]="subject"
-    ></app-subject>
-  </div>
-
-  <app-modal *ngIf="modalService.isVisible$ | async" title="Create new subject">
-    <app-create-subject></app-create-subject>
-  </app-modal>
-
-  <button
-    class="rounded-full bg-red-700 text-white fixed right-5 bottom-5 py-2 px-4"
-    (click)="modalService.open()"
-  >+</button>
+  <router-outlet></router-outlet>
 
 </div>
+
+<app-footer></app-footer>

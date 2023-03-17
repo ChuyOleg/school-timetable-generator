@@ -1,0 +1,35 @@
+<h3 class="font-bold text-center mt-3 mb-5">Subjects</h3>
+
+<p class="text-center italic" *ngIf="loading">Loading...</p>
+
+<div class="flex items-center justify-center">
+  <input
+    type="text"
+    class="mb-5 border py-2 px-4 w-2/3"
+    placeholder="Filter subjects..."
+    [(ngModel)]="term"
+  >
+</div>
+
+<div
+  *ngIf="subjectService.subjects"
+  class="grid grid-cols-3 gap-x-10"
+>
+  <app-subject-block
+    *ngFor="let subject of subjectService.subjects | filterSubjects: term"
+    [subject]="subject"
+  ></app-subject-block>
+</div>
+
+<app-subject-modal *ngIf="modalService.createIsVisible$ | async" title="Create new subject">
+  <app-create-subject></app-create-subject>
+</app-subject-modal>
+
+<app-subject-modal *ngIf="modalService.updateIsVisible$ | async" title="Update subject">
+  <app-edit-subject></app-edit-subject>
+</app-subject-modal>
+
+<button
+  class="rounded-full bg-red-700 text-white fixed right-5 bottom-16 py-2 px-4"
+  (click)="modalService.openCreateModal()"
+>+</button>

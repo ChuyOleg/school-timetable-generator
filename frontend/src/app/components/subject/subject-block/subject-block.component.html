@@ -1,14 +1,18 @@
-<div class="w-1/2 py-2 flex justify-center border">
-  <div class="border border-blue-700 w-1/4 rounded mb-2 py-4 px-6 relative">
+<div class="py-2 flex justify-center">
+  <div
+    class="border border-blue-700 w-full rounded mb-2 py-4 px-6 relative hover:bg-blue-200"
+  >
 
     <button
       class="absolute -top-1 right-1 text-red-700 font-bold text-lg"
+      (click)="delete()"
     >&times;</button>
 
     <h2 class="text-center font-bold">{{ subject.id + '. ' + subject.name }}</h2>
 
     <button
-      class="absolute -bottom-2 -right-1 text-yellow-400"
+      class="absolute -bottom-2 right-0 text-yellow-400"
+      (click)="update()"
     ><mat-icon class="text-base">edit</mat-icon></button>
 
   </div>
