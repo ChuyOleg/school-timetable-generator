@@ -10,6 +10,7 @@ import { SubjectService } from "../../../services/subject/subject.service";
 export class CreateSubjectComponent {
 
   subjectNameExist: boolean = false
+  submitButtonIsPressed: boolean = false
 
   form = new FormGroup({
     title: new FormControl<string>('', [
@@ -24,6 +25,7 @@ export class CreateSubjectComponent {
   }
 
   submit() {
+    this.submitButtonIsPressed = true
     if (this.form.valid) {
       const subjectExist: boolean = this.subjectService.subjects
         .find(subject => subject.name === this.form.value.title) != null;
@@ -35,10 +37,10 @@ export class CreateSubjectComponent {
           name: this.form.value.title as string
         }).subscribe(() => {
           this.subjectNameExist = false;
+          this.submitButtonIsPressed = false;
           this.modalService.closeCreateModal();
         })
       }
-
     }
   }
 
