@@ -19,6 +19,9 @@ import { EditSubjectComponent } from './components/subject/edit-subject/edit-sub
 import { FooterComponent } from './components/footer/footer.component';
 import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
 import { MatDialogModule } from "@angular/material/dialog";
+import { TeacherPageComponent } from './pages/teacher-page/teacher-page.component';
+import { TeacherBlockComponent } from './components/teacher/teacher-block/teacher-block.component';
+import { FilterTeachersPipe } from './pipes/filter-teachers.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { MatDialogModule } from "@angular/material/dialog";
     NavigationComponent,
     EditSubjectComponent,
     FooterComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    TeacherPageComponent,
+    TeacherBlockComponent,
+    FilterTeachersPipe
   ],
   imports: [
     BrowserModule,
