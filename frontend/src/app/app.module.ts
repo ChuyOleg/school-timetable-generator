@@ -22,6 +22,14 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { TeacherPageComponent } from './pages/teacher-page/teacher-page.component';
 import { TeacherBlockComponent } from './components/teacher/teacher-block/teacher-block.component';
 import { FilterTeachersPipe } from './pipes/filter-teachers.pipe';
+import { CreateTeacherComponent } from './components/teacher/create-teacher/create-teacher.component';
+import { EditTeacherComponent } from './components/teacher/edit-teacher/edit-teacher.component';
+import { TeacherModalComponent } from './components/teacher/teacher-modal/teacher-modal.component';
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { SortSubjectsByNamePipe } from './pipes/sort-subjects-by-name.pipe';
+import { SortTeachersByNamePipe } from './pipes/sort-teachers-by-name.pipe';
 
 @NgModule({
   declarations: [
@@ -40,7 +48,12 @@ import { FilterTeachersPipe } from './pipes/filter-teachers.pipe';
     ConfirmComponent,
     TeacherPageComponent,
     TeacherBlockComponent,
-    FilterTeachersPipe
+    FilterTeachersPipe,
+    CreateTeacherComponent,
+    EditTeacherComponent,
+    TeacherModalComponent,
+    SortSubjectsByNamePipe,
+    SortTeachersByNamePipe
   ],
   imports: [
     BrowserModule,
@@ -49,7 +62,10 @@ import { FilterTeachersPipe } from './pipes/filter-teachers.pipe';
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatInputModule,
+    MatSelectModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

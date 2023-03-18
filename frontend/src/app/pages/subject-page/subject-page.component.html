@@ -16,7 +16,7 @@
   class="grid grid-cols-3 gap-x-10"
 >
   <app-subject-block
-    *ngFor="let subject of subjectService.subjects | filterSubjects: term"
+    *ngFor="let subject of subjectService.subjects | filterSubjects: term | sortSubjectsByName"
     [subject]="subject"
   ></app-subject-block>
 </div>

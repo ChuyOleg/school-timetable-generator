@@ -25,22 +25,20 @@ export class EditSubjectComponent {
 
 
   submit() {
-    if (this.form.valid) {
-      const subjectExist: boolean = this.subjectService.subjects
-        .filter(subject => subject.id != this.subjectService.subjectToEdit.id)
-        .find(subject => subject.name === this.form.value.title) != null;
+    const subjectExist: boolean = this.subjectService.subjects
+      .filter(subject => subject.id != this.subjectService.subjectToEdit.id)
+      .find(subject => subject.name === this.form.value.title) != null;
 
-      if (subjectExist) {
-        this.subjectNameExist = true;
-      } else {
-        this.subjectService.edit({
-          id: this.subjectService.subjectToEdit.id,
-          name: this.form.value.title as string
-        }).subscribe(() => {
-          this.subjectNameExist = false;
-          this.modalService.closeUpdateModal();
-        })
-      }
+    if (subjectExist) {
+      this.subjectNameExist = true;
+    } else {
+      this.subjectService.edit({
+        id: this.subjectService.subjectToEdit.id,
+        name: this.form.value.title as string
+      }).subscribe(() => {
+        this.subjectNameExist = false;
+        this.modalService.closeUpdateModal();
+      })
     }
   }
 

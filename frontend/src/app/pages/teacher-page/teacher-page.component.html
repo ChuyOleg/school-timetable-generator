@@ -16,20 +16,20 @@
   class="grid grid-cols-3 gap-x-10"
 >
   <app-teacher-block
-    *ngFor="let teacher of teacherService.teachers | filterTeachers: term"
+    *ngFor="let teacher of teacherService.teachers | filterTeachers: term | sortTeachersByName"
     [teacher]="teacher"
   ></app-teacher-block>
 </div>
 
-<!--<app-subject-modal *ngIf="modalService.createIsVisible$ | async" title="Create new subject">-->
-<!--  <app-create-subject></app-create-subject>-->
-<!--</app-subject-modal>-->
+<app-teacher-modal *ngIf="modalService.createIsVisible$ | async" title="Create new teacher">
+  <app-create-teacher></app-create-teacher>
+</app-teacher-modal>
 
-<!--<app-subject-modal *ngIf="modalService.updateIsVisible$ | async" title="Update subject">-->
-<!--  <app-edit-subject></app-edit-subject>-->
-<!--</app-subject-modal>-->
+<app-teacher-modal *ngIf="modalService.updateIsVisible$ | async" title="Update teacher">
+  <app-edit-teacher></app-edit-teacher>
+</app-teacher-modal>
 
-<!--<button-->
-<!--  class="rounded-full bg-red-700 text-white fixed right-5 bottom-16 py-2 px-4"-->
-<!--  (click)="modalService.openCreateModal()"-->
-<!--&gt;+</button>-->
+<button
+  class="rounded-full bg-red-700 text-white fixed right-5 bottom-16 py-2 px-4"
+  (click)="modalService.openCreateModal()"
+>+</button>
