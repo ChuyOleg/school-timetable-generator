@@ -36,6 +36,7 @@ import { SortRoomsByNamePipe } from './pipes/sort-rooms-by-name.pipe';
 import { RoomBlockComponent } from './components/room/room-block/room-block.component';
 import { CreateRoomComponent } from './components/room/create-room/create-room.component';
 import { RoomModalComponent } from './components/room/room-modal/room-modal.component';
+import { EditRoomComponent } from './components/room/edit-room/edit-room.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { RoomModalComponent } from './components/room/room-modal/room-modal.comp
     SortRoomsByNamePipe,
     RoomBlockComponent,
     CreateRoomComponent,
-    RoomModalComponent
+    RoomModalComponent,
+    EditRoomComponent
   ],
   imports: [
     BrowserModule,

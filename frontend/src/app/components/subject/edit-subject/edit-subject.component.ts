@@ -9,6 +9,12 @@ import { SubjectService } from "../../../services/subject/subject.service";
 })
 export class EditSubjectComponent {
 
+  constructor(
+    public modalService: SubjectModalService,
+    private subjectService: SubjectService
+  ) {
+  }
+
   subjectNameExist: boolean = false
 
   form = new FormGroup({
@@ -16,13 +22,6 @@ export class EditSubjectComponent {
       Validators.required
     ])
   })
-
-  constructor(
-    public modalService: SubjectModalService,
-    private subjectService: SubjectService
-  ) {
-  }
-
 
   submit() {
     const subjectExist: boolean = this.subjectService.subjects

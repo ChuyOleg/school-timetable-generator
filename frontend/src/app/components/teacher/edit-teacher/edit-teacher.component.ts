@@ -11,6 +11,13 @@ import { SubjectService } from "../../../services/subject/subject.service";
 })
 export class EditTeacherComponent implements OnInit {
 
+  constructor(
+    public modalService: TeacherModalService,
+    private teacherService: TeacherService,
+    public subjectService: SubjectService
+  ) {
+  }
+
   teacherNameExist: boolean = false
 
   form = new FormGroup({
@@ -28,13 +35,6 @@ export class EditTeacherComponent implements OnInit {
     ])
   })
 
-  constructor(
-    public modalService: TeacherModalService,
-    private teacherService: TeacherService,
-    public subjectService: SubjectService
-  ) {
-  }
-
   submit() {
     const teacherExist: boolean = this.teacherService.teachers
       .filter(teacher => teacher.id != this.teacherService.teacherToEdit.id)
@@ -49,18 +49,10 @@ export class EditTeacherComponent implements OnInit {
         subjectDtoSet: this.form.value.subjectDtoSet as ISubject[],
         maxHoursPerWeek: this.form.value.maxHoursPerWeek as number
       }).subscribe(() => {
-        this.teacherNameExist = true;
+        this.teacherNameExist = false;
         this.modalService.closeUpdateModal();
       })
     }
-  }
-
-  get name() {
-    return this.form.controls.name as FormControl;
-  }
-
-  get maxHoursPerWeek() {
-    return this.form.controls.maxHoursPerWeek as FormControl;
   }
 
   ngOnInit(): void {
@@ -72,6 +64,14 @@ export class EditTeacherComponent implements OnInit {
         .filter((subject) => subject != undefined) as ISubject[];
       this.form.controls['subjectDtoSet'].setValue(selectedSubjects);
     });
+  }
+
+  get name() {
+    return this.form.controls.name as FormControl;
+  }
+
+  get maxHoursPerWeek() {
+    return this.form.controls.maxHoursPerWeek as FormControl;
   }
 
 }
