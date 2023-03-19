@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RoomMapperTest {
 
-  private static final int ROOM_NUMBER = 101;
+  private static final String ROOM_NUMBER = "Room №1";
   private static final int CAPACITY = 30;
 
   private final RoomMapper roomMapper = Mappers.getMapper(RoomMapper.class);
@@ -20,7 +20,7 @@ public class RoomMapperTest {
     RoomDto roomDto = roomMapper.roomToDto(room);
 
     assertEquals(room.getId(), roomDto.getId());
-    assertEquals(room.getRoomNumber(), roomDto.getRoomNumber());
+    assertEquals(room.getRoomName(), roomDto.getRoomName());
     assertEquals(room.getCapacity(), roomDto.getCapacity());
   }
 
@@ -30,7 +30,7 @@ public class RoomMapperTest {
     Room room = roomMapper.dtoToRoom(roomDto);
 
     assertEquals(roomDto.getId(), room.getId());
-    assertEquals(roomDto.getRoomNumber(), room.getRoomNumber());
+    assertEquals(roomDto.getRoomName(), room.getRoomName());
     assertEquals(roomDto.getCapacity(), room.getCapacity());
   }
 
@@ -40,7 +40,7 @@ public class RoomMapperTest {
     Room room = roomMapper.dtoToRoom(roomDto);
 
     assertNull(room.getId());
-    assertEquals(roomDto.getRoomNumber(), room.getRoomNumber());
+    assertEquals(roomDto.getRoomName(), room.getRoomName());
     assertEquals(roomDto.getCapacity(), room.getCapacity());
   }
 

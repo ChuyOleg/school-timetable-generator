@@ -17,7 +17,7 @@ public class Room {
   private Long id;
 
   @Column
-  private int roomNumber;
+  private String roomName;
 
   @Column
   private int capacity;
