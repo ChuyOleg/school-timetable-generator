@@ -1,0 +1,33 @@
+<div class="px-4 py-2">
+  <div
+    class="flex justify-between items-center"
+  >
+    <h2 mat-dialog-title>{{ data.title }}</h2>
+
+    <button [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div mat-dialog-content>
+    {{ data.message }}
+  </div>
+
+  <div mat-dialog-actions [align]="'end'">
+    <button
+      [mat-dialog-close]="false"
+      class="bg-transparent hover:bg-red-500 text-red-700 font-semibold
+         hover:text-white py-2 px-4 mr-2 border border-2 border-red-500 hover:border-transparent rounded"
+    >
+      {{ data.cancelText }}
+    </button>
+
+    <button
+      [mat-dialog-close]="true"
+      class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold
+       hover:text-white py-2 px-4 border border-2 border-blue-500 hover:border-transparent rounded"
+    >
+      {{ data.confirmText }}
+    </button>
+  </div>
+</div>

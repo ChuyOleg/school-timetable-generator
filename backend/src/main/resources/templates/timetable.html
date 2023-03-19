@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>School Timetable</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <style>
+        table {
+            table-layout: fixed;
+            width: 100%;
+            font-size: 14px;
+        }
+        th, td {
+            width: calc(100% / 6);
+            text-align: center;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .header-bg {
+            background-color: #1E40AF;
+        }
+        .header-text {
+            color: white;
+        }
+        .subject {
+            font-weight: bold;
+            color: #4F46E5;
+        }
+        .period {
+            font-style: italic;
+            color: #6B7280;
+        }
+        .today {
+            background-color: #FCD34D;
+        }
+    </style>
+</head>
+<body>
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-4 text-center header-text header-bg rounded-lg py-2">Class 1 Timetable</h1>
+    <table>
+        <thead>
+        <tr class="header-bg header-text">
+            <th>Day</th>
+            <th>Period 1</th>
+            <th>Period 2</th>
+            <th>Period 3</th>
+            <th>Period 4</th>
+            <th>Period 5</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="subject">Monday</td>
+            <td class="period">Math</td>
+            <td class="period">Science</td>
+            <td class="period">English</td>
+            <td class="period">History</td>
+            <td class="period">Music</td>
+        </tr>
+        <tr>
+            <td class="subject">Tuesday</td>
+            <td class="period">Science</td>
+            <td class="period">Math</td>
+            <td class="period">Social Studies</td>
+            <td class="period">Physical Education</td>
+            <td class="period">Art</td>
+        </tr>
+        <tr>
+            <td class="subject today">Wednesday</td>
+            <td class="period">English</td>
+            <td class="period">Social Studies</td>
+            <td class="period">Science</td>
+            <td class="period">Math</td>
+            <td class="period">Drama</td>
+        </tr>
+        <tr>
+            <td class="subject">Thursday</td>
+            <td class="period">Social Studies</td>
+            <td class="period">English</td>
+            <td class="period">Physical Education</td>
+            <td class="period">Science</td>
+            <td class="period">Technology</td>
+        </tr>
+        <tr>
+            <td class="subject">Friday</td>
+            <td class="period">Physical Education</td>
+            <td class="period">History</td>
+            <td class="period">Art</td>
+            <td class="period">Social Studies</td>
+            <td class="period">English</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
