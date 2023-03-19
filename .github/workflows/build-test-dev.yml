@@ -29,6 +29,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+
+      - name: Install dependencies and build frontend
         run:
           cd frontend/
           npm ci
