@@ -30,6 +30,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SortSubjectsByNamePipe } from './pipes/sort-subjects-by-name.pipe';
 import { SortTeachersByNamePipe } from './pipes/sort-teachers-by-name.pipe';
+import { RoomPageComponent } from './pages/room-page/room-page/room-page.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { SortTeachersByNamePipe } from './pipes/sort-teachers-by-name.pipe';
     EditTeacherComponent,
     TeacherModalComponent,
     SortSubjectsByNamePipe,
-    SortTeachersByNamePipe
+    SortTeachersByNamePipe,
+    RoomPageComponent
   ],
   imports: [
     BrowserModule,
