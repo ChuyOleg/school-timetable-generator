@@ -30,10 +30,12 @@ import { MatSelectModule } from "@angular/material/select";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SortSubjectsByNamePipe } from './pipes/sort-subjects-by-name.pipe';
 import { SortTeachersByNamePipe } from './pipes/sort-teachers-by-name.pipe';
-import { RoomPageComponent } from './pages/room-page/room-page/room-page.component';
+import { RoomPageComponent } from './pages/room-page/room-page.component';
 import { FilterRoomsPipe } from './pipes/filter-rooms.pipe';
 import { SortRoomsByNamePipe } from './pipes/sort-rooms-by-name.pipe';
 import { RoomBlockComponent } from './components/room/room-block/room-block.component';
+import { CreateRoomComponent } from './components/room/create-room/create-room.component';
+import { RoomModalComponent } from './components/room/room-modal/room-modal.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { RoomBlockComponent } from './components/room/room-block/room-block.comp
     RoomPageComponent,
     FilterRoomsPipe,
     SortRoomsByNamePipe,
-    RoomBlockComponent
+    RoomBlockComponent,
+    CreateRoomComponent,
+    RoomModalComponent
   ],
   imports: [
     BrowserModule,

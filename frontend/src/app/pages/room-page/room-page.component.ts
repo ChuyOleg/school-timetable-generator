@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RoomService } from "../../../services/room/room.service";
+import { RoomService } from "../../services/room/room.service";
+import { RoomModalService } from "../../services/room/room-modal.service";
 
 @Component({
   selector: 'app-room-page',
@@ -11,7 +12,8 @@ export class RoomPageComponent implements OnInit {
   term = ''
 
   constructor(
-    public roomService: RoomService
+    public roomService: RoomService,
+    public modalService: RoomModalService
   ) {
   }
 

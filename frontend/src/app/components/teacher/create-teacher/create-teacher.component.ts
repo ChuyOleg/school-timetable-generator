@@ -22,6 +22,7 @@ export class CreateTeacherComponent implements OnInit {
       Validators.required
     ]),
     maxHoursPerWeek: new FormControl<number>(0, [
+      Validators.required,
       Validators.pattern("^[0-9]*$"),
       Validators.min(1),
       Validators.max(40)

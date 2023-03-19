@@ -40,7 +40,8 @@
 
     <p
       class="text-red-600 italic font-mono font-bold mb-2"
-      *ngIf="(maxHoursPerWeek.errors?.pattern || maxHoursPerWeek.errors?.min || maxHoursPerWeek.errors?.max)
+      *ngIf="(maxHoursPerWeek.errors?.required || maxHoursPerWeek.errors?.pattern
+       || maxHoursPerWeek.errors?.min || maxHoursPerWeek.errors?.max)
        && maxHoursPerWeek.dirty"
       [align]="'end'"
     >1 - 40 h/week</p>

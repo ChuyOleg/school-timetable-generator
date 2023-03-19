@@ -13,7 +13,7 @@ export class CreateSubjectComponent {
   submitButtonIsPressed: boolean = false
 
   form = new FormGroup({
-    title: new FormControl<string>('', [
+    name: new FormControl<string>('', [
       Validators.required
     ])
   })
@@ -28,13 +28,13 @@ export class CreateSubjectComponent {
     this.submitButtonIsPressed = true
     if (this.form.valid) {
       const subjectExist: boolean = this.subjectService.subjects
-        .find(subject => subject.name === this.form.value.title) != null;
+        .find(subject => subject.name === this.form.value.name) != null;
 
       if (subjectExist) {
         this.subjectNameExist = true;
       } else {
         this.subjectService.create({
-          name: this.form.value.title as string
+          name: this.form.value.name as string
         }).subscribe(() => {
           this.subjectNameExist = false;
           this.submitButtonIsPressed = false;
@@ -44,8 +44,8 @@ export class CreateSubjectComponent {
     }
   }
 
-  get title() {
-    return this.form.controls.title as FormControl;
+  get name() {
+    return this.form.controls.name as FormControl;
   }
 
 }

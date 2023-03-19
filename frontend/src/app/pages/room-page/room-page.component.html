@@ -21,15 +21,15 @@
   ></app-room-block>
 </div>
 
-<!--<app-subject-modal *ngIf="modalService.createIsVisible$ | async" title="Create new subject">-->
-<!--  <app-create-subject></app-create-subject>-->
-<!--</app-subject-modal>-->
+<app-room-modal *ngIf="modalService.createIsVisible$ | async" title="Create new room">
+  <app-create-room></app-create-room>
+</app-room-modal>
 
 <!--<app-subject-modal *ngIf="modalService.updateIsVisible$ | async" title="Update subject">-->
 <!--  <app-edit-subject></app-edit-subject>-->
 <!--</app-subject-modal>-->
 
-<!--<button-->
-<!--  class="rounded-full bg-red-700 text-white fixed right-5 bottom-16 py-2 px-4"-->
-<!--  (click)="modalService.openCreateModal()"-->
-<!--&gt;+</button>-->
+<button
+  class="rounded-full bg-red-700 text-white fixed right-5 bottom-16 py-2 px-4"
+  (click)="modalService.openCreateModal()"
+>+</button>
