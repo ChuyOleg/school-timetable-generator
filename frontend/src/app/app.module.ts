@@ -31,6 +31,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SortSubjectsByNamePipe } from './pipes/sort-subjects-by-name.pipe';
 import { SortTeachersByNamePipe } from './pipes/sort-teachers-by-name.pipe';
 import { RoomPageComponent } from './pages/room-page/room-page/room-page.component';
+import { FilterRoomsPipe } from './pipes/filter-rooms.pipe';
+import { SortRoomsByNamePipe } from './pipes/sort-rooms-by-name.pipe';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { RoomPageComponent } from './pages/room-page/room-page/room-page.compone
     TeacherModalComponent,
     SortSubjectsByNamePipe,
     SortTeachersByNamePipe,
-    RoomPageComponent
+    RoomPageComponent,
+    FilterRoomsPipe,
+    SortRoomsByNamePipe
   ],
   imports: [
     BrowserModule,
