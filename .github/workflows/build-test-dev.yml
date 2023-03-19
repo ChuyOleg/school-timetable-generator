@@ -22,3 +22,11 @@ jobs:
 
       - name: Build with Maven and run tests
         run: cd backend/ && mvn clean install
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies and build frontend
+        run: cd frontend/ && npm ci && npm run build
