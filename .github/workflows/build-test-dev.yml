@@ -1,10 +1,6 @@
 name: Build and Test develop
 
 on:
-  push:
-    branches: [ develop ]
-    if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.merged }}
-
   pull_request:
     branches: [ develop ]
     types: [ opened, reopened, synchronize ]
