@@ -33,6 +33,7 @@ import { SortTeachersByNamePipe } from './pipes/sort-teachers-by-name.pipe';
 import { RoomPageComponent } from './pages/room-page/room-page/room-page.component';
 import { FilterRoomsPipe } from './pipes/filter-rooms.pipe';
 import { SortRoomsByNamePipe } from './pipes/sort-rooms-by-name.pipe';
+import { RoomBlockComponent } from './components/room/room-block/room-block.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { SortRoomsByNamePipe } from './pipes/sort-rooms-by-name.pipe';
     SortTeachersByNamePipe,
     RoomPageComponent,
     FilterRoomsPipe,
-    SortRoomsByNamePipe
+    SortRoomsByNamePipe,
+    RoomBlockComponent
   ],
   imports: [
     BrowserModule,
