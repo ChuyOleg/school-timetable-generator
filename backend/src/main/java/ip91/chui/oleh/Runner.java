@@ -39,9 +39,9 @@ public class Runner {
 
     String letter_A = "A";
 
-    Room room_1 = new Room(1L, 1, 30);
-    Room room_2 = new Room(2L, 2, 32);
-    Room room_3 = new Room(3L, 3, 28);
+    Room room_1 = new Room(1L, "Room №1", 30);
+    Room room_2 = new Room(2L, "Room №2", 32);
+    Room room_3 = new Room(3L, "Room №3", 28);
 
     Map<Subject, Teacher> subjectTeacherMap_1 = new HashMap<>();
     subjectTeacherMap_1.put(subjectByNameMap.get(UKR_LANGUAGE_WRITING), teachers.get(0));
