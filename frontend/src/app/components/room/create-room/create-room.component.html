@@ -4,20 +4,41 @@
     <input
       type="text"
       class="border w-full py-2 px-4 mb-1"
-      placeholder="Subject name"
+      placeholder="Room name"
       formControlName="name"
       appFocus
     >
 
     <p
       class="text-red-600 font-mono font-bold mb-2"
-      *ngIf="subjectNameExist"
-    >Subject with this name already exists</p>
+      *ngIf="roomNameExist"
+    >Room with this name already exists</p>
 
     <p
       class="text-red-600 font-mono font-bold mb-2"
       *ngIf="name.errors?.required && (name.dirty || submitButtonIsPressed)"
-    >Name of the subject can't be empty</p>
+    >Name of the room can't be empty</p>
+  </div>
+
+  <div class="w-full mb-4">
+    <div class="flex justify-end items-center">
+      <input
+        type="text"
+        class="border w-2/12 py-2 px-2 text-center"
+        placeholder="xxx"
+        formControlName="capacity"
+        maxlength="3"
+      >
+      <span class="italic text-lg font-bold ml-2"><mat-icon class="pt-1">people</mat-icon></span>
+    </div>
+
+    <p
+      class="text-red-600 italic font-mono font-bold"
+      *ngIf="(capacity.errors?.required || capacity.errors?.pattern
+       || capacity.errors?.min || capacity.errors?.max)
+       && (capacity.dirty || submitButtonIsPressed)"
+      [align]="'end'"
+    >1 - 999 <mat-icon class="pt-1">people</mat-icon></p>
   </div>
 
   <div class="flex justify-center items-center">

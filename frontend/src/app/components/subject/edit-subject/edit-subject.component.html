@@ -1,22 +1,24 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
 
-  <input
-    type="text"
-    class="border w-full py-2 px-4 mb-4"
-    placeholder="Subject name"
-    formControlName="title"
-    appFocus
-  >
-
-  <p
-    class="text-red-600 font-mono font-bold mb-2"
-    *ngIf="subjectNameExist"
-  >Subject with this name already exists</p>
+  <div class="mb-4 w-full">
+    <input
+      type="text"
+      class="border w-full py-2 px-4 mb-1"
+      placeholder="Subject name"
+      formControlName="name"
+      appFocus
+    >
 
     <p
       class="text-red-600 font-mono font-bold mb-2"
-      *ngIf="title.errors?.required && title.dirty"
+      *ngIf="subjectNameExist"
+    >Subject with this name already exists</p>
+
+    <p
+      class="text-red-600 font-mono font-bold mb-2"
+      *ngIf="name.errors?.required && name.dirty"
     >Name of the subject can't be empty</p>
+  </div>
 
   <div class="flex justify-center items-center">
     <button

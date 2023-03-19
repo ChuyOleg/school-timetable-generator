@@ -4,47 +4,40 @@
     <input
       type="text"
       class="border w-full py-2 px-4 mb-1"
-      placeholder="Teacher name"
+      placeholder="Room name"
       formControlName="name"
     >
 
     <p
       class="text-red-600 font-mono font-bold mb-2"
-      *ngIf="teacherNameExist"
-    >Teacher with this name already exists</p>
+      *ngIf="roomNameExist"
+    >Room with this name already exists</p>
 
     <p
       class="text-red-600 font-mono font-bold mb-2"
       *ngIf="name.errors?.required && name.dirty"
-    >Name of the teacher can't be empty</p>
+    >Room of the teacher can't be empty</p>
   </div>
-
-  <mat-form-field appearance="fill" class="w-full">
-    <mat-label>Select Subjects</mat-label>
-    <mat-select formControlName="subjectDtoSet" multiple>
-      <mat-option *ngFor="let subject of subjectService.subjects" [value]="subject">{{ subject.name }}</mat-option>
-    </mat-select>
-  </mat-form-field>
 
   <div class="w-full mb-4">
     <div class="flex justify-end items-center">
       <input
         type="text"
-        class="border w-1/12 py-2 px-2"
-        placeholder="xx"
-        formControlName="maxHoursPerWeek"
-        maxlength="2"
+        class="border w-2/12 py-2 px-2 text-center"
+        placeholder="xxx"
+        formControlName="capacity"
+        maxlength="3"
       >
-      <span class="italic text-lg font-bold ml-2">h/week</span>
+      <span class="italic text-lg font-bold ml-2"><mat-icon class="pt-1">people</mat-icon></span>
     </div>
 
     <p
-      class="text-red-600 italic font-mono font-bold mb-2"
-      *ngIf="(maxHoursPerWeek.errors?.required || maxHoursPerWeek.errors?.pattern
-       || maxHoursPerWeek.errors?.min || maxHoursPerWeek.errors?.max)
-       && maxHoursPerWeek.dirty"
+      class="text-red-600 italic font-mono font-bold"
+      *ngIf="(capacity.errors?.required || capacity.errors?.pattern
+       || capacity.errors?.min || capacity.errors?.max)
+       && capacity.dirty"
       [align]="'end'"
-    >1 - 40 h/week</p>
+    >1 - 999 <mat-icon class="pt-1">people</mat-icon></p>
   </div>
 
 
