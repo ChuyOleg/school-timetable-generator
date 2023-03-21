@@ -22,7 +22,7 @@ export class RoomBlockComponent {
   delete() {
     this.dialogService.confirmDialog({
       title: "Are u sure?",
-      message: `Do u want to delete [ ${this.room.roomName} ]?`,
+      message: `Do u want to delete [ ${this.room.name} ]?`,
       cancelText: "No",
       confirmText: "Yep"
     }).subscribe(bool => {
