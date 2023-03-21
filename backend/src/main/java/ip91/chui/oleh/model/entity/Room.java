@@ -2,41 +2,24 @@ package ip91.chui.oleh.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "room")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
+@Getter
+@Setter
 public class Room {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roomIdGenerator")
-  @SequenceGenerator(name = "roomIdGenerator", sequenceName = "room_id_seq", allocationSize = 5)
+  @SequenceGenerator(name = "roomIdGenerator", sequenceName = "roomIdSequence", allocationSize = 10)
   private Long id;
 
-  @Column(nullable = false)
+  @Column
   private String name;
 
-  @Column(nullable = false)
+  @Column
   private int capacity;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
-  private User user;
-
-  @Column(name = "created_date", nullable = false, updatable = false)
-  @CreatedDate
-  private LocalDateTime createdDate;
-
-  @Column(name = "modified_date")
-  @LastModifiedDate
-  private LocalDateTime modifiedDate;
 
 }
