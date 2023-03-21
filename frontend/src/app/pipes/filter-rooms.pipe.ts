@@ -8,7 +8,7 @@ export class FilterRoomsPipe implements PipeTransform {
 
   transform(rooms: IRoom[], search: string): IRoom[] {
     if (search.length === 0) return rooms;
-    return rooms.filter(r => r.roomName.toLowerCase().includes(search.toLowerCase()));
+    return rooms.filter(r => r.name.toLowerCase().includes(search.toLowerCase()));
   }
 
 }

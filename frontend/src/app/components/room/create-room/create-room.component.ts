@@ -34,13 +34,13 @@ export class CreateRoomComponent {
     this.submitButtonIsPressed = true
     if (this.form.valid) {
       const roomExist: boolean = this.roomService.rooms
-        .find(room => room.roomName === this.form.value.name) != null;
+        .find(room => room.name === this.form.value.name) != null;
 
       if (roomExist) {
         this.roomNameExist = true;
       } else {
         this.roomService.create({
-          roomName: this.form.value.name as string,
+          name: this.form.value.name as string,
           capacity: this.form.value.capacity as number
         }).subscribe(() => {
           this.roomNameExist = false;
