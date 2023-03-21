@@ -21,10 +21,10 @@ export class RoomBlockComponent {
 
   delete() {
     this.dialogService.confirmDialog({
-      title: "Ви впевнені?",
-      message: `Хочете видалити [ ${this.room.name} ]?`,
-      cancelText: "Ні",
-      confirmText: "Так"
+      title: "Are u sure?",
+      message: `Do u want to delete [ ${this.room.name} ]?`,
+      cancelText: "No",
+      confirmText: "Yep"
     }).subscribe(bool => {
       if (this.room.id && bool) {
         this.roomService.deleteById(this.room.id)
