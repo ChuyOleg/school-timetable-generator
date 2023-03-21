@@ -20,7 +20,7 @@ public class RoomMapperTest {
     RoomDto roomDto = roomMapper.roomToDto(room);
 
     assertEquals(room.getId(), roomDto.getId());
-    assertEquals(room.getRoomName(), roomDto.getRoomName());
+    assertEquals(room.getName(), roomDto.getName());
     assertEquals(room.getCapacity(), roomDto.getCapacity());
   }
 
@@ -30,7 +30,7 @@ public class RoomMapperTest {
     Room room = roomMapper.dtoToRoom(roomDto);
 
     assertEquals(roomDto.getId(), room.getId());
-    assertEquals(roomDto.getRoomName(), room.getRoomName());
+    assertEquals(roomDto.getName(), room.getName());
     assertEquals(roomDto.getCapacity(), room.getCapacity());
   }
 
@@ -40,7 +40,7 @@ public class RoomMapperTest {
     Room room = roomMapper.dtoToRoom(roomDto);
 
     assertNull(room.getId());
-    assertEquals(roomDto.getRoomName(), room.getRoomName());
+    assertEquals(roomDto.getName(), room.getName());
     assertEquals(roomDto.getCapacity(), room.getCapacity());
   }
 

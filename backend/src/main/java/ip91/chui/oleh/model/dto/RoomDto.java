@@ -17,7 +17,7 @@ public class RoomDto {
 
   @NotBlank(message = "Name should be not empty")
   @Size(max = 64, message = "Max size of name is 64")
-  private String roomName;
+  private String name;
 
   @NotNull(message = "Capacity should be not null")
   @Min(value = 1, message = "Min value of capacity is 1")
