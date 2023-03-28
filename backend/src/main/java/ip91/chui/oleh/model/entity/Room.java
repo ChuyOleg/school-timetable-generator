@@ -13,7 +13,7 @@ public class Room {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roomIdGenerator")
-  @SequenceGenerator(name = "roomIdGenerator", sequenceName = "roomIdSequence", allocationSize = 10)
+  @SequenceGenerator(name = "roomIdGenerator", sequenceName = "room_id_seq", allocationSize = 5)
   private Long id;
 
   @Column

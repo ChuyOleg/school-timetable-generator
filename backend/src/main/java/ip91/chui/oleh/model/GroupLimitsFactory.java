@@ -67,7 +67,11 @@ public class GroupLimitsFactory {
     groupMaxSubjectCountMap.put(new Subject(DESIGN_AND_TECHNOLOGIES), 1.0);
     groupMaxSubjectCountMap.put(new Subject(ART), 2.0);
     groupMaxSubjectCountMap.put(new Subject(PHYSICAL_CULTURE), 3.0);
-    return new GroupLimits(groupMaxSubjectCountMap);
+
+    GroupLimits groupLimits = new GroupLimits();
+    groupLimits.setSubjectHoursMap(groupMaxSubjectCountMap);
+
+    return groupLimits;
   }
 
   private GroupLimits createSecondGradeGroupLimits() {
@@ -81,7 +85,11 @@ public class GroupLimitsFactory {
     groupMaxSubjectCountMap.put(new Subject(INFORMATICS), 1.0);
     groupMaxSubjectCountMap.put(new Subject(ART), 2.0);
     groupMaxSubjectCountMap.put(new Subject(PHYSICAL_CULTURE), 3.0);
-    return new GroupLimits(groupMaxSubjectCountMap);
+
+    GroupLimits groupLimits = new GroupLimits();
+    groupLimits.setSubjectHoursMap(groupMaxSubjectCountMap);
+
+    return groupLimits;
   }
 
   private GroupLimits createThirdGradeGroupLimits() {
@@ -95,7 +103,11 @@ public class GroupLimitsFactory {
     groupMaxSubjectCountMap.put(new Subject(INFORMATICS), 1.0);
     groupMaxSubjectCountMap.put(new Subject(ART), 2.0);
     groupMaxSubjectCountMap.put(new Subject(PHYSICAL_CULTURE), 3.0);
-    return new GroupLimits(groupMaxSubjectCountMap);
+
+    GroupLimits groupLimits = new GroupLimits();
+    groupLimits.setSubjectHoursMap(groupMaxSubjectCountMap);
+
+    return groupLimits;
   }
 
   private GroupLimits createFourthGradeGroupLimits() {
@@ -109,7 +121,11 @@ public class GroupLimitsFactory {
     groupMaxSubjectCountMap.put(new Subject(INFORMATICS), 1.0);
     groupMaxSubjectCountMap.put(new Subject(ART), 2.0);
     groupMaxSubjectCountMap.put(new Subject(PHYSICAL_CULTURE), 3.0);
-    return new GroupLimits(groupMaxSubjectCountMap);
+
+    GroupLimits groupLimits = new GroupLimits();
+    groupLimits.setSubjectHoursMap(groupMaxSubjectCountMap);
+
+    return groupLimits;
   }
 
   private GroupLimits createFifthGradeGroupLimits() {
@@ -128,7 +144,11 @@ public class GroupLimitsFactory {
     groupMaxSubjectCountMap.put(new Subject(MUSIC), 0.5);
     groupMaxSubjectCountMap.put(new Subject(PHYSICAL_CULTURE), 3.0);
     groupMaxSubjectCountMap.put(new Subject(HEALTH_BASICS), 1.0);
-    return new GroupLimits(groupMaxSubjectCountMap);
+
+    GroupLimits groupLimits = new GroupLimits();
+    groupLimits.setSubjectHoursMap(groupMaxSubjectCountMap);
+
+    return groupLimits;
   }
 
   private GroupLimits createSixthGradeGroupLimits() {
@@ -148,7 +168,11 @@ public class GroupLimitsFactory {
     groupMaxSubjectCountMap.put(new Subject(PHYSICAL_CULTURE), 3.0);
     groupMaxSubjectCountMap.put(new Subject(GEOGRAPHY), 2.0);
     groupMaxSubjectCountMap.put(new Subject(HEALTH_BASICS), 1.0);
-    return new GroupLimits(groupMaxSubjectCountMap);
+
+    GroupLimits groupLimits = new GroupLimits();
+    groupLimits.setSubjectHoursMap(groupMaxSubjectCountMap);
+
+    return groupLimits;
   }
 
   private GroupLimits createSeventhGradeGroupLimits() {
@@ -172,7 +196,11 @@ public class GroupLimitsFactory {
     groupMaxSubjectCountMap.put(new Subject(GEOGRAPHY), 2.0);
     groupMaxSubjectCountMap.put(new Subject(HEALTH_BASICS), 1.0);
     groupMaxSubjectCountMap.put(new Subject(BASICS_OF_JURISPRUDENCE), 1.0);
-    return new GroupLimits(groupMaxSubjectCountMap);
+
+    GroupLimits groupLimits = new GroupLimits();
+    groupLimits.setSubjectHoursMap(groupMaxSubjectCountMap);
+
+    return groupLimits;
   }
 
   private GroupLimits createEighthGradeGroupLimits() {
@@ -196,7 +224,11 @@ public class GroupLimitsFactory {
     groupMaxSubjectCountMap.put(new Subject(GEOGRAPHY), 2.0);
     groupMaxSubjectCountMap.put(new Subject(HEALTH_BASICS), 1.0);
     groupMaxSubjectCountMap.put(new Subject(BASICS_OF_JURISPRUDENCE), 1.0);
-    return new GroupLimits(groupMaxSubjectCountMap);
+
+    GroupLimits groupLimits = new GroupLimits();
+    groupLimits.setSubjectHoursMap(groupMaxSubjectCountMap);
+
+    return groupLimits;
   }
 
   private GroupLimits createNinthGradeGroupLimits() {
@@ -220,7 +252,11 @@ public class GroupLimitsFactory {
 
     final TimeSlot interschoolCombine = new TimeSlot(LessonNumber.FIFTH, DayOfWeek.MONDAY, WeekType.BOTH);
 
-    return new GroupLimits(groupMaxSubjectCountMap, interschoolCombine);
+    GroupLimits groupLimits = new GroupLimits();
+    groupLimits.setSubjectHoursMap(groupMaxSubjectCountMap);
+    groupLimits.setInterschoolCombine(interschoolCombine);
+
+    return groupLimits;
   }
 
   private GroupLimits createTenthGradeGroupLimits() {
@@ -242,7 +278,11 @@ public class GroupLimitsFactory {
 
     final TimeSlot interschoolCombine = new TimeSlot(LessonNumber.FIFTH, DayOfWeek.TUESDAY, WeekType.BOTH);
 
-    return new GroupLimits(groupMaxSubjectCountMap, interschoolCombine);
+    GroupLimits groupLimits = new GroupLimits();
+    groupLimits.setSubjectHoursMap(groupMaxSubjectCountMap);
+    groupLimits.setInterschoolCombine(interschoolCombine);
+
+    return groupLimits;
   }
 
   private GroupLimits createEleventhGradeGroupLimits() {
@@ -264,7 +304,11 @@ public class GroupLimitsFactory {
 
     final TimeSlot interschoolCombine = new TimeSlot(LessonNumber.FIFTH, DayOfWeek.THURSDAY, WeekType.BOTH);
 
-    return new GroupLimits(groupMaxSubjectCountMap, interschoolCombine);
+    GroupLimits groupLimits = new GroupLimits();
+    groupLimits.setSubjectHoursMap(groupMaxSubjectCountMap);
+    groupLimits.setInterschoolCombine(interschoolCombine);
+
+    return groupLimits;
   }
 
 }

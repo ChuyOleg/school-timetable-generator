@@ -16,8 +16,7 @@ import java.time.DayOfWeek;
 public class TimeSlot {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "timeSlotIdGenerator")
-  @SequenceGenerator(name = "timeSlotIdGenerator", sequenceName = "timeSlotIdSequence", allocationSize = 10)
+  @Column
   private Long id;
 
   @Enumerated(EnumType.STRING)

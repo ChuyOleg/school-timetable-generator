@@ -12,7 +12,7 @@ public class SimpleFitnessFunction {
   }
 
   private int checkByGroupLimits(Group group, GroupLimits groupLimits) {
-    return groupLimits.getGroupMaxSubjectCountMap().entrySet().stream()
+    return groupLimits.getSubjectHoursMap().entrySet().stream()
         .reduce(0, (acc, entry) -> {
           long count = group.getLessons().stream().filter(lesson -> lesson.getSubject().equals(entry.getKey())).count();
           return acc + FAIL_SUBJECT_COUNT_FINE * (int) Math.abs(entry.getValue() - count);

@@ -22,17 +22,17 @@ public class SimpleScheduleGenerator {
   private final GroupLimitsFactory groupLimitsFactory;
 
   // TODO: consider common subjects (HANDICRAFT, PHYSICAL_CULTURE, INFORMATICS) when room have space more than for one class
-  public TimeTable generate(List<Group> groups) {
+  public TimeTable generate(Set<Group> groups) {
     groups.forEach(group -> generateForSingleClass(group, groupLimitsFactory.createDefaultGroupLimitsByGrade(group.getGradeNumber())));
 
-    return new TimeTable(groups);
+    return new TimeTable();
   }
 
   private void generateForSingleClass(Group group, GroupLimits groupLimits) {
     List<Subject> availableSubjects = getAllSubjectsExceptHalfWithDuplicatesFromGroupLimits(groupLimits);
     List<Subject> halfSubjects = getHalfSubjectFromGroupLimits(groupLimits);
 
-    Map<DayOfWeek, Integer> lessonCountMap = generateLessonCountPerDayMap(group.getMaxHoursPerWeek(), groupLimits);
+    Map<DayOfWeek, Integer> lessonCountMap = generateLessonCountPerDayMap(group.getGroupLimits().getMaxHoursPerWeek(), groupLimits);
 
     generateLessonsForSpecificGroupSpecificDay(group, DayOfWeek.MONDAY, lessonCountMap.get(DayOfWeek.MONDAY), availableSubjects, halfSubjects);
     generateLessonsForSpecificGroupSpecificDay(group, DayOfWeek.TUESDAY, lessonCountMap.get(DayOfWeek.TUESDAY), availableSubjects, halfSubjects);
@@ -101,14 +101,14 @@ public class SimpleScheduleGenerator {
   }
 
   private List<Subject> getAllSubjectsExceptHalfWithDuplicatesFromGroupLimits(GroupLimits groupLimits) {
-    return groupLimits.getGroupMaxSubjectCountMap().entrySet().stream()
+    return groupLimits.getSubjectHoursMap().entrySet().stream()
         .flatMap((Map.Entry<Subject, Double> entry) ->
             IntStream.range(0, (int) Math.floor(entry.getValue())).mapToObj((i) -> entry.getKey()))
         .collect(Collectors.toList());
   }
 
   private List<Subject> getHalfSubjectFromGroupLimits(GroupLimits groupLimits) {
-    return groupLimits.getGroupMaxSubjectCountMap().entrySet().stream()
+    return groupLimits.getSubjectHoursMap().entrySet().stream()
         .filter((Map.Entry<Subject, Double> entry) -> entry.getValue() != Math.floor(entry.getValue()))
         .map(Map.Entry::getKey)
         .collect(Collectors.toList());

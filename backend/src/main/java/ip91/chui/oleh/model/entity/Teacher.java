@@ -16,7 +16,7 @@ public class Teacher {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "teacherIdGenerator")
-  @SequenceGenerator(name = "teacherIdGenerator", sequenceName = "teacherIdSequence", allocationSize = 10)
+  @SequenceGenerator(name = "teacherIdGenerator", sequenceName = "teacher_id_seq", allocationSize = 10)
   private Long id;
 
   @Column
@@ -24,7 +24,7 @@ public class Teacher {
 
   @ManyToMany()
   @JoinTable(
-      name = "subject_teacher",
+      name = "teacher_subject",
       joinColumns = @JoinColumn(name = "teacher_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id")
   )

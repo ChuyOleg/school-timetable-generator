@@ -23,15 +23,15 @@ public class Runner {
   public void run() {
     Map<String, Subject> subjectByNameMap = createSubjectsByNameMap();
     List<Teacher> teachers = createTeachers(subjectByNameMap);
-    List<Group> groups = createGroups(subjectByNameMap, teachers);
+    Set<Group> groups = createGroups(subjectByNameMap, teachers);
 
     TimeTable timeTable = generator.generate(groups);
 
-    timeTable.getGroups().forEach(System.out::println);
+    timeTable.getLessons().forEach(System.out::println);
   }
 
-  private List<Group> createGroups(Map<String, Subject> subjectByNameMap, List<Teacher> teachers) {
-    List<Group> groups = new ArrayList<>();
+  private Set<Group> createGroups(Map<String, Subject> subjectByNameMap, List<Teacher> teachers) {
+    Set<Group> groups = new HashSet<>();
 
     Long id_1 = 1L;
     Long id_2 = 2L;
@@ -91,10 +91,13 @@ public class Runner {
     subjectTeacherMap_3.put(subjectByNameMap.get(GEOGRAPHY), teachers.get(16));
     subjectTeacherMap_3.put(subjectByNameMap.get(PROTECTION_OF_MOTHERLAND), teachers.get(23));
 
+    GroupLimits groupLimits_1 = new GroupLimits();
+    GroupLimits groupLimits_2 = new GroupLimits();
+    GroupLimits groupLimits_3 = new GroupLimits();
 
-    groups.add(new Group(id_1, GradeNumber.THIRD, letter_A, room_1, new ArrayList<>(), subjectTeacherMap_1, Shift.SECOND, 25));
-    groups.add(new Group(id_2, GradeNumber.SEVENTH, letter_A, room_2, new ArrayList<>(), subjectTeacherMap_2, Shift.FIRST, 35));
-    groups.add(new Group(id_3, GradeNumber.TENTH, letter_A, room_3, new ArrayList<>(), subjectTeacherMap_3, Shift.FIRST, 31));
+    groups.add(new Group(id_1, GradeNumber.THIRD, letter_A, Shift.SECOND, new HashSet<>(), groupLimits_1));
+    groups.add(new Group(id_2, GradeNumber.SEVENTH, letter_A, Shift.FIRST, new HashSet<>(), groupLimits_2));
+    groups.add(new Group(id_3, GradeNumber.TENTH, letter_A, Shift.FIRST, new HashSet<>(), groupLimits_3));
 
     return groups;
   }

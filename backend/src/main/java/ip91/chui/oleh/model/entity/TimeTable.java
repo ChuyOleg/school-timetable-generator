@@ -1,20 +1,24 @@
 package ip91.chui.oleh.model.entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
-@Data
-@Setter
+@Entity
+@Table(name = "time_table")
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Setter
+@ToString
 public class TimeTable {
 
-  private Long timetableId;
-  private List<Group> groups;
+  @Id
+  @Column
+  private Long id;
 
-  public TimeTable(List<Group> groups) {
-    this.groups = groups;
-  }
+  @OneToMany(mappedBy = "timeTable")
+  private Set<Lesson> lessons;
+
 }

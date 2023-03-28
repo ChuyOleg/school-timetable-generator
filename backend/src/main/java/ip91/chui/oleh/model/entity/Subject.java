@@ -14,7 +14,7 @@ public class Subject {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "subjectIdGenerator")
-  @SequenceGenerator(name = "subjectIdGenerator", sequenceName = "subjectIdSequence", allocationSize = 10)
+  @SequenceGenerator(name = "subjectIdGenerator", sequenceName = "subject_id_seq", allocationSize = 10)
   private Long id;
 
   @Column
