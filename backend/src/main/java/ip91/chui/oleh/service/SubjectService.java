@@ -40,7 +40,7 @@ public class SubjectService {
     validateSubjectDto(subjectDto);
 
     Subject subjectToSave = subjectMapper.dtoToSubject(subjectDto);
-    Subject savedSubject =  subjectRepository.save(subjectToSave);
+    Subject savedSubject = subjectRepository.save(subjectToSave);
 
     return subjectMapper.subjectToDto(savedSubject);
   }

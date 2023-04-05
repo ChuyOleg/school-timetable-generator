@@ -9,7 +9,6 @@ import ip91.chui.oleh.repository.LessonRepository;
 import ip91.chui.oleh.validator.DtoValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -38,7 +37,6 @@ public class LessonService {
     return lessonMapper.lessonToDto(findLessonById(id));
   }
 
-  @Transactional
   public LessonDto create(LessonDto lessonDto) {
     validateLessonDto(lessonDto);
 
@@ -48,7 +46,6 @@ public class LessonService {
     return lessonMapper.lessonToDto(savedLesson);
   }
 
-  @Transactional
   public LessonDto update(LessonDto lessonDto) {
     validateIdIsNotNull(lessonDto);
     validateLessonDto(lessonDto);

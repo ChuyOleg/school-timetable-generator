@@ -9,29 +9,25 @@ import java.time.DayOfWeek;
 
 @Entity
 @Table(name = "time_slot")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class TimeSlot {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "timeSlotIdGenerator")
-  @SequenceGenerator(name = "timeSlotIdGenerator", sequenceName = "timeSlotIdSequence", allocationSize = 10)
+  @Column
   private Long id;
 
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private LessonNumber lessonNumber;
 
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private DayOfWeek day;
 
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private WeekType weekType;
 
-  public TimeSlot(LessonNumber lessonNumber, DayOfWeek day, WeekType weekType) {
-    this.lessonNumber = lessonNumber;
-    this.day = day;
-    this.weekType = weekType;
-  }
 }

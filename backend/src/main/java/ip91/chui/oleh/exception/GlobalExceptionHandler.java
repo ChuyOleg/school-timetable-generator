@@ -48,4 +48,14 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
   }
 
+  @ExceptionHandler(value = {GroupDtoValidationException.class})
+  public ResponseEntity<String> handleGroupDtoValidationException(GroupDtoValidationException ex) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+  }
+
+  @ExceptionHandler(value = {GroupProcessingException.class})
+  public ResponseEntity<String> handleGroupProcessingException(GroupProcessingException ex) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+  }
+
 }

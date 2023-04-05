@@ -12,7 +12,6 @@ public interface TeacherMapper {
   TeacherDto teacherToDto(Teacher teacher);
 
   @Mapping(target = "subjects", source = "subjectDtoSet")
-
   Teacher dtoToTeacher(TeacherDto teacherDto);
 
 }
