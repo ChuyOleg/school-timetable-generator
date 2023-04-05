@@ -23,7 +23,7 @@ public class TeacherDto {
 
   @NotNull(message = "Teacher should have maxHoursPerWeek value")
   @Min(value = 1, message = "Min value of maxHoursPerWeek is 1")
-  @Max(value = 35, message = "Max value of maxHoursPerWeek is 35")
+  @Max(value = 40, message = "Max value of maxHoursPerWeek is 35")
   private int maxHoursPerWeek;
 
 }

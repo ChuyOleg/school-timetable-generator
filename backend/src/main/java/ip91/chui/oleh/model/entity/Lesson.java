@@ -5,11 +5,9 @@ import lombok.*;
 
 @Entity
 @Table(name = "lesson")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
 public class Lesson {
 
   @Id
@@ -21,19 +19,19 @@ public class Lesson {
   @JoinColumn(name = "group_id", referencedColumnName = "id", nullable = false)
   private Group group;
 
-  @ManyToOne()
+  @ManyToOne
   @JoinColumn(name = "teacher_id", referencedColumnName = "id", nullable = false)
   private Teacher teacher;
 
-  @ManyToOne()
+  @ManyToOne
   @JoinColumn(name = "subject_id", referencedColumnName = "id", nullable = false)
   private Subject subject;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name = "time_slot_id", referencedColumnName = "id", nullable = false)
   private TimeSlot timeSlot;
 
-  @ManyToOne()
+  @ManyToOne
   @JoinColumn(name = "room_id", referencedColumnName = "id")
   private Room room;
 
@@ -41,8 +39,4 @@ public class Lesson {
   @JoinColumn(name = "time_table_id", referencedColumnName = "id")
   private TimeTable timeTable;
 
-  public Lesson(Subject subject, TimeSlot timeSlot) {
-    this.subject = subject;
-    this.timeSlot = timeSlot;
-  }
 }

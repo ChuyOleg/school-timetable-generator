@@ -1,6 +1,6 @@
 -- Insert all possible combinations into time_slot table
 INSERT INTO time_slot(week_type, day, lesson_number)
-SELECT week_types::week_type_enum, days::day_of_week_enum, lesson_numbers::lesson_number_enum
+SELECT week_types, days, lesson_numbers
 FROM unnest(ARRAY['ODD', 'EVEN', 'BOTH']) week_types
          CROSS JOIN unnest(ARRAY['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY']) days
          CROSS JOIN unnest(ARRAY['FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'SIXTH', 'SEVENTH', 'EIGHTH']) lesson_numbers;
@@ -39,3 +39,18 @@ VALUES
 (10, 10), (10, 11), (11, 13), (12, 14);
 
 
+INSERT INTO class_group(grade_number, letter, shift)
+VALUES
+('SEVENTH', 'A', 'FIRST');
+
+INSERT INTO group_limits(class_group_id, max_hours_per_week, combine_time_slot_id)
+VALUES
+(1, 35, 71);
+
+INSERT INTO subject_teacher_in_group_mapping(group_limits_id, subject_id, teacher_id)
+VALUES
+(1, 4, 5);
+
+INSERT INTO subject_hours_in_group_mapping(group_limits_id, subject_id, hours)
+VALUES
+(1, 4, 5);

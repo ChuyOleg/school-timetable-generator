@@ -5,11 +5,9 @@ import lombok.*;
 
 @Entity
 @Table(name = "subject")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
 public class Subject {
 
   @Id
@@ -17,11 +15,8 @@ public class Subject {
   @SequenceGenerator(name = "subjectIdGenerator", sequenceName = "subject_id_seq", allocationSize = 10)
   private Long id;
 
-  @Column
+  @Column(nullable = false)
   private String name;
 
-  public Subject(String name) {
-    this.name = name;
-  }
 
 }

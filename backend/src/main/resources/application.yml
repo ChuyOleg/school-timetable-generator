@@ -15,24 +15,28 @@ server:
 # spring
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/school_timetable
-    username: oleh
-    password: qwerty
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/school_timetable
+    username: ${DB_USERNAME:oleh}
+    password: ${DB_PASSWORD:qwerty}
+
     hikari:
       connection-timeout: 30000
       maximum-pool-size: 10
       minimum-idle: 2
       connection-test-query: SELECT version()
 
+  flyway:
+    baseline-on-migrate: true
+
   jpa:
     database: postgresql
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-        show_sql: true
+        show_sql: false
 
 # cors
 web:

@@ -5,10 +5,9 @@ import lombok.*;
 
 @Entity
 @Table(name = "room")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class Room {
 
   @Id
@@ -16,10 +15,10 @@ public class Room {
   @SequenceGenerator(name = "roomIdGenerator", sequenceName = "room_id_seq", allocationSize = 5)
   private Long id;
 
-  @Column
+  @Column(nullable = false)
   private String name;
 
-  @Column
+  @Column(nullable = false)
   private int capacity;
 
 }

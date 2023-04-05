@@ -3,19 +3,15 @@ package ip91.chui.oleh.model.entity;
 import ip91.chui.oleh.model.enumeration.GradeNumber;
 import ip91.chui.oleh.model.enumeration.Shift;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.*;
 
 @Entity
 @Table(name = "class_group")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
 public class Group {
 
   @Id
@@ -23,20 +19,21 @@ public class Group {
   @SequenceGenerator(name = "groupIdGenerator", sequenceName = "class_group_id_seq", allocationSize = 10)
   private Long id;
 
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private GradeNumber gradeNumber;
 
-  @Column
+  @Column(length = 1, nullable = false)
   private String letter;
 
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private Shift shift;
 
   @OneToMany(mappedBy = "group")
-  private Set<Lesson> lessons;
+  private Set<Lesson> lessonSet;
 
-//  @OneToOne
-  @Transient
+  @OneToOne(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
   private GroupLimits groupLimits;
 
 }

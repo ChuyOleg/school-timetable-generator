@@ -3,14 +3,13 @@ package ip91.chui.oleh.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Map;
+import java.util.Set;
 
 @Entity
 @Table(name = "group_limits")
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@Getter
-@Setter
+@NoArgsConstructor
 public class GroupLimits {
 
   @Id
@@ -18,31 +17,22 @@ public class GroupLimits {
   @SequenceGenerator(name = "groupLimitsIdGenerator", sequenceName = "group_limits_id_seq", allocationSize = 10)
   private Long id;
 
-  @OneToOne
-  @JoinColumn(name = "class_group_id", referencedColumnName = "id")
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "class_group_id", referencedColumnName = "id", nullable = false)
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Group group;
 
-  @OneToMany
-  @JoinTable(
-      name = "subject_teacher_in_group_mapping",
-      joinColumns = {@JoinColumn(name = "group_limits_id", referencedColumnName = "id")},
-      inverseJoinColumns = {@JoinColumn(name = "teacher_id", referencedColumnName = "id")})
-  @MapKeyJoinColumn(name = "subject_id")
-  private Map<Subject, Teacher> subjectTeacherMap;
+  @OneToMany(mappedBy = "groupLimits", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<SubjectTeacherInGroup> subjectTeacherInGroupSet;
 
-  @ElementCollection
-  @CollectionTable(
-      name = "subject_hours_in_group_mapping",
-      joinColumns = {@JoinColumn(name = "group_limits_id", referencedColumnName = "id")}
-  )
-  @MapKeyJoinColumn(name = "subject_id")
-  @Column(name = "hours", columnDefinition = "double precision")
-  private Map<Subject, Double> subjectHoursMap;
+  @OneToMany(mappedBy = "groupLimits", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<SubjectHoursInGroup> subjectHoursInGroupSet;
 
-  @Column
+  @Column(nullable = false)
   private int maxHoursPerWeek;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name = "combine_time_slot_id", referencedColumnName = "id")
   private TimeSlot interschoolCombine;
 

@@ -1,10 +1,6 @@
 -- DROP SCHEMA public CASCADE;
 -- CREATE SCHEMA public;
 
-CREATE TYPE day_of_week_enum AS ENUM ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY');
-CREATE TYPE week_type_enum as ENUM ('ODD', 'EVEN', 'BOTH');
-CREATE TYPE lesson_number_enum as ENUM ('FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'SIXTH', 'SEVENTH', 'EIGHTH');
-CREATE TYPE grade_number_enum as ENUM ('FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'SIXTH', 'SEVENTH', 'EIGHTH', 'NINTH', 'TENTH', 'ELEVENTH');
 CREATE TYPE shift_enum as ENUM ('FIRST', 'SECOND');
 
 CREATE TABLE IF NOT EXISTS subject (
@@ -35,18 +31,25 @@ CREATE TABLE IF NOT EXISTS teacher_subject (
 
 CREATE TABLE IF NOT EXISTS time_slot (
     id serial PRIMARY KEY ,
-    week_type week_type_enum NOT NULL ,
-    day day_of_week_enum NOT NULL ,
-    lesson_number lesson_number_enum NOT NULL ,
-    UNIQUE (week_type, day, lesson_number)
+    week_type varchar(16) NOT NULL,
+    day varchar(16) NOT NULL ,
+    lesson_number varchar(16) NOT NULL ,
+
+    UNIQUE (week_type, day, lesson_number) ,
+    CHECK (week_type in ('ODD', 'EVEN', 'BOTH')) ,
+    CHECK (day in ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY')) ,
+    CHECK (lesson_number in ('FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'SIXTH', 'SEVENTH', 'EIGHTH'))
 );
 
 CREATE TABLE IF NOT EXISTS class_group (
    id serial PRIMARY KEY ,
-   grade_number grade_number_enum NOT NULL ,
+   grade_number varchar(16) NOT NULL ,
    letter varchar(1) NOT NULL ,
-   shift shift_enum NOT NULL
+   shift varchar(16) NOT NULL ,
+
 --  UNIQUE (grade_number, letter, user)
+    CHECK (shift in ('FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'SIXTH', 'SEVENTH', 'EIGHTH', 'NINTH', 'TENTH', 'ELEVENTH')) ,
+    CHECK (shift in ('FIRST', 'SECOND'))
 );
 
 CREATE TABLE IF NOT EXISTS group_limits (
@@ -57,17 +60,19 @@ CREATE TABLE IF NOT EXISTS group_limits (
 );
 
 CREATE TABLE IF NOT EXISTS subject_teacher_in_group_mapping (
-    group_limits_id int REFERENCES group_limits(id) ON DELETE CASCADE ,
-    subject_id int REFERENCES subject(id) ON DELETE CASCADE ,
-    teacher_id int REFERENCES teacher(id) ON DELETE CASCADE ,
-    PRIMARY KEY (group_limits_id, subject_id, teacher_id)
+    id serial PRIMARY KEY ,
+    group_limits_id int NOT NULL REFERENCES group_limits(id) ON DELETE CASCADE ,
+    subject_id int NOT NULL REFERENCES subject(id) ON DELETE CASCADE ,
+    teacher_id int NOT NULL REFERENCES teacher(id) ON DELETE CASCADE ,
+    UNIQUE (group_limits_id, subject_id, teacher_id)
 );
 
 CREATE TABLE IF NOT EXISTS subject_hours_in_group_mapping (
-    group_limits_id int REFERENCES group_limits(id) ON DELETE CASCADE ,
-    subject_id int REFERENCES subject(id) ON DELETE CASCADE ,
+    id serial PRIMARY KEY ,
+    group_limits_id int NOT NULL REFERENCES group_limits(id) ON DELETE CASCADE ,
+    subject_id int NOT NULL REFERENCES subject(id) ON DELETE CASCADE ,
     hours double precision NOT NULL ,
-    PRIMARY KEY (group_limits_id, subject_id)
+    UNIQUE (group_limits_id, subject_id)
 );
 
 CREATE TABLE IF NOT EXISTS time_table (

@@ -7,11 +7,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "teacher")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
 public class Teacher {
 
   @Id
@@ -19,7 +17,7 @@ public class Teacher {
   @SequenceGenerator(name = "teacherIdGenerator", sequenceName = "teacher_id_seq", allocationSize = 10)
   private Long id;
 
-  @Column
+  @Column(nullable = false)
   private String name;
 
   @ManyToMany()
@@ -33,12 +31,7 @@ public class Teacher {
   @OneToMany(mappedBy = "teacher")
   private Set<Lesson> lessons;
 
-  @Column
+  @Column(nullable = false)
   private int maxHoursPerWeek;
 
-  public Teacher(String name, Set<Subject> subjects, int maxHoursPerWeek) {
-    this.name = name;
-    this.subjects = subjects;
-    this.maxHoursPerWeek = maxHoursPerWeek;
-  }
 }

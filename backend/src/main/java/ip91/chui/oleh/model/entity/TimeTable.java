@@ -7,11 +7,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "time_table")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
 public class TimeTable {
 
   @Id
