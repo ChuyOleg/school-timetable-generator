@@ -1,5 +1,6 @@
 package ip91.chui.oleh.model.entity;
 
+import ip91.chui.oleh.model.enumeration.LessonNumber;
 import ip91.chui.oleh.model.enumeration.WeekType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,10 +15,12 @@ import java.time.DayOfWeek;
 public class TimeSlot {
 
   @Id
+  @Column
   private Long id;
 
   @Column(nullable = false)
-  private int lessonNumber;
+  @Enumerated(EnumType.STRING)
+  private LessonNumber lessonNumber;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)

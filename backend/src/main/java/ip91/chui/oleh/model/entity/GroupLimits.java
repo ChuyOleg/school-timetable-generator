@@ -10,7 +10,6 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class GroupLimits {
 
   @Id
@@ -20,12 +19,15 @@ public class GroupLimits {
 
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "class_group_id", referencedColumnName = "id", nullable = false)
-  @EqualsAndHashCode.Include
+  @EqualsAndHashCode.Exclude
   @ToString.Exclude
   private Group group;
 
-  @OneToMany(mappedBy = "groupLimits", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
-  private Set<SubjectLimits> subjectLimitsSet;
+  @OneToMany(mappedBy = "groupLimits", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<SubjectTeacherInGroup> subjectTeacherInGroupSet;
+
+  @OneToMany(mappedBy = "groupLimits", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<SubjectHoursInGroup> subjectHoursInGroupSet;
 
   @Column(nullable = false)
   private int maxHoursPerWeek;

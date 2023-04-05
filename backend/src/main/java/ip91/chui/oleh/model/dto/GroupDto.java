@@ -1,44 +1,37 @@
 package ip91.chui.oleh.model.dto;
 
+import ip91.chui.oleh.model.enumeration.GradeNumber;
+import ip91.chui.oleh.model.enumeration.Shift;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
-
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class GroupDto {
 
   private Long id;
 
   @NotNull(message = "Group should have gradeNumber value")
-  @Min(value = 1, message = "Min value of lessonNumber is 1")
-  @Max(value = 11, message = "Max value of lessonNumber is 11")
-  private int gradeNumber;
+  private GradeNumber gradeNumber;
 
   @NotBlank(message = "Group should have letter value")
   @Size(min = 1, max = 1, message = "Letter value should be one symbol")
   private String letter;
 
   @NotNull(message = "Group should have shift value")
-  @Min(value = 1, message = "Min value of lessonNumber is 1")
-  @Max(value = 2, message = "Max value of lessonNumber is 2")
-  private int shift;
+  private Shift shift;
 
-  @NotNull(message = "Group should have class teacher")
-  private TeacherDto teacherDto;
-
-  /* TODO: maybe it's better to create wrapper class with this field
-      cause it's used only during algorithm calculations */
-  @EqualsAndHashCode.Exclude
-  private Set<LessonDto> lessons;
+  private Set<@Valid LessonDto> lessonDtoSet;
 
   @Valid
-  @EqualsAndHashCode.Exclude
   private GroupLimitsDto groupLimitsDto;
 
 }

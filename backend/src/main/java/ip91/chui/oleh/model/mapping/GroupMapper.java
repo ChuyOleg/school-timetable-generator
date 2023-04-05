@@ -4,27 +4,20 @@ import ip91.chui.oleh.model.dto.GroupDto;
 import ip91.chui.oleh.model.entity.Group;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", uses = { GroupLimitsMapper.class, TeacherMapper.class })
+@Mapper(componentModel = "spring", uses = { GroupLimitsMapper.class, LessonMapper.class })
 public interface GroupMapper {
 
-  @Named("groupToDto")
   @Mappings({
-      @Mapping(target = "groupLimitsDto", source = "groupLimits", qualifiedByName = {"groupLimitsToDto"}),
-      @Mapping(target = "teacherDto", source = "teacher", qualifiedByName = {"teacherToDto"})
+      @Mapping(target = "lessonDtoSet", source = "lessonSet"),
+      @Mapping(target = "groupLimitsDto", source = "groupLimits")
   })
   GroupDto groupToDto(Group group);
 
   @Mappings({
-      @Mapping(target = "groupLimits", source = "groupLimitsDto"),
-      @Mapping(target = "teacher", source = "teacherDto")
+      @Mapping(target = "lessonSet", source = "lessonDtoSet"),
+      @Mapping(target = "groupLimits", source = "groupLimitsDto")
   })
   Group dtoToGroup(GroupDto groupDto);
-
-  @Mappings({
-      @Mapping(target = "groupLimitsDto", source = "groupLimits", qualifiedByName = {"groupLimitsToDtoLimitedInfo"}),
-      @Mapping(target = "teacherDto", source = "teacher", qualifiedByName = {"teacherToDtoWithoutSubjects"})
-  })
-  GroupDto groupToDtoLimitedInfo(Group group);
 
   @AfterMapping
   default void setGroupForGroupLimits(@MappingTarget Group group) {
