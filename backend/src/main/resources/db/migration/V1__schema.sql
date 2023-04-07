@@ -1,8 +1,6 @@
 -- DROP SCHEMA public CASCADE;
 -- CREATE SCHEMA public;
 
-CREATE TYPE shift_enum as ENUM ('FIRST', 'SECOND');
-
 CREATE TABLE IF NOT EXISTS subject (
     id serial PRIMARY KEY ,
     name varchar(64) NOT NULL
@@ -33,23 +31,23 @@ CREATE TABLE IF NOT EXISTS time_slot (
     id serial PRIMARY KEY ,
     week_type varchar(16) NOT NULL,
     day varchar(16) NOT NULL ,
-    lesson_number varchar(16) NOT NULL ,
+    lesson_number int NOT NULL ,
 
     UNIQUE (week_type, day, lesson_number) ,
     CHECK (week_type in ('ODD', 'EVEN', 'BOTH')) ,
     CHECK (day in ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY')) ,
-    CHECK (lesson_number in ('FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'SIXTH', 'SEVENTH', 'EIGHTH'))
+    CHECK (lesson_number >= 1 AND lesson_number <= 8)
 );
 
 CREATE TABLE IF NOT EXISTS class_group (
    id serial PRIMARY KEY ,
-   grade_number varchar(16) NOT NULL ,
+   grade_number int NOT NULL ,
    letter varchar(1) NOT NULL ,
-   shift varchar(16) NOT NULL ,
+   shift int NOT NULL ,
 
 --  UNIQUE (grade_number, letter, user)
-    CHECK (shift in ('FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'SIXTH', 'SEVENTH', 'EIGHTH', 'NINTH', 'TENTH', 'ELEVENTH')) ,
-    CHECK (shift in ('FIRST', 'SECOND'))
+    CHECK (grade_number >= 1 AND grade_number <= 11) ,
+    CHECK (shift >= 1 AND shift <= 2)
 );
 
 CREATE TABLE IF NOT EXISTS group_limits (

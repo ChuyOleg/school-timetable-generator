@@ -1,6 +1,5 @@
 package ip91.chui.oleh.model.entity;
 
-import ip91.chui.oleh.model.enumeration.LessonNumber;
 import ip91.chui.oleh.model.enumeration.WeekType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,8 +18,7 @@ public class TimeSlot {
   private Long id;
 
   @Column(nullable = false)
-  @Enumerated(EnumType.STRING)
-  private LessonNumber lessonNumber;
+  private int lessonNumber;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)

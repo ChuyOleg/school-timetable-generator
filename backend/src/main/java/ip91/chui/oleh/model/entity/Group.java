@@ -1,7 +1,5 @@
 package ip91.chui.oleh.model.entity;
 
-import ip91.chui.oleh.model.enumeration.GradeNumber;
-import ip91.chui.oleh.model.enumeration.Shift;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,15 +18,13 @@ public class Group {
   private Long id;
 
   @Column(nullable = false)
-  @Enumerated(EnumType.STRING)
-  private GradeNumber gradeNumber;
+  private int gradeNumber;
 
   @Column(length = 1, nullable = false)
   private String letter;
 
   @Column(nullable = false)
-  @Enumerated(EnumType.STRING)
-  private Shift shift;
+  private int shift;
 
   @OneToMany(mappedBy = "group")
   private Set<Lesson> lessonSet;

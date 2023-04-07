@@ -3,7 +3,7 @@ INSERT INTO time_slot(week_type, day, lesson_number)
 SELECT week_types, days, lesson_numbers
 FROM unnest(ARRAY['ODD', 'EVEN', 'BOTH']) week_types
          CROSS JOIN unnest(ARRAY['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY']) days
-         CROSS JOIN unnest(ARRAY['FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'SIXTH', 'SEVENTH', 'EIGHTH']) lesson_numbers;
+         CROSS JOIN unnest(ARRAY[1, 2, 3, 4, 5, 6, 7, 8]) lesson_numbers;
 
 
 INSERT INTO subject(name)
@@ -41,7 +41,7 @@ VALUES
 
 INSERT INTO class_group(grade_number, letter, shift)
 VALUES
-('SEVENTH', 'A', 'FIRST');
+(7, 'A', 1);
 
 INSERT INTO group_limits(class_group_id, max_hours_per_week, combine_time_slot_id)
 VALUES
