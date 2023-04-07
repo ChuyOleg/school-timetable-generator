@@ -41,6 +41,8 @@ import { GroupPageComponent } from './pages/group-page/group-page.component';
 import { GroupBlockComponent } from './components/group/group-block/group-block.component';
 import { CreateGroupComponent } from './components/group/create-group/create-group.component';
 import { GroupModalComponent } from './components/group/group-modal/group-modal.component';
+import { FilterGroupsPipe } from './pipes/filter-groups.pipe';
+import { SortGroupsPipe } from './pipes/sort-groups.pipe';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,9 @@ import { GroupModalComponent } from './components/group/group-modal/group-modal.
     GroupPageComponent,
     GroupBlockComponent,
     CreateGroupComponent,
-    GroupModalComponent
+    GroupModalComponent,
+    FilterGroupsPipe,
+    SortGroupsPipe
   ],
   imports: [
     BrowserModule,

@@ -16,13 +16,9 @@
   class="grid grid-cols-5 gap-x-10"
 >
   <app-group-block
-    *ngFor="let group of groupService.groups"
+    *ngFor="let group of groupService.groups | filterGroups: term | sortGroups"
     [group]="group"
   ></app-group-block>
-<!--  <app-teacher-block-->
-<!--    *ngFor="let teacher of teacherService.teachers | filterTeachers: term | sortTeachersByName"-->
-<!--    [teacher]="teacher"-->
-<!--  ></app-teacher-block>-->
 </div>
 
 <app-group-modal *ngIf="modalService.createIsVisible$ | async" title="Create new group">
