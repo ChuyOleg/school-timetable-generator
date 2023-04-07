@@ -1,13 +1,11 @@
-import { EGradeNumber } from "./enumeration/grade-number";
-import { EShift } from "./enumeration/shift";
 import { IGroupLimits } from "./group-limits";
 import { ILesson } from "./lesson";
 
 export interface IGroup {
   id?: number
-  gradeNumber: EGradeNumber
+  gradeNumber: number
   letter: string
-  shift: EShift
+  shift: number
   lessonDtoSet: ILesson[]
   groupLimitsDto: IGroupLimits
 }
