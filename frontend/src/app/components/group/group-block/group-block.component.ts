@@ -20,7 +20,17 @@ export class GroupBlockComponent {
   }
 
   delete() {
-
+    this.dialogService.confirmDialog({
+      title: "Are u sure?",
+      message: `Do u want to delete [ ${this.group.gradeNumber + '-' + this.group.letter} ]?`,
+      cancelText: "No",
+      confirmText: "Yep"
+    }).subscribe(bool => {
+      if (this.group.id && bool) {
+        this.groupService.deleteById(this.group.id)
+          .subscribe();
+      }
+    });
   }
 
   update() {
