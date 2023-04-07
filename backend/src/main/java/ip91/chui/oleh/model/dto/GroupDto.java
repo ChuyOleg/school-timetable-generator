@@ -1,11 +1,7 @@
 package ip91.chui.oleh.model.dto;
 
-import ip91.chui.oleh.model.enumeration.GradeNumber;
-import ip91.chui.oleh.model.enumeration.Shift;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,14 +16,18 @@ public class GroupDto {
   private Long id;
 
   @NotNull(message = "Group should have gradeNumber value")
-  private GradeNumber gradeNumber;
+  @Min(value = 1, message = "Min value of lessonNumber is 1")
+  @Max(value = 11, message = "Max value of lessonNumber is 11")
+  private int gradeNumber;
 
   @NotBlank(message = "Group should have letter value")
   @Size(min = 1, max = 1, message = "Letter value should be one symbol")
   private String letter;
 
   @NotNull(message = "Group should have shift value")
-  private Shift shift;
+  @Min(value = 1, message = "Min value of lessonNumber is 1")
+  @Max(value = 2, message = "Max value of lessonNumber is 2")
+  private int shift;
 
   private Set<@Valid LessonDto> lessonDtoSet;
 
