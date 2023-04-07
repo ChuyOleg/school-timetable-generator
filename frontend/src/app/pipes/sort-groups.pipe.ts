@@ -8,7 +8,11 @@ export class SortGroupsPipe implements PipeTransform {
 
   transform(groups: IGroup[]): IGroup[] {
     return groups.sort((g1: IGroup, g2: IGroup) => {
-      return (g1.gradeNumber + g1.letter).localeCompare(g2.gradeNumber + g2.letter);
+      if (g1.gradeNumber === g2.gradeNumber) {
+        return g1.letter.toLowerCase().localeCompare(g2.letter.toLowerCase());
+      } else {
+        return g2.gradeNumber - g1.gradeNumber;
+      }
     })
   }
 
