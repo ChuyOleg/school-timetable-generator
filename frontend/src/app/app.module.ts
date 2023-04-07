@@ -43,6 +43,7 @@ import { CreateGroupComponent } from './components/group/create-group/create-gro
 import { GroupModalComponent } from './components/group/group-modal/group-modal.component';
 import { FilterGroupsPipe } from './pipes/filter-groups.pipe';
 import { SortGroupsPipe } from './pipes/sort-groups.pipe';
+import { EditGroupComponent } from './components/group/edit-group/edit-group.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { SortGroupsPipe } from './pipes/sort-groups.pipe';
     CreateGroupComponent,
     GroupModalComponent,
     FilterGroupsPipe,
-    SortGroupsPipe
+    SortGroupsPipe,
+    EditGroupComponent
   ],
   imports: [
     BrowserModule,

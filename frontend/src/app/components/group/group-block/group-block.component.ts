@@ -34,7 +34,8 @@ export class GroupBlockComponent {
   }
 
   update() {
-
+    this.groupService.groupToEdit = this.group;
+    this.modalService.openUpdateModal();
   }
 
 }

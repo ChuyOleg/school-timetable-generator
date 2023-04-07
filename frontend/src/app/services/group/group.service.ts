@@ -27,6 +27,13 @@ export class GroupService {
       )
   }
 
+  getById(id: number): Observable<IGroup> {
+    return this.http.get<IGroup>(`${this.baseUrl}groups/${id}`)
+      .pipe(
+        catchError(this.errorHandler.bind(this))
+      )
+  }
+
   create(group: IGroup): Observable<IGroup> {
     return this.http.post<IGroup>(`${this.baseUrl}groups`, group)
       .pipe(

@@ -9,13 +9,13 @@ import { SubjectService } from "../../../services/subject/subject.service";
 })
 export class EditSubjectComponent {
 
+  subjectNameExist: boolean = false
+
   constructor(
     public modalService: SubjectModalService,
     private subjectService: SubjectService
   ) {
   }
-
-  subjectNameExist: boolean = false
 
   form = new FormGroup({
     name: new FormControl<string>(this.subjectService.subjectToEdit.name, [
