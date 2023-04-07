@@ -10,7 +10,6 @@
           placeholder="xx"
           formControlName="gradeNumber"
           maxlength="2"
-          appFocus
         >
 
         <span class="ml-2 mr-2">-</span>
@@ -33,7 +32,7 @@
           formControlName="shift"
           maxlength="1"
         >
-        <span class="italic text-lg font-bold ml-2 py-2">зміна</span>
+        <span class="italic text-lg font-bold ml-2 py-2">shift</span>
       </div>
     </div>
 
@@ -52,23 +51,16 @@
           *ngIf="(shift.errors?.required || shift.errors?.pattern
       || shift.errors?.min || shift.errors?.max)
       && shift.dirty"
-        >1 - 2 зміна</p>
+        >1 - 2 shift</p>
       </div>
     </div>
 
     <p
       class="text-red-600 font-mono font-bold mt-2 mb-2"
       *ngIf="groupExist"
-    >Такий клас вже існує</p>
+    >This group already exists</p>
 
   </div>
-
-  <mat-form-field appearance="fill" class="w-full">
-    <mat-label>Оберіть класного керівника</mat-label>
-    <mat-select formControlName="teacherDto">
-      <mat-option *ngFor="let teacher of teacherService.freeClassTeachers" [value]="teacher">{{ teacher.name }}</mat-option>
-    </mat-select>
-  </mat-form-field>
 
   <div class="flex justify-center items-center">
     <button
@@ -77,7 +69,7 @@
        hover:text-white py-2 px-4 border border-2 border-blue-500 hover:border-transparent rounded"
       [disabled]="!form.valid"
     >
-      Обновити
+      Update
     </button>
 
     <div class="w-4"></div>
@@ -88,7 +80,7 @@
        hover:text-white py-2 px-4 border border-2 border-red-500 hover:border-transparent rounded"
       (click)="modalService.closeUpdateModal()"
     >
-      Відмінити
+      Cancel
     </button>
   </div>
 

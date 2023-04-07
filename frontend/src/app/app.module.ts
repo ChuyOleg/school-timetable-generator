@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SubjectBlockComponent } from "./components/subject/subject-block/subject-block.component";
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 import { GlobalErrorComponent } from './components/global-error/global-error.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FilterSubjectsPipe } from './pipes/filter-subjects.pipe';
@@ -13,6 +13,7 @@ import { CreateSubjectComponent } from './components/subject/create-subject/crea
 import { FocusDirective } from './directives/focus.directive';
 import { MatIconModule } from "@angular/material/icon";
 import { SubjectPageComponent } from './pages/subject-page/subject-page.component';
+import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { EditSubjectComponent } from './components/subject/edit-subject/edit-subject.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -43,16 +44,6 @@ import { GroupModalComponent } from './components/group/group-modal/group-modal.
 import { FilterGroupsPipe } from './pipes/filter-groups.pipe';
 import { SortGroupsPipe } from './pipes/sort-groups.pipe';
 import { EditGroupComponent } from './components/group/edit-group/edit-group.component';
-import { GroupDetailsPageComponent } from './pages/group-details-page/group-details-page.component';
-import { LimitsBlockComponent } from './components/group-details/limits-block/limits-block.component';
-import { FilterTeachersBySubjectPipe } from './pipes/filter-teachers-by-subject.pipe';
-import { AddClassTeacherForPrimarySchoolPipe } from './pipes/add-class-teacher-for-primary-school.pipe';
-import { RegisterPageComponent } from './pages/register-page/register-page/register-page.component';
-import { LoginPageComponent } from './pages/login-page/login-page/login-page.component';
-import { TokenInterceptorService } from "./services/token-interceptor.service";
-import { TimetablePageComponent } from './pages/timetable-page/timetable-page.component';
-import { InvalidWorkingLoadingBlockComponent } from './components/timetable/invalid-working-loading-block/invalid-working-loading-block.component';
-import { GroupTimetableBlockComponent } from './components/timetable/group-timtable-block/group-timetable-block.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +55,7 @@ import { GroupTimetableBlockComponent } from './components/timetable/group-timta
     CreateSubjectComponent,
     FocusDirective,
     SubjectPageComponent,
+    AboutPageComponent,
     NavigationComponent,
     EditSubjectComponent,
     FooterComponent,
@@ -89,16 +81,7 @@ import { GroupTimetableBlockComponent } from './components/timetable/group-timta
     GroupModalComponent,
     FilterGroupsPipe,
     SortGroupsPipe,
-    EditGroupComponent,
-    GroupDetailsPageComponent,
-    LimitsBlockComponent,
-    FilterTeachersBySubjectPipe,
-    AddClassTeacherForPrimarySchoolPipe,
-    RegisterPageComponent,
-    LoginPageComponent,
-    TimetablePageComponent,
-    InvalidWorkingLoadingBlockComponent,
-    GroupTimetableBlockComponent,
+    EditGroupComponent
   ],
   imports: [
     BrowserModule,
@@ -112,14 +95,7 @@ import { GroupTimetableBlockComponent } from './components/timetable/group-timta
     MatSelectModule,
     BrowserAnimationsModule
   ],
-  providers: [
-    TokenInterceptorService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

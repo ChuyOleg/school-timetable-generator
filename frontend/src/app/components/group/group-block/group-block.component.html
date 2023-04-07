@@ -10,25 +10,21 @@
 
     <h2 class="text-center mb-1 font-bold">{{ group.gradeNumber + '-' + group.letter }}</h2>
 
-    <p class="text-sm"><mat-icon class="text-sm pt-2">access_time</mat-icon> {{ group.shift }} зміна</p>
-
-    <div class="flex pt-2">
-      <p><mat-icon class="text-sm">person_pin</mat-icon></p>
-      <p class="text-sm"> {{ group.teacherDto.name }} </p>
-    </div>
+    <p class="text-sm"><mat-icon class="text-sm pt-2">access_time</mat-icon> {{ group.shift }} shift</p>
 
     <button
       class="absolute -bottom-2 right-0 text-yellow-400"
       (click)="update()"
     ><mat-icon class="text-base">edit</mat-icon></button>
 
-    <a routerLink="/groups/{{group.id}}"
-       class="absolute -top-1 left-0"
-       [ngClass]="{
+    <button
+      class="absolute -top-1 left-0"
+      [ngClass]="{
         'text-green-500' : group.groupLimitsDto,
         'text-gray-400' : !group.groupLimitsDto
        }"
-    ><mat-icon class="text-lg">home</mat-icon></a>
+      (click)="update()"
+    ><mat-icon class="text-lg">home</mat-icon></button>
 
   </div>
 </div>
