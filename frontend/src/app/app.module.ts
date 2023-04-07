@@ -37,6 +37,13 @@ import { RoomBlockComponent } from './components/room/room-block/room-block.comp
 import { CreateRoomComponent } from './components/room/create-room/create-room.component';
 import { RoomModalComponent } from './components/room/room-modal/room-modal.component';
 import { EditRoomComponent } from './components/room/edit-room/edit-room.component';
+import { GroupPageComponent } from './pages/group-page/group-page.component';
+import { GroupBlockComponent } from './components/group/group-block/group-block.component';
+import { CreateGroupComponent } from './components/group/create-group/create-group.component';
+import { GroupModalComponent } from './components/group/group-modal/group-modal.component';
+import { FilterGroupsPipe } from './pipes/filter-groups.pipe';
+import { SortGroupsPipe } from './pipes/sort-groups.pipe';
+import { EditGroupComponent } from './components/group/edit-group/edit-group.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +74,14 @@ import { EditRoomComponent } from './components/room/edit-room/edit-room.compone
     RoomBlockComponent,
     CreateRoomComponent,
     RoomModalComponent,
-    EditRoomComponent
+    EditRoomComponent,
+    GroupPageComponent,
+    GroupBlockComponent,
+    CreateGroupComponent,
+    GroupModalComponent,
+    FilterGroupsPipe,
+    SortGroupsPipe,
+    EditGroupComponent
   ],
   imports: [
     BrowserModule,
