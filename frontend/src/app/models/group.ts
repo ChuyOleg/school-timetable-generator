@@ -6,6 +6,6 @@ export interface IGroup {
   gradeNumber: number
   letter: string
   shift: number
-  lessonDtoSet: ILesson[]
-  groupLimitsDto: IGroupLimits
+  lessonDtoSet?: ILesson[]
+  groupLimitsDto?: IGroupLimits
 }

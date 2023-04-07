@@ -25,10 +25,9 @@
 <!--  ></app-teacher-block>-->
 </div>
 
-
-<!--<app-teacher-modal *ngIf="modalService.createIsVisible$ | async" title="Create new teacher">-->
-<!--  <app-create-teacher></app-create-teacher>-->
-<!--</app-teacher-modal>-->
+<app-group-modal *ngIf="modalService.createIsVisible$ | async" title="Create new group">
+  <app-create-group></app-create-group>
+</app-group-modal>
 
 <!--<app-teacher-modal *ngIf="modalService.updateIsVisible$ | async" title="Update teacher">-->
 <!--  <app-edit-teacher></app-edit-teacher>-->
