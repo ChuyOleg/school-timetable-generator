@@ -37,6 +37,7 @@ import { RoomBlockComponent } from './components/room/room-block/room-block.comp
 import { CreateRoomComponent } from './components/room/create-room/create-room.component';
 import { RoomModalComponent } from './components/room/room-modal/room-modal.component';
 import { EditRoomComponent } from './components/room/edit-room/edit-room.component';
+import { GroupPageComponent } from './pages/group-page/group-page.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { EditRoomComponent } from './components/room/edit-room/edit-room.compone
     RoomBlockComponent,
     CreateRoomComponent,
     RoomModalComponent,
-    EditRoomComponent
+    EditRoomComponent,
+    GroupPageComponent
   ],
   imports: [
     BrowserModule,
