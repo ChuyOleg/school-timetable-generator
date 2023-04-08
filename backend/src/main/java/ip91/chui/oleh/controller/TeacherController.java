@@ -1,7 +1,6 @@
 package ip91.chui.oleh.controller;
 
 import ip91.chui.oleh.model.dto.TeacherDto;
-import ip91.chui.oleh.model.dto.projection.TeacherProjection;
 import ip91.chui.oleh.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,11 +23,6 @@ public class TeacherController {
   @GetMapping("/freeClassTeachers")
   public List<TeacherDto> getAllWhoAreNotClassTeacher() {
     return teacherService.getAllWhoAreNotClassTeacher();
-  }
-
-  @GetMapping("/actualHours")
-  public List<TeacherProjection> getTeachersActualHours() {
-    return teacherService.getTeachersActualHours();
   }
 
   @GetMapping("/{id}")
