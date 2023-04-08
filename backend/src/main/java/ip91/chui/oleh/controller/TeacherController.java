@@ -20,6 +20,11 @@ public class TeacherController {
     return teacherService.getAll();
   }
 
+  @GetMapping("/freeClassTeachers")
+  public List<TeacherDto> getAllWhoAreNotClassTeacher() {
+    return teacherService.getAllWhoAreNotClassTeacher();
+  }
+
   @GetMapping("/{id}")
   public TeacherDto getById(@PathVariable Long id) {
     return teacherService.getById(id);
