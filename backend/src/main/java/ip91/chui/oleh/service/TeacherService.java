@@ -32,6 +32,13 @@ public class TeacherService {
         .collect(Collectors.toList());
   }
 
+  public List<TeacherDto> getAllWhoAreNotClassTeacher() {
+    return teacherRepository.findAllWhoAreNotClassTeacher()
+        .stream()
+        .map(teacherMapper::teacherToDto)
+        .collect(Collectors.toList());
+  }
+
   public TeacherDto getById(Long id) {
     return teacherMapper.teacherToDto(findTeacherById(id));
   }
