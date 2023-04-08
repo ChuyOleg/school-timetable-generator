@@ -49,6 +49,14 @@ export class TeacherService {
       )
   }
 
+  getFreeClassTeachers(): Observable<ITeacher[]> {
+    return this.http.get<ITeacher[]>(`${this.baseUrl}teachers/freeClassTeachers`)
+      .pipe(
+        tap(teachers => this.freeClassTeachers = teachers),
+        catchError(this.errorHandler.bind(this))
+      )
+  }
+
   create(teacher: ITeacher): Observable<ITeacher> {
     return this.http.post<ITeacher>(`${this.baseUrl}teachers`, teacher)
       .pipe(

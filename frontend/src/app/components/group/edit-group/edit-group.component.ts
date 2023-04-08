@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { GroupModalService } from "../../../services/group/group-modal.service";
 import { GroupService } from "../../../services/group/group.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ITeacher } from "../../../models/teacher";
+import { TeacherService } from "../../../services/teacher/teacher.service";
+import { tap } from "rxjs";
 
 @Component({
   selector: 'app-edit-group',
@@ -13,17 +16,9 @@ export class EditGroupComponent implements OnInit {
 
   constructor(
     public modalService: GroupModalService,
-    private groupService: GroupService
+    private groupService: GroupService,
+    public teacherService: TeacherService
   ) {
-  }
-
-  ngOnInit(): void {
-    const id = this.groupService.groupToEdit.id;
-    if (id) {
-      this.groupService.getById(id).subscribe(group => {
-        this.groupService.groupToEdit = group;
-      })
-    }
   }
 
   form = new FormGroup({
@@ -42,6 +37,9 @@ export class EditGroupComponent implements OnInit {
       Validators.pattern("^[0-9]*$"),
       Validators.min(1),
       Validators.max(2)
+    ]),
+    teacherDto: new FormControl<ITeacher|null>(this.groupService.groupToEdit.teacherDto, [
+      Validators.required
     ])
   })
 
@@ -60,6 +58,7 @@ export class EditGroupComponent implements OnInit {
         gradeNumber: this.form.value.gradeNumber as number,
         letter: this.form.value.letter as string,
         shift: this.form.value.shift as number,
+        teacherDto: this.form.value.teacherDto as ITeacher,
         lessonDtoSet: this.groupService.groupToEdit.lessonDtoSet,
         groupLimitsDto: this.groupService.groupToEdit.groupLimitsDto
       }).subscribe(() => {
@@ -67,6 +66,24 @@ export class EditGroupComponent implements OnInit {
         this.modalService.closeUpdateModal();
       })
     }
+  }
+
+  ngOnInit(): void {
+    const id = this.groupService.groupToEdit.id;
+    if (id) {
+      this.groupService.getById(id).subscribe(group => {
+        this.groupService.groupToEdit = group;
+      })
+    }
+
+    this.teacherService.getFreeClassTeachers()
+      .pipe(
+        tap(() => {
+          if (this.form.value.teacherDto) {
+            this.teacherService.freeClassTeachers.push(this.form.value.teacherDto)
+          }
+        }))
+      .subscribe();
   }
 
   get gradeNumber() {
