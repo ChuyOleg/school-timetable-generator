@@ -44,8 +44,10 @@ CREATE TABLE IF NOT EXISTS class_group (
    grade_number int NOT NULL ,
    letter varchar(1) NOT NULL ,
    shift int NOT NULL ,
+   teacher_id int NOT NULL REFERENCES teacher(id) ,
 
 --  UNIQUE (grade_number, letter, user)
+--  UNIQUE (teacher_id, user)
     CHECK (grade_number >= 1 AND grade_number <= 11) ,
     CHECK (shift >= 1 AND shift <= 2)
 );

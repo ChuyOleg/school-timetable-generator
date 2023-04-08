@@ -29,6 +29,10 @@ public class GroupDto {
   @Max(value = 2, message = "Max value of lessonNumber is 2")
   private int shift;
 
+  @NotNull(message = "Group should have class teacher")
+  @Valid
+  private TeacherDto teacherDto;
+
   private Set<@Valid LessonDto> lessonDtoSet;
 
   @Valid

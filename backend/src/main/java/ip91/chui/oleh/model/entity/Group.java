@@ -26,6 +26,10 @@ public class Group {
   @Column(nullable = false)
   private int shift;
 
+  @OneToOne
+  @JoinColumn(name = "teacher_id", referencedColumnName = "id", nullable = false)
+  private Teacher teacher;
+
   @OneToMany(mappedBy = "group")
   private Set<Lesson> lessonSet;
 
