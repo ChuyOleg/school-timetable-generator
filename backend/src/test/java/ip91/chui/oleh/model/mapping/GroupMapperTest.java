@@ -19,6 +19,9 @@ class GroupMapperTest {
   private static final int SHIFT_1 = 1;
 
   @Mock
+  private TeacherMapper teacherMapper;
+
+  @Mock
   private GroupLimitsMapper groupLimitsMapper;
 
   @InjectMocks
@@ -26,7 +29,7 @@ class GroupMapperTest {
 
   @Test
   void Should_ConvertGroupToDto_When_GroupIsValid() {
-    Group group = new Group(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null);
+    Group group = new Group(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null, null);
 
     GroupDto groupDto = groupMapper.groupToDto(group);
 
@@ -40,7 +43,7 @@ class GroupMapperTest {
 
   @Test
   void Should_ConvertDtoToGroup_When_DtoHasId() {
-    GroupDto groupDto = new GroupDto(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null);
+    GroupDto groupDto = new GroupDto(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null, null);
 
     Group group = groupMapper.dtoToGroup(groupDto);
 
@@ -54,7 +57,7 @@ class GroupMapperTest {
 
   @Test
   void Should_ConvertDtoToGroup_When_DtoHasNotId() {
-    GroupDto groupDto = new GroupDto(null, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null);
+    GroupDto groupDto = new GroupDto(null, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null, null);
 
     Group group = groupMapper.dtoToGroup(groupDto);
 
