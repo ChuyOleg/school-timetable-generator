@@ -39,9 +39,10 @@ VALUES
 (10, 10), (10, 11), (11, 13), (12, 14);
 
 
-INSERT INTO class_group(grade_number, letter, shift)
+INSERT INTO class_group(grade_number, letter, shift, teacher_id)
 VALUES
-(7, 'A', 1);
+(7, 'A', 2, 2), (7, 'B', 2, 3), (7, 'C', 2, 4),
+(9, 'A', 1, 1), (9, 'B', 1, 5), (9, 'C', 1, 6), (9, 'D', 1, 7);
 
 INSERT INTO group_limits(class_group_id, max_hours_per_week, combine_time_slot_id)
 VALUES
