@@ -17,12 +17,21 @@ export class TeacherService {
 
   private baseUrl = Constants.API_BASE_URL;
   teachers: ITeacher[] = []
+  freeClassTeachers: ITeacher[] = []
   teacherToEdit: ITeacher
 
   getAll(): Observable<ITeacher[]> {
     return this.http.get<ITeacher[]>(`${this.baseUrl}teachers`)
       .pipe(
         tap(teachers => this.teachers = teachers),
+        catchError(this.errorHandler.bind(this))
+      )
+  }
+
+  getFreeClassTeachers(): Observable<ITeacher[]> {
+    return this.http.get<ITeacher[]>(`${this.baseUrl}teachers/freeClassTeachers`)
+      .pipe(
+        tap(teachers => this.freeClassTeachers = teachers),
         catchError(this.errorHandler.bind(this))
       )
   }

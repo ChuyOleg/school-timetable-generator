@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { GroupModalService } from "../../../services/group/group-modal.service";
 import { GroupService } from "../../../services/group/group.service";
+import { ITeacher } from "../../../models/teacher";
+import { TeacherService } from "../../../services/teacher/teacher.service";
 
 @Component({
   selector: 'app-create-group',
   templateUrl: './create-group.component.html'
 })
-export class CreateGroupComponent {
+export class CreateGroupComponent implements OnInit {
 
   groupExist: boolean = false
   submitButtonIsPressed: boolean = false
@@ -28,12 +30,16 @@ export class CreateGroupComponent {
       Validators.pattern("^[0-9]*$"),
       Validators.min(1),
       Validators.max(2)
+    ]),
+    teacherDto: new FormControl<ITeacher|null>(null, [
+      Validators.required
     ])
   })
 
   constructor(
     public modalService: GroupModalService,
-    private groupService: GroupService
+    private groupService: GroupService,
+    public teacherService: TeacherService
   ) {
   }
 
@@ -50,7 +56,8 @@ export class CreateGroupComponent {
         this.groupService.create({
           gradeNumber: this.form.value.gradeNumber as number,
           letter: this.form.value.letter as string,
-          shift: this.form.value.shift as number
+          shift: this.form.value.shift as number,
+          teacherDto: this.form.value.teacherDto as ITeacher
         }).subscribe(() => {
           this.groupExist = false;
           this.submitButtonIsPressed = false;
@@ -58,6 +65,10 @@ export class CreateGroupComponent {
         })
       }
     }
+  }
+
+  ngOnInit(): void {
+    this.teacherService.getFreeClassTeachers().subscribe();
   }
 
   get gradeNumber() {

@@ -63,6 +63,13 @@
 
   </div>
 
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Select class teacher</mat-label>
+    <mat-select formControlName="teacherDto">
+      <mat-option *ngFor="let teacher of teacherService.freeClassTeachers" [value]="teacher">{{ teacher.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <div class="flex justify-center items-center">
     <button
       type="submit"

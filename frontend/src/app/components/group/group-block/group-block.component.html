@@ -12,6 +12,11 @@
 
     <p class="text-sm"><mat-icon class="text-sm pt-2">access_time</mat-icon> {{ group.shift }} shift</p>
 
+    <div class="flex pt-2">
+      <p><mat-icon class="text-sm">person_pin</mat-icon></p>
+      <p class="text-sm"> {{ group.teacherDto.name }} </p>
+    </div>
+
     <button
       class="absolute -bottom-2 right-0 text-yellow-400"
       (click)="update()"
