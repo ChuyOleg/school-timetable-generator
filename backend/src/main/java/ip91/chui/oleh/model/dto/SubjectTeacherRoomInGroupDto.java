@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubjectTeacherInGroupDto {
+public class SubjectTeacherRoomInGroupDto {
 
   private Long id;
 
@@ -17,5 +17,7 @@ public class SubjectTeacherInGroupDto {
 
   @NotNull(message = "Teacher should be specified")
   private TeacherDto teacherDto;
+
+  private RoomDto roomDto;
 
 }

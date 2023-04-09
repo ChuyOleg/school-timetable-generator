@@ -9,8 +9,8 @@ public interface GroupMapper {
 
   @Mappings({
       @Mapping(target = "lessonDtoSet", source = "lessonSet"),
-      @Mapping(target = "groupLimitsDto", source = "groupLimits"),
-      @Mapping(target = "teacherDto", source = "teacher")
+      @Mapping(target = "groupLimitsDto", source = "groupLimits", qualifiedByName = {"groupLimitsToDto"}),
+      @Mapping(target = "teacherDto", source = "teacher", qualifiedByName = {"teacherToDto"})
   })
   GroupDto groupToDto(Group group);
 
@@ -20,6 +20,12 @@ public interface GroupMapper {
       @Mapping(target = "teacher", source = "teacherDto")
   })
   Group dtoToGroup(GroupDto groupDto);
+
+  @Mappings({
+      @Mapping(target = "groupLimitsDto", source = "groupLimits", qualifiedByName = {"groupLimitsToDtoLimitedInfo"}),
+      @Mapping(target = "teacherDto", source = "teacher", qualifiedByName = {"teacherToDtoWithoutSubjects"})
+  })
+  GroupDto groupToDtoLimitedInfo(Group group);
 
   @AfterMapping
   default void setGroupForGroupLimits(@MappingTarget Group group) {

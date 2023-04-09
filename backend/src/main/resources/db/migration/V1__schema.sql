@@ -59,15 +59,16 @@ CREATE TABLE IF NOT EXISTS group_limits (
     combine_time_slot_id int REFERENCES time_slot(id)
 );
 
-CREATE TABLE IF NOT EXISTS subject_teacher_in_group_mapping (
+CREATE TABLE IF NOT EXISTS subject_teacher_room_in_group (
     id serial PRIMARY KEY ,
     group_limits_id int NOT NULL REFERENCES group_limits(id) ON DELETE CASCADE ,
     subject_id int NOT NULL REFERENCES subject(id) ON DELETE CASCADE ,
     teacher_id int NOT NULL REFERENCES teacher(id) ON DELETE CASCADE ,
+    room_id int REFERENCES room(id) ON DELETE CASCADE ,
     UNIQUE (group_limits_id, subject_id, teacher_id)
 );
 
-CREATE TABLE IF NOT EXISTS subject_hours_in_group_mapping (
+CREATE TABLE IF NOT EXISTS subject_hours_in_group (
     id serial PRIMARY KEY ,
     group_limits_id int NOT NULL REFERENCES group_limits(id) ON DELETE CASCADE ,
     subject_id int NOT NULL REFERENCES subject(id) ON DELETE CASCADE ,

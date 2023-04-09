@@ -21,7 +21,7 @@ class GroupLimitsMapperTest {
     GroupLimitsDto groupLimitsDto = groupLimitsMapper.groupLimitsToDto(groupLimits);
 
     assertEquals(groupLimits.getId(), groupLimitsDto.getId());
-    assertNull(groupLimitsDto.getSubjectTeacherInGroupDtoSet());
+    assertNull(groupLimitsDto.getSubjectTeacherRoomInGroupDtoSet());
     assertNull(groupLimitsDto.getSubjectHoursInGroupDtoSet());
     assertEquals(groupLimits.getMaxHoursPerWeek(), groupLimitsDto.getMaxHoursPerWeek());
   }
@@ -33,7 +33,7 @@ class GroupLimitsMapperTest {
     GroupLimits groupLimits = groupLimitsMapper.dtoToGroupLimits(groupLimitsDto);
 
     assertEquals(groupLimitsDto.getId(), groupLimits.getId());
-    assertNull(groupLimits.getSubjectTeacherInGroupSet());
+    assertNull(groupLimits.getSubjectTeacherRoomInGroupSet());
     assertNull(groupLimits.getSubjectHoursInGroupSet());
     assertEquals(groupLimitsDto.getMaxHoursPerWeek(), groupLimits.getMaxHoursPerWeek());
   }
@@ -45,7 +45,7 @@ class GroupLimitsMapperTest {
     GroupLimits groupLimits = groupLimitsMapper.dtoToGroupLimits(groupLimitsDto);
 
     assertNull(groupLimits.getId());
-    assertNull(groupLimits.getSubjectTeacherInGroupSet());
+    assertNull(groupLimits.getSubjectTeacherRoomInGroupSet());
     assertNull(groupLimits.getSubjectHoursInGroupSet());
     assertEquals(groupLimitsDto.getMaxHoursPerWeek(), groupLimits.getMaxHoursPerWeek());
   }

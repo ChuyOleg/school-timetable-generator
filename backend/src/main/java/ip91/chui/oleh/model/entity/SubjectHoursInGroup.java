@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "subject_hours_in_group_mapping")
+@Table(name = "subject_hours_in_group")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,7 +12,7 @@ public class SubjectHoursInGroup {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "subjectHoursInGroupIdGenerator")
-  @SequenceGenerator(name = "subjectHoursInGroupIdGenerator", sequenceName = "subject_hours_in_group_mapping_id_seq", allocationSize = 10)
+  @SequenceGenerator(name = "subjectHoursInGroupIdGenerator", sequenceName = "subject_hours_in_group_id_seq", allocationSize = 10)
   private Long id;
 
   @ManyToOne

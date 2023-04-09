@@ -4,25 +4,30 @@ import ip91.chui.oleh.model.dto.GroupLimitsDto;
 import ip91.chui.oleh.model.entity.GroupLimits;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", uses = { SubjectHoursInGroupMapper.class, SubjectTeacherInGroupMapper.class })
+@Mapper(componentModel = "spring", uses = { SubjectHoursInGroupMapper.class, SubjectTeacherRoomInGroupMapper.class })
 public interface GroupLimitsMapper {
 
+  @Named("groupLimitsToDto")
   @Mappings({
-      @Mapping(target = "subjectTeacherInGroupDtoSet", source = "subjectTeacherInGroupSet"),
+      @Mapping(target = "subjectTeacherRoomInGroupDtoSet", source = "subjectTeacherRoomInGroupSet"),
       @Mapping(target = "subjectHoursInGroupDtoSet", source = "subjectHoursInGroupSet")
   })
   GroupLimitsDto groupLimitsToDto(GroupLimits groupLimits);
 
   @Mappings({
-      @Mapping(target = "subjectTeacherInGroupSet", source = "subjectTeacherInGroupDtoSet"),
+      @Mapping(target = "subjectTeacherRoomInGroupSet", source = "subjectTeacherRoomInGroupDtoSet"),
       @Mapping(target = "subjectHoursInGroupSet", source = "subjectHoursInGroupDtoSet")
   })
   GroupLimits dtoToGroupLimits(GroupLimitsDto groupLimitsDto);
 
+  @Named("groupLimitsToDtoLimitedInfo")
+  @Mapping(target = "interschoolCombine", ignore = true)
+  GroupLimitsDto groupLimitsToDtoLimitedInfo(GroupLimits groupLimits);
+
   @AfterMapping
   default void setGroupLimitsForSubjectTeacherInGroupSet(@MappingTarget GroupLimits groupLimits) {
-    if (groupLimits.getSubjectTeacherInGroupSet() != null) {
-      groupLimits.getSubjectTeacherInGroupSet().forEach(s -> s.setGroupLimits(groupLimits));
+    if (groupLimits.getSubjectTeacherRoomInGroupSet() != null) {
+      groupLimits.getSubjectTeacherRoomInGroupSet().forEach(s -> s.setGroupLimits(groupLimits));
     }
   }
 
