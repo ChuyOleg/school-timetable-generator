@@ -24,7 +24,7 @@ public class GroupLimits {
   private Group group;
 
   @OneToMany(mappedBy = "groupLimits", cascade = CascadeType.ALL, orphanRemoval = true)
-  private Set<SubjectTeacherInGroup> subjectTeacherInGroupSet;
+  private Set<SubjectTeacherRoomInGroup> subjectTeacherRoomInGroupSet;
 
   @OneToMany(mappedBy = "groupLimits", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<SubjectHoursInGroup> subjectHoursInGroupSet;
