@@ -21,7 +21,7 @@ export class CreateTeacherComponent implements OnInit {
     subjectDtoSet: new FormControl<ISubject[]>([], [
       Validators.required
     ]),
-    maxHoursPerWeek: new FormControl<number>(0, [
+    maxHoursPerWeek: new FormControl<number|null>(null, [
       Validators.required,
       Validators.pattern("^[0-9]*$"),
       Validators.min(1),

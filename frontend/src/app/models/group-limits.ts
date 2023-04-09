@@ -1,10 +1,10 @@
 import { ITimeSlot } from "./time-slot";
 import { ISubjectHoursInGroup } from "./subject-hours-in-group";
-import { ISubjectTeacherInGroup } from "./subject-teacher-in-group";
+import { ISubjectTeacherRoomInGroup } from "./subject-teacher-room-in-group";
 
 export interface IGroupLimits {
   id?: number
-  subjectTeacherInGroupDtoSet: ISubjectTeacherInGroup[],
+  subjectTeacherRoomInGroupDtoSet: ISubjectTeacherRoomInGroup[],
   subjectHoursInGroupDtoSet: ISubjectHoursInGroup[],
   maxHoursPerWeek: number,
   interschoolCombine: ITimeSlot
