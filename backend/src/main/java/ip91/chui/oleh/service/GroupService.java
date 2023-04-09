@@ -29,7 +29,7 @@ public class GroupService {
   public List<GroupDto> getAll() {
     return groupRepository.findAll()
         .stream()
-        .map(groupMapper::groupToDto)
+        .map(groupMapper::groupToDtoLimitedInfo)
         .collect(Collectors.toList());
   }
 

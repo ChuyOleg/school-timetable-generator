@@ -7,6 +7,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = { SubjectHoursInGroupMapper.class, SubjectTeacherRoomInGroupMapper.class })
 public interface GroupLimitsMapper {
 
+  @Named("groupLimitsToDto")
   @Mappings({
       @Mapping(target = "subjectTeacherRoomInGroupDtoSet", source = "subjectTeacherRoomInGroupSet"),
       @Mapping(target = "subjectHoursInGroupDtoSet", source = "subjectHoursInGroupSet")
@@ -18,6 +19,10 @@ public interface GroupLimitsMapper {
       @Mapping(target = "subjectHoursInGroupSet", source = "subjectHoursInGroupDtoSet")
   })
   GroupLimits dtoToGroupLimits(GroupLimitsDto groupLimitsDto);
+
+  @Named("groupLimitsToDtoLimitedInfo")
+  @Mapping(target = "interschoolCombine", ignore = true)
+  GroupLimitsDto groupLimitsToDtoLimitedInfo(GroupLimits groupLimits);
 
   @AfterMapping
   default void setGroupLimitsForSubjectTeacherInGroupSet(@MappingTarget GroupLimits groupLimits) {

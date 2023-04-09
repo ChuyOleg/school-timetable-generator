@@ -12,7 +12,7 @@ public class SubjectTeacherRoomInGroup {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "subjectTeacherInGroupIdGenerator")
-  @SequenceGenerator(name = "subjectTeacherInGroupIdGenerator", sequenceName = "subject_teacher_room_in_group_id_seq", allocationSize = 10)
+  @SequenceGenerator(name = "subjectTeacherInGroupIdGenerator", sequenceName = "subject_teacher_room_in_group_id_seq ", allocationSize = 10)
   private Long id;
 
   @ManyToOne

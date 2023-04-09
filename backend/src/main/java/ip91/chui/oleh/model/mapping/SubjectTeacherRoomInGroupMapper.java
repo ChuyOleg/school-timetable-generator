@@ -12,7 +12,7 @@ public interface SubjectTeacherRoomInGroupMapper {
   @Mappings({
       @Mapping(target = "id", source = "id"),
       @Mapping(target = "subjectDto", source = "subject"),
-      @Mapping(target = "teacherDto", source = "teacher"),
+      @Mapping(target = "teacherDto", source = "teacher", qualifiedByName = {"teacherToDto"}),
       @Mapping(target = "roomDto", source = "room")
   })
   SubjectTeacherRoomInGroupDto SubjectTeacherInGroupToDto(SubjectTeacherRoomInGroup subjectTeacherRoomInGroup);
