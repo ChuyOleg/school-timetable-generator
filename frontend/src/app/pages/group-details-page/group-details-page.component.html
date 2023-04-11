@@ -1,0 +1,25 @@
+<div *ngIf="group">
+  <h2 class="text-center text-lg mt-2 font-bold">
+    {{ group.gradeNumber + '-' + group.letter }}
+  </h2>
+  <div class="flex text-center justify-center mb-3">
+    <p><mat-icon class="text-lg">person_pin</mat-icon></p>
+    <p class="pt-1 pl-1">{{ group.teacherDto.name }}</p>
+  </div>
+</div>
+
+<app-limits-block [group]="group">
+</app-limits-block>
+
+<button
+  routerLink="/groups"
+  class="absolute left-5 top-[70px]
+   flex items-center px-4 py-2 font-medium text-white bg-gray-700 rounded-full
+   hover:bg-gray-800 focus:outline-none focus:ring focus:ring-gray-300"
+>
+  <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M14.71 17.71a1 1 0 0 1-1.42 0L8.7 12.41a1 1 0 0 1 0-1.42l4.59-4.58a1 1 0 1 1 1.42 1.42L11.83 11H20a1 1 0 0 1 0 2h-8.17l3.88 3.88a1 1 0 0 1 0 1.42z" />
+  </svg>
+  <span>back</span>
+</button>
+
