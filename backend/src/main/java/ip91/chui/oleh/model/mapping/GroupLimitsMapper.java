@@ -4,19 +4,17 @@ import ip91.chui.oleh.model.dto.GroupLimitsDto;
 import ip91.chui.oleh.model.entity.GroupLimits;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", uses = { SubjectHoursInGroupMapper.class, SubjectTeacherRoomInGroupMapper.class })
+@Mapper(componentModel = "spring", uses = { SubjectLimitsMapper.class })
 public interface GroupLimitsMapper {
 
   @Named("groupLimitsToDto")
   @Mappings({
-      @Mapping(target = "subjectTeacherRoomInGroupDtoSet", source = "subjectTeacherRoomInGroupSet"),
-      @Mapping(target = "subjectHoursInGroupDtoSet", source = "subjectHoursInGroupSet")
+      @Mapping(target = "subjectLimitsDtoSet", source = "subjectLimitsSet"),
   })
   GroupLimitsDto groupLimitsToDto(GroupLimits groupLimits);
 
   @Mappings({
-      @Mapping(target = "subjectTeacherRoomInGroupSet", source = "subjectTeacherRoomInGroupDtoSet"),
-      @Mapping(target = "subjectHoursInGroupSet", source = "subjectHoursInGroupDtoSet")
+      @Mapping(target = "subjectLimitsSet", source = "subjectLimitsDtoSet"),
   })
   GroupLimits dtoToGroupLimits(GroupLimitsDto groupLimitsDto);
 
@@ -25,16 +23,9 @@ public interface GroupLimitsMapper {
   GroupLimitsDto groupLimitsToDtoLimitedInfo(GroupLimits groupLimits);
 
   @AfterMapping
-  default void setGroupLimitsForSubjectTeacherInGroupSet(@MappingTarget GroupLimits groupLimits) {
-    if (groupLimits.getSubjectTeacherRoomInGroupSet() != null) {
-      groupLimits.getSubjectTeacherRoomInGroupSet().forEach(s -> s.setGroupLimits(groupLimits));
-    }
-  }
-
-  @AfterMapping
-  default void setGroupLimitsForSubjectHoursInGroupSet(@MappingTarget GroupLimits groupLimits) {
-    if (groupLimits.getSubjectHoursInGroupSet() != null) {
-      groupLimits.getSubjectHoursInGroupSet().forEach(s -> s.setGroupLimits(groupLimits));
+  default void setGroupLimitsForSubjectLimitsSet(@MappingTarget GroupLimits groupLimits) {
+    if (groupLimits.getSubjectLimitsSet() != null) {
+      groupLimits.getSubjectLimitsSet().forEach(s -> s.setGroupLimits(groupLimits));
     }
   }
 

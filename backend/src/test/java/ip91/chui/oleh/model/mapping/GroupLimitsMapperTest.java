@@ -16,37 +16,34 @@ class GroupLimitsMapperTest {
 
   @Test
   void Should_ConvertGroupLimitsToDto_When_GroupLimitsAreValid() {
-    GroupLimits groupLimits = new GroupLimits(1L, null, null, null, MAX_HOURS_PER_WEEK, null);
+    GroupLimits groupLimits = new GroupLimits(1L, null, null, MAX_HOURS_PER_WEEK, null);
 
     GroupLimitsDto groupLimitsDto = groupLimitsMapper.groupLimitsToDto(groupLimits);
 
     assertEquals(groupLimits.getId(), groupLimitsDto.getId());
-    assertNull(groupLimitsDto.getSubjectTeacherRoomInGroupDtoSet());
-    assertNull(groupLimitsDto.getSubjectHoursInGroupDtoSet());
+    assertNull(groupLimitsDto.getSubjectLimitsDtoSet());
     assertEquals(groupLimits.getMaxHoursPerWeek(), groupLimitsDto.getMaxHoursPerWeek());
   }
 
   @Test
   void Should_ConvertDtoToGroupLimits_When_DtoHasId() {
-    GroupLimitsDto groupLimitsDto = new GroupLimitsDto(1L, null, null, MAX_HOURS_PER_WEEK, null);
+    GroupLimitsDto groupLimitsDto = new GroupLimitsDto(1L, null,  MAX_HOURS_PER_WEEK, null);
 
     GroupLimits groupLimits = groupLimitsMapper.dtoToGroupLimits(groupLimitsDto);
 
     assertEquals(groupLimitsDto.getId(), groupLimits.getId());
-    assertNull(groupLimits.getSubjectTeacherRoomInGroupSet());
-    assertNull(groupLimits.getSubjectHoursInGroupSet());
+    assertNull(groupLimits.getSubjectLimitsSet());
     assertEquals(groupLimitsDto.getMaxHoursPerWeek(), groupLimits.getMaxHoursPerWeek());
   }
 
   @Test
   void Should_ConvertDtoToGroupLimits_When_DtoHasNotId() {
-    GroupLimitsDto groupLimitsDto = new GroupLimitsDto(null, null, null, MAX_HOURS_PER_WEEK, null);
+    GroupLimitsDto groupLimitsDto = new GroupLimitsDto(null, null, MAX_HOURS_PER_WEEK, null);
 
     GroupLimits groupLimits = groupLimitsMapper.dtoToGroupLimits(groupLimitsDto);
 
     assertNull(groupLimits.getId());
-    assertNull(groupLimits.getSubjectTeacherRoomInGroupSet());
-    assertNull(groupLimits.getSubjectHoursInGroupSet());
+    assertNull(groupLimits.getSubjectLimitsSet());
     assertEquals(groupLimitsDto.getMaxHoursPerWeek(), groupLimits.getMaxHoursPerWeek());
   }
 
