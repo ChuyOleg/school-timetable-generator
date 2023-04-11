@@ -48,10 +48,6 @@ INSERT INTO group_limits(class_group_id, max_hours_per_week, combine_time_slot_i
 VALUES
 (1, 35, 71);
 
-INSERT INTO subject_teacher_room_in_group(group_limits_id, subject_id, teacher_id, room_id)
+INSERT INTO subject_limits(group_limits_id, subject_id, hours, teacher_id, room_id, teacher_2_id, room_2_id)
 VALUES
-(1, 4, 5, null);
-
-INSERT INTO subject_hours_in_group(group_limits_id, subject_id, hours)
-VALUES
-(1, 4, 5);
+(1, 4, 2, 5, null, null, null)

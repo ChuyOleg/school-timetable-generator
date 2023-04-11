@@ -24,10 +24,7 @@ public class GroupLimits {
   private Group group;
 
   @OneToMany(mappedBy = "groupLimits", cascade = CascadeType.ALL, orphanRemoval = true)
-  private Set<SubjectTeacherRoomInGroup> subjectTeacherRoomInGroupSet;
-
-  @OneToMany(mappedBy = "groupLimits", cascade = CascadeType.ALL, orphanRemoval = true)
-  private Set<SubjectHoursInGroup> subjectHoursInGroupSet;
+  private Set<SubjectLimits> subjectLimitsSet;
 
   @Column(nullable = false)
   private int maxHoursPerWeek;
