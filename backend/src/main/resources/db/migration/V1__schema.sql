@@ -59,22 +59,18 @@ CREATE TABLE IF NOT EXISTS group_limits (
     combine_time_slot_id int REFERENCES time_slot(id)
 );
 
-CREATE TABLE IF NOT EXISTS subject_teacher_room_in_group (
-    id serial PRIMARY KEY ,
-    group_limits_id int NOT NULL REFERENCES group_limits(id) ON DELETE CASCADE ,
-    subject_id int NOT NULL REFERENCES subject(id) ON DELETE CASCADE ,
-    teacher_id int NOT NULL REFERENCES teacher(id) ON DELETE CASCADE ,
-    room_id int REFERENCES room(id) ON DELETE CASCADE ,
-    UNIQUE (group_limits_id, subject_id, teacher_id)
-);
-
-CREATE TABLE IF NOT EXISTS subject_hours_in_group (
+CREATE TABLE IF NOT EXISTS subject_limits (
     id serial PRIMARY KEY ,
     group_limits_id int NOT NULL REFERENCES group_limits(id) ON DELETE CASCADE ,
     subject_id int NOT NULL REFERENCES subject(id) ON DELETE CASCADE ,
     hours double precision NOT NULL ,
+    teacher_id int NOT NULL REFERENCES teacher(id) ON DELETE CASCADE ,
+    room_id int REFERENCES room(id) ON DELETE CASCADE ,
+    teacher_2_id int REFERENCES teacher(id) ON DELETE CASCADE ,
+    room_2_id int REFERENCES room(id) ON DELETE CASCADE ,
     UNIQUE (group_limits_id, subject_id)
 );
+
 
 CREATE TABLE IF NOT EXISTS time_table (
     id serial PRIMARY KEY

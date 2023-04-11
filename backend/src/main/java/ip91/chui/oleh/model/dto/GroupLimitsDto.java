@@ -18,11 +18,8 @@ public class GroupLimitsDto {
 
   private Long id;
 
-  @NotEmpty(message = "Group should have info about mapping subjects and teachers")
-  private Set<@Valid SubjectTeacherRoomInGroupDto> subjectTeacherRoomInGroupDtoSet;
-
-  @NotEmpty(message = "Group should have info about hours per every subject")
-  private Set<@Valid SubjectHoursInGroupDto> subjectHoursInGroupDtoSet;
+  @NotEmpty(message = "Group should have info about subject limits")
+  private Set<@Valid SubjectLimitsDto> subjectLimitsDtoSet;
 
   @NotNull(message = "GroupLimits should have have maxHoursPerWeek value")
   @Min(value = 1, message = "Min value of maxHoursPerWeek is 1")

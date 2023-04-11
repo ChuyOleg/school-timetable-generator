@@ -58,4 +58,9 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
   }
 
+  @ExceptionHandler(value = {TimeSlotProcessingException.class})
+  public ResponseEntity<String> handleTimeSlotProcessingException(TimeSlotProcessingException ex) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+  }
+
 }
