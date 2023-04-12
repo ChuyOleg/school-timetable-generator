@@ -22,14 +22,13 @@
       (click)="update()"
     ><mat-icon class="text-base">edit</mat-icon></button>
 
-    <button
-      class="absolute -top-1 left-0"
-      [ngClass]="{
+    <a routerLink="/groups/{{group.id}}"
+       class="absolute -top-1 left-0"
+       [ngClass]="{
         'text-green-500' : group.groupLimitsDto,
         'text-gray-400' : !group.groupLimitsDto
        }"
-      (click)="update()"
-    ><mat-icon class="text-lg">home</mat-icon></button>
+    ><mat-icon class="text-lg">home</mat-icon></a>
 
   </div>
 </div>

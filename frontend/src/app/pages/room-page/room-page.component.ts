@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomService } from "../../services/room/room.service";
 import { RoomModalService } from "../../services/room/room-modal.service";
+import { delay } from "rxjs";
 
 @Component({
   selector: 'app-room-page',
@@ -19,7 +20,7 @@ export class RoomPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.roomService.getAll().subscribe(() => {
+    this.roomService.getAll().pipe(delay(500)).subscribe(() => {
       this.loading = false;
     })
   }

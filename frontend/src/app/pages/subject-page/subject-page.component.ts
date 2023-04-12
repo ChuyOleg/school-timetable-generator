@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SubjectService } from "../../services/subject/subject.service";
 import { SubjectModalService } from "../../services/subject/subject-modal.service";
+import { delay } from "rxjs";
 
 @Component({
   selector: 'app-subject-block-page',
@@ -19,7 +20,7 @@ export class SubjectPageComponent implements OnInit{
 
   ngOnInit(): void {
     this.loading = true;
-    this.subjectService.getAll().subscribe(() => {
+    this.subjectService.getAll().pipe(delay(500)).subscribe(() => {
       this.loading = false;
     })
   }

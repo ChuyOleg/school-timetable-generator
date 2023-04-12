@@ -16,7 +16,7 @@ export class CreateRoomComponent {
     name: new FormControl<string>('', [
       Validators.required
     ]),
-    capacity: new FormControl<number>(0, [
+    capacity: new FormControl<number|null>(null, [
       Validators.required,
       Validators.pattern("^[0-9]*$"),
       Validators.min(1),
