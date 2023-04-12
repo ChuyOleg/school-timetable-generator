@@ -13,6 +13,7 @@ import { IGroupLimits } from "../../../models/group-limits";
 import { ITimeSlot } from "../../../models/time-slot";
 import { EWeekType } from "../../../models/enumeration/week-type";
 import { ISubjectLimits } from "../../../models/subject-limits";
+import { firstValueFrom } from "rxjs";
 
 interface SubjectFormGroup {
   id?: number
@@ -66,25 +67,38 @@ export class LimitsBlockComponent implements OnChanges {
   submit() {
     this.submitButtonIsPressed = true;
 
-    if (this.maxHoursPerWeek.valid && this.isInterschoolCombineValid() && this.isEveryPickedSubjectGroupValid()) {
-      const groupLimits: IGroupLimits = {
-        id: this.group.groupLimitsDto?.id,
-        subjectLimitsDtoSet: this.buildSubjectLimitsSet(),
-        maxHoursPerWeek: this.maxHoursPerWeek.value as number,
-        interschoolCombine: this.buildInterschoolCombineInstance()
-      }
-
-      console.log(groupLimits)
+    if (this.isFormValid()) {
+      const groupLimits = this.buildGroupLimits();
 
       if (this.isCreated) {
-        this.group.groupLimitsDto = groupLimits;
-        this.groupService.edit(this.group).subscribe(() => window.location.reload());
+        this.editGroup(groupLimits);
       } else {
-        this.group.groupLimitsDto = groupLimits;
-        this.groupService.create(this.group).subscribe(() => window.location.reload());
+        this.createGroup(groupLimits);
       }
     }
+  }
 
+  private isFormValid(): boolean {
+    return this.maxHoursPerWeek.valid && this.isInterschoolCombineValid() && this.isEveryPickedSubjectGroupValid();
+  }
+
+  private buildGroupLimits(): IGroupLimits {
+    return {
+      id: this.group.groupLimitsDto?.id,
+      subjectLimitsDtoSet: this.buildSubjectLimitsSet(),
+      maxHoursPerWeek: this.maxHoursPerWeek.value as number,
+      interschoolCombine: this.buildInterschoolCombineInstance()
+    };
+  }
+
+  private editGroup(groupLimits: IGroupLimits): void {
+    this.group.groupLimitsDto = groupLimits;
+    this.groupService.edit(this.group).subscribe(() => window.location.reload());
+  }
+
+  private createGroup(groupLimits: IGroupLimits): void {
+    this.group.groupLimitsDto = groupLimits;
+    this.groupService.create(this.group).subscribe(() => window.location.reload());
   }
 
   private isEveryPickedSubjectGroupValid(): boolean {
@@ -103,11 +117,7 @@ export class LimitsBlockComponent implements OnChanges {
   }
 
   private isInterschoolCombineValid(): boolean {
-    if (this.interschoolCombineIsPicked) {
-      return this.interschoolCombineFormGroup.valid;
-    } else {
-      return true;
-    }
+    return !this.interschoolCombineIsPicked || this.interschoolCombineFormGroup.valid;
   }
 
   private buildSubjectLimitsSet(): ISubjectLimits[] {
@@ -146,63 +156,58 @@ export class LimitsBlockComponent implements OnChanges {
     return  this.group.groupLimitsDto?.subjectLimitsDtoSet.find(dto => dto.subjectDto.id == subjectDto.id)?.id;
   }
 
-  ngOnChanges() {
+  async ngOnChanges() {
     if (this.group) {
 
-      if (this.group.groupLimitsDto) {
-        this.subjectService.getAll().subscribe(subjects => {
-          this.pickedSubjects = []
-          this.unpickedSubjects = []
-
-          this.group.groupLimitsDto?.subjectLimitsDtoSet.forEach(dto => {
-            this.pickedSubjects.push(dto.subjectDto);
-            this.createSubjectFormGroup(dto.subjectDto);
-            if (dto.subjectDto.id) {
-              this.subjectFormGroupsRecord[dto.subjectDto.id].id = dto.id;
-              this.subjectFormGroupsRecord[dto.subjectDto.id].hours.setValue(dto.hours);
-              this.subjectFormGroupsRecord[dto.subjectDto.id].teacher.setValue(dto.teacherDto);
-              this.subjectFormGroupsRecord[dto.subjectDto.id].room?.setValue(dto.roomDto || null);
-              if (dto.teacherDto2) {
-                this.addSubGroup2(dto.subjectDto);
-                this.subjectFormGroupsRecord[dto.subjectDto.id].teacher2?.setValue(dto.teacherDto2 || null);
-                this.subjectFormGroupsRecord[dto.subjectDto.id].room2?.setValue(dto.roomDto2 || null);
-              }
-            }
-          })
-
-          this.unpickedSubjects = subjects.filter(s => {
-            return this.pickedSubjects.find(subj => subj.id === s.id) == null;
-          });
-
-          if (this.group.groupLimitsDto?.interschoolCombine) {
-            this.interschoolCombineIsPicked = true;
-            this.interschoolCombineFormGroup.controls.day.setValue(this.group.groupLimitsDto.interschoolCombine.day);
-            this.interschoolCombineFormGroup.controls.lessonNumber.setValue(this.group.groupLimitsDto.interschoolCombine.lessonNumber);
-          }
-
-          this.isLoaded = true;
-        })
-        this.isCreated = true;
-
-      } else {
-        this.subjectService.getAll().subscribe(subjects => {
-          this.pickedSubjects = subjects;
-          this.unpickedSubjects = [];
-
-          this.pickedSubjects.forEach(subject => {
-            this.createSubjectFormGroup(subject);
-          })
-          this.isLoaded = true;
-        })
-      }
-
-      if (this.group.gradeNumber >= 9) {
-        this.interschoolCombineIsPicked = true;
-      }
-
+      const subjects = await firstValueFrom(this.subjectService.getAll());
       this.teacherService.getAll().subscribe();
       this.roomService.getAll().subscribe();
+
+      this.pickedSubjects = [];
+      this.unpickedSubjects = [];
+
+      if (this.group.groupLimitsDto) {
+        this.handleGroupLimitsDto(this.group.groupLimitsDto, subjects);
+      } else {
+        this.handleNoGroupLimitsDto(subjects);
+      }
+
+      this.setInterschoolCombineByGradeNumber(this.group.gradeNumber);
+      this.isLoaded = true;
     }
+  }
+
+  handleGroupLimitsDto(groupLimits: IGroupLimits, subjects: ISubject[]) {
+    groupLimits.subjectLimitsDtoSet.forEach(dto => {
+      this.pickedSubjects.push(dto.subjectDto);
+      this.createSubjectFormGroup(dto.subjectDto);
+      if (dto.subjectDto.id) {
+        this.subjectFormGroupsRecord[dto.subjectDto.id].id = dto.id;
+        this.subjectFormGroupsRecord[dto.subjectDto.id].hours.setValue(dto.hours);
+        this.subjectFormGroupsRecord[dto.subjectDto.id].teacher.setValue(dto.teacherDto);
+        this.subjectFormGroupsRecord[dto.subjectDto.id].room?.setValue(dto.roomDto || null);
+        if (dto.teacherDto2) {
+          this.addSubGroup2(dto.subjectDto);
+          this.subjectFormGroupsRecord[dto.subjectDto.id].teacher2?.setValue(dto.teacherDto2 || null);
+          this.subjectFormGroupsRecord[dto.subjectDto.id].room2?.setValue(dto.roomDto2 || null);
+        }
+      }
+    })
+
+    this.unpickedSubjects = subjects.filter(s => {
+      return this.pickedSubjects.find(subj => subj.id === s.id) == null;
+    });
+
+    this.initInterschoolCombineIfPresent(groupLimits);
+    this.isCreated = true;
+  }
+
+  handleNoGroupLimitsDto(subjects: ISubject[]) {
+    this.pickedSubjects = subjects;
+
+    this.pickedSubjects.forEach(subject => {
+      this.createSubjectFormGroup(subject);
+    })
   }
 
   pickSubject() {
@@ -229,43 +234,23 @@ export class LimitsBlockComponent implements OnChanges {
   }
 
   getSubjectHoursFormControl(subject: ISubject): FormControl<number|null> {
-    if (subject.id) {
-      return this.subjectFormGroupsRecord[subject.id].hours;
-    } else {
-      return new FormControl;
-    }
+    return subject.id ? this.subjectFormGroupsRecord[subject.id].hours : new FormControl;
   }
 
   getSubjectTeacherFormControl(subject: ISubject): FormControl<ITeacher|null> {
-    if (subject.id) {
-      return this.subjectFormGroupsRecord[subject.id].teacher;
-    } else {
-      return new FormControl;
-    }
+    return subject.id ? this.subjectFormGroupsRecord[subject.id].teacher : new FormControl;
   }
 
   getSubjectTeacherSubGroup2FormControl(subject: ISubject): FormControl<ITeacher|null> {
-    if (subject.id) {
-      return this.subjectFormGroupsRecord[subject.id].teacher2 || new FormControl;
-    } else {
-      return new FormControl;
-    }
+    return subject.id ? (this.subjectFormGroupsRecord[subject.id].teacher2 || new FormControl) : new FormControl;
   }
 
   getSubjectRoomFormControl(subject: ISubject): FormControl<IRoom|null> {
-    if (subject.id) {
-      return this.subjectFormGroupsRecord[subject.id].room;
-    } else {
-      return new FormControl;
-    }
+    return subject.id ? this.subjectFormGroupsRecord[subject.id].room : new FormControl;
   }
 
   getSubjectRoomSubGroup2FormControl(subject: ISubject): FormControl<IRoom|null>{
-    if (subject.id) {
-      return this.subjectFormGroupsRecord[subject.id].room2 || new FormControl;
-    } else {
-      return new FormControl;
-    }
+    return subject.id ? (this.subjectFormGroupsRecord[subject.id].room2 || new FormControl) : new FormControl;
   }
 
   get interschoolCombineDay() {
@@ -278,10 +263,7 @@ export class LimitsBlockComponent implements OnChanges {
   }
 
   subGroup2IsOpen(subject: ISubject): boolean {
-    if (subject.id) {
-      return (this.subjectFormGroupsRecord[subject.id].teacher2 != undefined);
-    }
-    return false;
+    return Boolean(subject.id && this.subjectFormGroupsRecord[subject.id].teacher2);
   }
 
   addSubGroup2(subject: ISubject) {
@@ -308,6 +290,18 @@ export class LimitsBlockComponent implements OnChanges {
     });
 
     this.maxHoursPerWeek.setValue(sum);
+  }
+
+  private initInterschoolCombineIfPresent(groupLimits: IGroupLimits) {
+    if (groupLimits.interschoolCombine) {
+      this.interschoolCombineIsPicked = true;
+      this.interschoolCombineFormGroup.controls.day.setValue(groupLimits.interschoolCombine.day);
+      this.interschoolCombineFormGroup.controls.lessonNumber.setValue(groupLimits.interschoolCombine.lessonNumber);
+    }
+  }
+
+  private setInterschoolCombineByGradeNumber(gradeNumber: number) {
+    this.interschoolCombineIsPicked = gradeNumber >= 9;
   }
 
   toggleInterschoolCombine() {
