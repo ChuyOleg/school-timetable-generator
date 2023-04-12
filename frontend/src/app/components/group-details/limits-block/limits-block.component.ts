@@ -13,7 +13,7 @@ import { IGroupLimits } from "../../../models/group-limits";
 import { ITimeSlot } from "../../../models/time-slot";
 import { EWeekType } from "../../../models/enumeration/week-type";
 import { ISubjectLimits } from "../../../models/subject-limits";
-import { firstValueFrom } from "rxjs";
+import { delay, firstValueFrom } from "rxjs";
 
 interface SubjectFormGroup {
   id?: number
@@ -159,7 +159,7 @@ export class LimitsBlockComponent implements OnChanges {
   async ngOnChanges() {
     if (this.group) {
 
-      const subjects = await firstValueFrom(this.subjectService.getAll());
+      const subjects = await firstValueFrom(this.subjectService.getAll().pipe(delay(500)));
       this.teacherService.getAll().subscribe();
       this.roomService.getAll().subscribe();
 
