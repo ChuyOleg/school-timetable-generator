@@ -1,19 +1,12 @@
-<h3 class="font-bold text-center mt-3 mb-5">Кімнати</h3>
+<h3 class="font-bold text-center mt-3 mb-5">Rooms</h3>
 
 <div class="flex items-center justify-center">
   <input
     type="text"
     class="mb-5 border py-2 px-4 w-2/3"
-    placeholder="Фільтрувати кімнати..."
+    placeholder="Filter rooms..."
     [(ngModel)]="term"
   >
-</div>
-
-<div
-  class="text-center text-red-800 font-bold mb-3"
-  *ngIf="roomService.rooms.length == maxRoomNumber"
->
-  Ви створили максимальну кількість кімнат ({{ maxRoomNumber }})
 </div>
 
 <div role="status" *ngIf="loading" class="flex justify-center mt-2">
@@ -33,16 +26,15 @@
   ></app-room-block>
 </div>
 
-<app-room-modal *ngIf="modalService.createIsVisible$ | async" title="Створити нову кімнату">
+<app-room-modal *ngIf="modalService.createIsVisible$ | async" title="Create new room">
   <app-create-room></app-create-room>
 </app-room-modal>
 
-<app-room-modal *ngIf="modalService.updateIsVisible$ | async" title="Обновити кімнату">
+<app-room-modal *ngIf="modalService.updateIsVisible$ | async" title="Update room">
   <app-edit-room></app-edit-room>
 </app-room-modal>
 
 <button
   class="rounded-full bg-red-700 text-white fixed right-5 bottom-16 py-2 px-4"
-  *ngIf="roomService.rooms.length < maxRoomNumber"
   (click)="modalService.openCreateModal()"
 >+</button>

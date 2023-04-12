@@ -15,7 +15,7 @@ export class CreateGroupComponent implements OnInit {
   submitButtonIsPressed: boolean = false
 
   form = new FormGroup({
-    gradeNumber: new FormControl<number>(0, [
+    gradeNumber: new FormControl<number|null>(null, [
       Validators.required,
       Validators.pattern("^[0-9]*$"),
       Validators.min(1),
@@ -25,7 +25,7 @@ export class CreateGroupComponent implements OnInit {
       Validators.required,
       Validators.pattern("^([A-ZА-ЯҐЄІЇ]){1}$")
     ]),
-    shift: new FormControl<number>(0, [
+    shift: new FormControl<number|null>(null, [
       Validators.required,
       Validators.pattern("^[0-9]*$"),
       Validators.min(1),

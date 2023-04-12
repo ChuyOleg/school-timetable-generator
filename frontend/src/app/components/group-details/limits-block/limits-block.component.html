@@ -23,19 +23,14 @@
             [formControl]="getSubjectHoursFormControl(subject)"
             maxlength="4"
           >
-          <span class="italic text-lg font-bold ml-2 text-sm">год/тижд</span>
+          <span class="italic text-lg font-bold ml-2">h/week</span>
 
           <p
-            class="text-red-600 italic font-mono font-bold mb-2 text-sm"
+            class="text-red-600 italic font-mono font-bold mb-2"
             *ngIf="(getSubjectHoursFormControl(subject).errors?.required || getSubjectHoursFormControl(subject).errors?.pattern
          || getSubjectHoursFormControl(subject).errors?.min || getSubjectHoursFormControl(subject).errors?.max)
          && (getSubjectHoursFormControl(subject).dirty || submitButtonIsPressed)"
-          >0.5 - 10 год/тижд</p>
-          <p
-            class="text-red-600 italic font-mono font-bold mb-2 text-sm"
-            *ngIf="(getSubjectHoursFormControl(subject).errors?.subgroupHoursIsInteger)
-         && (getSubjectHoursFormControl(subject).dirty || submitButtonIsPressed)"
-          >Повинне бути цілим числом, якщо 2 підгрупи</p>
+          >0.5 - 10 h/week</p>
 
           <button
             type="button"
@@ -55,7 +50,7 @@
         <div class="w-2/4 grid grid-cols-2 relative">
           <div class="w-full text-center">
             <mat-form-field appearance="fill" class="w-5/6">
-              <mat-label>Вчитель</mat-label>
+              <mat-label>Teacher</mat-label>
               <mat-select [formControl]="getSubjectTeacherFormControl(subject)" [compareWith]="compareTeachers">
                 <mat-option
                   *ngFor="let teacher of teacherService.teachers |
@@ -68,7 +63,7 @@
 
           <div class="w-full text-center">
             <mat-form-field appearance="fill" class="w-5/6">
-              <mat-label>Кімната</mat-label>
+              <mat-label>Room</mat-label>
               <mat-select [formControl]="getSubjectRoomFormControl(subject)" [compareWith]="compareRooms">
                 <mat-option *ngFor="let room of roomService.rooms" [value]="room">{{ room.name }}</mat-option>
               </mat-select>
@@ -85,7 +80,7 @@
 
           <div class="w-full text-center" *ngIf="subGroup2IsOpen(subject)">
             <mat-form-field appearance="fill" class="w-5/6">
-              <mat-label>Вчитель</mat-label>
+              <mat-label>Teacher</mat-label>
               <mat-select [formControl]="getSubjectTeacherSubGroup2FormControl(subject)" [compareWith]="compareTeachers">
                 <mat-option
                   *ngFor="let teacher of teacherService.teachers |
@@ -98,7 +93,7 @@
 
           <div class="w-full text-center" *ngIf="subGroup2IsOpen(subject)">
             <mat-form-field appearance="fill" class="w-5/6">
-              <mat-label>Кімната</mat-label>
+              <mat-label>Room</mat-label>
               <mat-select [formControl]="getSubjectRoomSubGroup2FormControl(subject)" [compareWith]="compareRooms">
                 <mat-option *ngFor="let room of roomService.rooms" [value]="room">{{ room.name }}</mat-option>
               </mat-select>
@@ -123,7 +118,7 @@
       >+</button>
 
       <mat-form-field appearance="fill" class="w-4/6 ml-3 mt-2">
-        <mat-label>Оберіть предмет</mat-label>
+        <mat-label>Select Subjects</mat-label>
         <mat-select [formControl]="newSubjectFormControl">
           <mat-option *ngFor="let subject of unpickedSubjects" [value]="subject">{{ subject.name }}</mat-option>
         </mat-select>
@@ -132,7 +127,7 @@
 
     <div class="flex w-2/3 mt-2">
       <div class="w-1/12   relative">
-        <span class="">МНВК</span>
+        <span class="">IETC</span>
         <button
           type="button"
           *ngIf="!interschoolCombineIsPicked"
@@ -152,16 +147,16 @@
         <div *ngIf="interschoolCombineIsPicked" class="w-full flex">
           <div class="w-1/3 text-center">
             <mat-form-field appearance="fill" class="w-full">
-              <mat-label>День</mat-label>
+              <mat-label>Day</mat-label>
               <mat-select [formControl]="interschoolCombineDay">
-                <mat-option *ngFor="let day of days" [value]="day">{{ translateDayToUkrainian(day) }}</mat-option>
+                <mat-option *ngFor="let day of days" [value]="day">{{ day }}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
 
           <div class="w-1/3 text-center">
             <mat-form-field appearance="fill" class="w-full ml-2">
-              <mat-label>Номер урока</mat-label>
+              <mat-label>Lesson number</mat-label>
               <mat-select [formControl]="interschoolCombineLessonNumber">
                 <mat-option *ngFor="let lessonNumber of lessonNumbers" [value]="lessonNumber">{{ lessonNumber }}</mat-option>
               </mat-select>
@@ -174,15 +169,15 @@
     <div *ngIf="group" class="absolute right-5 top-4 border-b-2 border-b-black">
       <mat-icon class="text-base">access_time</mat-icon>
       <span class="text-center">{{ maxHoursPerWeek.value }}</span>
-      <span class="italic text-lg font-bold ml-2 text-sm">год/тижд</span>
+      <span class="italic text-lg font-bold ml-2">h/week</span>
     </div>
 
     <p
       *ngIf="(maxHoursPerWeek.errors?.required || maxHoursPerWeek.errors?.pattern
          || maxHoursPerWeek.errors?.min || maxHoursPerWeek.errors?.max)
          && (maxHoursPerWeek.dirty || submitButtonIsPressed)"
-      class="absolute right-3 top-14 text-red-600 italic font-mono font-bold text-sm"
-    >1 - 40 год/тижд</p>
+      class="absolute right-3 top-14 text-red-600 italic font-mono font-bold"
+    >1 - 40 h/week</p>
 
   </div>
 
@@ -193,7 +188,7 @@
       class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold
        hover:text-white py-2 px-4 border border-2 border-blue-500 hover:border-transparent rounded"
       [ngClass]="{ 'hover:bg-yellow-500 text-yellow-600 border-yellow-500' : isCreated }"
-    >{{ isCreated ? 'Обновити' : 'Зберегти' }}</button>
+    >{{ isCreated ? 'Update' : 'Save' }}</button>
 
   </div>
 

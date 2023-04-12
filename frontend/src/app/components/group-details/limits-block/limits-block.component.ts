@@ -4,7 +4,7 @@ import { GroupService } from "../../../services/group/group.service";
 import { SubjectService } from "../../../services/subject/subject.service";
 import { RoomService } from "../../../services/room/room.service";
 import { TeacherService } from "../../../services/teacher/teacher.service";
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ISubject } from "../../../models/subject";
 import { ITeacher } from "../../../models/teacher";
 import { IRoom } from "../../../models/room";
@@ -108,14 +108,6 @@ export class LimitsBlockComponent implements OnChanges {
 
         if (valid && this.subjectFormGroupsRecord[s.id].teacher2) {
           valid = this.subjectFormGroupsRecord[s.id].teacher2?.valid || false;
-        }
-
-        if (valid && this.subjectFormGroupsRecord[s.id].room) {
-          valid = this.subjectFormGroupsRecord[s.id].room?.valid || false;
-        }
-
-        if (valid && this.subjectFormGroupsRecord[s.id].room2) {
-          valid = this.subjectFormGroupsRecord[s.id].room2?.valid || false;
         }
 
         return valid;
@@ -309,7 +301,7 @@ export class LimitsBlockComponent implements OnChanges {
   }
 
   private setInterschoolCombineByGradeNumber(gradeNumber: number) {
-    this.interschoolCombineIsPicked = gradeNumber >= 10;
+    this.interschoolCombineIsPicked = gradeNumber >= 9;
   }
 
   toggleInterschoolCombine() {
@@ -331,66 +323,20 @@ export class LimitsBlockComponent implements OnChanges {
       Validators.required,
       Validators.pattern("^[0-9]+(\\.5)?$"),
       Validators.min(0.5),
-      Validators.max(10),
-      this.subgroupsHoursIsIntegerValidator.bind(this)]
-    );
+      Validators.max(10)]);
 
     formControl.valueChanges.subscribe(() => this.calculateSum());
     return formControl;
   }
 
-  private subgroupsHoursIsIntegerValidator(control: AbstractControl): ValidationErrors | null {
-    const hours: number = control.value;
-
-    const teacher2 = Object.values(this.subjectFormGroupsRecord)
-      .find(formGroup => formGroup.hours === control)?.teacher2 || null;
-
-    if (teacher2 && !Number.isInteger(Number(hours))) {
-      control.setErrors({ subgroupHoursIsInteger: true })
-      return { subgroupHoursIsInteger: true };
-    } else {
-      control.setErrors(null)
-      return null;
-    }
-  }
-
   private createSubjectTeacherFormControl(): FormControl<ITeacher|null> {
     return new FormControl<ITeacher|null>(null, [
-      Validators.required,
-      this.subgroupsTeachersAreDifferentValidator.bind(this)]
-    );
-  }
-
-  private subgroupsTeachersAreDifferentValidator(control: AbstractControl): ValidationErrors | null {
-    const formGroup = Object.values(this.subjectFormGroupsRecord)
-      .find(formGroup => (formGroup.teacher === control) || (formGroup.teacher2 === control));
-
-    if (formGroup && formGroup.teacher2?.value && (formGroup.teacher.value?.id === formGroup.teacher2.value?.id)) {
-      control.setErrors({ subgroupsTeachersAreSame: true })
-      return { subgroupsTeachersAreSame: true };
-    } else {
-      control.setErrors(null);
-      return null;
-    }
-  }
-
-  private createSubjectRoomFormControl(): FormControl<IRoom|null> {
-    return new FormControl<IRoom|null>(null, [
-      this.subgroupsRoomsAreDifferentValidator.bind(this)
+      Validators.required
     ]);
   }
 
-  private subgroupsRoomsAreDifferentValidator(control: AbstractControl): ValidationErrors | null {
-    const formGroup = Object.values(this.subjectFormGroupsRecord)
-      .find(formGroup => (formGroup.room === control) || (formGroup.room2 === control));
-
-    if (formGroup && formGroup.room2?.value && (formGroup.room.value?.id === formGroup.room2.value?.id)) {
-      control.setErrors({ subgroupsRoomsAreSame: true })
-      return { subgroupsRoomsAreSame: true };
-    } else {
-      control.setErrors(null);
-      return null;
-    }
+  private createSubjectRoomFormControl(): FormControl<IRoom|null> {
+    return new FormControl<IRoom|null>(null, []);
   }
 
   compareTeachers(teacher1: ITeacher, teacher2: ITeacher) {
@@ -399,16 +345,6 @@ export class LimitsBlockComponent implements OnChanges {
 
   compareRooms(room1: IRoom, room2: IRoom) {
     return room1 && room2 ? room1.id === room2.id : room1 === room2;
-  }
-
-  translateDayToUkrainian(day: EDayOfWeek): string {
-    switch (day) {
-      case EDayOfWeek.MONDAY: return 'Понеділок';
-      case EDayOfWeek.TUESDAY: return 'Вівторок';
-      case EDayOfWeek.WEDNESDAY: return 'Середа';
-      case EDayOfWeek.THURSDAY: return 'Четвер';
-      case EDayOfWeek.FRIDAY: return "П'ятниця";
-    }
   }
 
 }

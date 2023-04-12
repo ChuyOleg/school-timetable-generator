@@ -44,6 +44,10 @@ import { GroupModalComponent } from './components/group/group-modal/group-modal.
 import { FilterGroupsPipe } from './pipes/filter-groups.pipe';
 import { SortGroupsPipe } from './pipes/sort-groups.pipe';
 import { EditGroupComponent } from './components/group/edit-group/edit-group.component';
+import { GroupDetailsPageComponent } from './pages/group-details-page/group-details-page.component';
+import { LimitsBlockComponent } from './components/group-details/limits-block/limits-block.component';
+import { FilterTeachersBySubjectPipe } from './pipes/filter-teachers-by-subject.pipe';
+import { AddClassTeacherForPrimarySchoolPipe } from './pipes/add-class-teacher-for-primary-school.pipe';
 
 @NgModule({
   declarations: [
@@ -81,7 +85,11 @@ import { EditGroupComponent } from './components/group/edit-group/edit-group.com
     GroupModalComponent,
     FilterGroupsPipe,
     SortGroupsPipe,
-    EditGroupComponent
+    EditGroupComponent,
+    GroupDetailsPageComponent,
+    LimitsBlockComponent,
+    FilterTeachersBySubjectPipe,
+    AddClassTeacherForPrimarySchoolPipe
   ],
   imports: [
     BrowserModule,
