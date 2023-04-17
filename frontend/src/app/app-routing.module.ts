@@ -6,8 +6,12 @@ import { TeacherPageComponent } from "./pages/teacher-page/teacher-page.componen
 import { RoomPageComponent } from "./pages/room-page/room-page.component";
 import { GroupPageComponent } from "./pages/group-page/group-page.component";
 import { GroupDetailsPageComponent } from "./pages/group-details-page/group-details-page.component";
+import { RegisterPageComponent } from "./pages/register-page/register-page/register-page.component";
+import { LoginPageComponent } from "./pages/login-page/login-page/login-page.component";
 
 const routes: Routes = [
+  { path: 'registration', component: RegisterPageComponent },
+  { path: 'login', component: LoginPageComponent },
   { path: 'subjects', component: SubjectPageComponent },
   { path: 'about', component: AboutPageComponent },
   { path: 'teachers', component: TeacherPageComponent },

@@ -1,0 +1,70 @@
+<section class="bg-gray-50 dark:bg-gray-900 h-full w-full pt-16">
+  <div class="flex flex-col items-center justify-center px-6 mx-auto">
+    <div class="w-full bg-white rounded-lg shadow dark:border sm:max-w-md dark:bg-gray-800 dark:border-gray-700">
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+
+        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+          Create an account
+        </h1>
+        <form class="space-y-4 md:space-y-6" [formGroup]="form" (ngSubmit)="submit()">
+
+          <div>
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+            <input type="email" name="email" id="email"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600
+                     focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                     dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                   placeholder="name@company.com" formControlName="email"
+                   [ngClass]="{'border-red-600 dark:border-red-600' : email.errors?.required && (email.dirty || submitButtonIsPressed)}"
+            >
+            <p
+              class="text-red-600 font-mono font-bold mb-2 text-sm mt-1"
+              *ngIf="email.errors?.email && submitButtonIsPressed"
+            >The email address you entered is not valid. Please try again.</p>
+            <p
+              class="text-red-600 font-mono font-bold mb-2 text-sm mt-1"
+              *ngIf="!emailIsUnique && (email.dirty || submitButtonIsPressed)"
+            >The email you entered is already registered. Please choose a different email address or log in with your existing account.</p>
+          </div>
+
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+            <input type="password" name="password" id="password"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600
+                     focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                     dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                   placeholder="••••••••" formControlName="password"
+                   [ngClass]="{'border-red-600 dark:border-red-600' : password.errors?.required && (password.dirty || submitButtonIsPressed)}"
+            >
+            <p
+              class="text-red-600 font-mono font-bold mb-2 text-sm mt-1"
+              *ngIf="password.errors?.pattern && (password.dirty || submitButtonIsPressed)"
+            >Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.</p>
+          </div>
+
+          <div>
+            <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
+            <input type="password" name="confirm-password" id="confirm-password"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600
+                     focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                     dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                   placeholder="••••••••" formControlName="confirmPassword"
+                   [ngClass]="{'border-red-600 dark:border-red-600' : confirmPassword.errors?.required && (confirmPassword.dirty || submitButtonIsPressed)}"
+            >
+            <p
+              class="text-red-600 font-mono font-bold mb-2 text-sm mt-1"
+              *ngIf="confirmPassword.errors?.passwordMatch && (confirmPassword.dirty || submitButtonIsPressed)"
+            >The passwords you entered do not match. Please try again.</p>
+          </div>
+
+          <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create an account</button>
+
+          <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+            Already have an account? <a routerLink="/login" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Login here</a>
+          </p>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
