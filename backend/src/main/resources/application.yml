@@ -45,3 +45,10 @@ web:
     allowed-origins: 'http://localhost:4200'
     allowed-methods: GET, POST, PUT, DELETE, OPTIONS
     max-age: 3600
+
+
+security:
+  jwt:
+    signing-key: ${SCHOOL_TIMETABLE_GENERATOR_SIGNING_KEY:232808AB4D625165F4F8571D2A7133343147397A14832848298A409E63526255}
+    access-token:
+      expiration: 14_400_000 # 4 hours
