@@ -1,6 +1,13 @@
 -- DROP SCHEMA public CASCADE;
 -- CREATE SCHEMA public;
 
+CREATE TABLE IF NOT EXISTS users (
+    id serial PRIMARY KEY ,
+    email varchar(128) NOT NULL UNIQUE ,
+    password varchar(256) NOT NULL ,
+    role varchar(16) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS subject (
     id serial PRIMARY KEY ,
     name varchar(64) NOT NULL

@@ -1,6 +1,5 @@
 package ip91.chui.oleh.controller;
 
-import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import ip91.chui.oleh.model.dto.auth.AuthenticationRequest;
 import ip91.chui.oleh.model.dto.auth.RegisterRequest;
 import ip91.chui.oleh.service.auth.AuthenticationService;
@@ -13,7 +12,6 @@ import static ip91.chui.oleh.config.security.JwtAuthenticationFilter.*;
 
 @RestController
 @RequestMapping("/v1/auth")
-@SecurityRequirements
 @RequiredArgsConstructor
 public class AuthenticationController {
 
