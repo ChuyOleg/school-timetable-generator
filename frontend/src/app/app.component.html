@@ -1,11 +1,23 @@
-<app-navigation></app-navigation>
-
-<div class="max-w-5xl container mx-auto mb-5 pt-[60px]">
-
+<div *ngIf="router.url.includes('registration') || router.url.includes('login')" class="flex flex-col h-screen">
   <app-global-error></app-global-error>
 
-  <router-outlet></router-outlet>
+  <div class="flex flex-col h-screen">
+    <div class="grow">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 
 </div>
+<div *ngIf="!router.url.includes('registration') && !router.url.includes('login')" class="flex flex-col h-screen">
+  <app-navigation></app-navigation>
 
-<app-footer></app-footer>
+  <div class="max-w-5xl grow container mx-auto mb-5 pt-[60px]">
+
+    <app-global-error></app-global-error>
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+  <app-footer></app-footer>
+</div>

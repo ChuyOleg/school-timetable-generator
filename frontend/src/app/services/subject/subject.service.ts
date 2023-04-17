@@ -11,8 +11,8 @@ import { Constants } from "../../config/constants";
 export class SubjectService {
   constructor(
     private http: HttpClient,
-    private errorService: ErrorService) {
-  }
+    private errorService: ErrorService,
+  ) {}
 
   private baseUrl = Constants.API_BASE_URL;
   subjects: ISubject[] = []

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SubjectBlockComponent } from "./components/subject/subject-block/subject-block.component";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { GlobalErrorComponent } from './components/global-error/global-error.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FilterSubjectsPipe } from './pipes/filter-subjects.pipe';
@@ -48,6 +48,9 @@ import { GroupDetailsPageComponent } from './pages/group-details-page/group-deta
 import { LimitsBlockComponent } from './components/group-details/limits-block/limits-block.component';
 import { FilterTeachersBySubjectPipe } from './pipes/filter-teachers-by-subject.pipe';
 import { AddClassTeacherForPrimarySchoolPipe } from './pipes/add-class-teacher-for-primary-school.pipe';
+import { RegisterPageComponent } from './pages/register-page/register-page/register-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page/login-page.component';
+import { TokenInterceptorService } from "./services/token-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -89,7 +92,9 @@ import { AddClassTeacherForPrimarySchoolPipe } from './pipes/add-class-teacher-f
     GroupDetailsPageComponent,
     LimitsBlockComponent,
     FilterTeachersBySubjectPipe,
-    AddClassTeacherForPrimarySchoolPipe
+    AddClassTeacherForPrimarySchoolPipe,
+    RegisterPageComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +108,14 @@ import { AddClassTeacherForPrimarySchoolPipe } from './pipes/add-class-teacher-f
     MatSelectModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    TokenInterceptorService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
