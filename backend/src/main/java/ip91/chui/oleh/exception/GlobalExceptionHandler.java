@@ -2,11 +2,30 @@ package ip91.chui.oleh.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+  private static final String UNEXPECTED_ERROR_MSG = "Something went wrong";
+
+  @ExceptionHandler(value = {Throwable.class})
+  public ResponseEntity<String> handleAllExceptions() {
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(UNEXPECTED_ERROR_MSG);
+  }
+
+  @ExceptionHandler(value = {AuthenticationException.class})
+  public ResponseEntity<String> handleAuthenticationException(AuthenticationException ex) {
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+  }
+
+  @ExceptionHandler(value = {UsernameNotFoundException.class})
+  public ResponseEntity<String> handleUsernameNotFoundException(UsernameNotFoundException ex) {
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+  }
 
   @ExceptionHandler(value = {SubjectDtoValidationException.class})
   public ResponseEntity<String> handleSubjectDtoValidationException(SubjectDtoValidationException ex) {

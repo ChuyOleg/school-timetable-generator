@@ -17,7 +17,7 @@ class TeacherMapperTest {
 
   @Test
   void Should_ConvertTeacherToDto_When_TeacherIsValid() {
-    Teacher teacher = new Teacher(1L, JOHN_DOE, null, null, MAX_HOURS_PER_WEEK);
+    Teacher teacher = new Teacher(1L, JOHN_DOE, null, null, MAX_HOURS_PER_WEEK, null);
 
     TeacherDto teacherDto = teacherMapper.teacherToDto(teacher);
 

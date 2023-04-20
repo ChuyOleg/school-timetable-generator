@@ -29,7 +29,7 @@ class GroupMapperTest {
 
   @Test
   void Should_ConvertGroupToDto_When_GroupIsValid() {
-    Group group = new Group(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null, null);
+    Group group = new Group(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null, null, null);
 
     GroupDto groupDto = groupMapper.groupToDto(group);
 
