@@ -8,6 +8,7 @@ import { GroupPageComponent } from "./pages/group-page/group-page.component";
 import { GroupDetailsPageComponent } from "./pages/group-details-page/group-details-page.component";
 import { RegisterPageComponent } from "./pages/register-page/register-page/register-page.component";
 import { LoginPageComponent } from "./pages/login-page/login-page/login-page.component";
+import { TimetablePageComponent } from "./pages/timetable-page/timetable-page.component";
 
 const routes: Routes = [
   { path: 'registration', component: RegisterPageComponent },
@@ -17,7 +18,9 @@ const routes: Routes = [
   { path: 'teachers', component: TeacherPageComponent },
   { path: 'rooms', component: RoomPageComponent },
   { path: 'groups', component: GroupPageComponent },
-  { path: 'groups/:id', component: GroupDetailsPageComponent }
+  { path: 'groups/:id', component: GroupDetailsPageComponent },
+  { path: 'timetable', component: TimetablePageComponent },
+  { path: '**', redirectTo: '/about' }
 ];
 
 @NgModule({
