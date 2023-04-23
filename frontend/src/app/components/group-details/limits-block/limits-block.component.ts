@@ -301,7 +301,7 @@ export class LimitsBlockComponent implements OnChanges {
   }
 
   private setInterschoolCombineByGradeNumber(gradeNumber: number) {
-    this.interschoolCombineIsPicked = gradeNumber >= 9;
+    this.interschoolCombineIsPicked = gradeNumber >= 10;
   }
 
   toggleInterschoolCombine() {
