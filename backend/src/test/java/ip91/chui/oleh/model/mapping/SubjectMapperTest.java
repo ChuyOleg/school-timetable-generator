@@ -15,7 +15,7 @@ class SubjectMapperTest {
 
   @Test
   void Should_ConvertSubjectToDto_When_SubjectIsValid() {
-    Subject subject = new Subject(1L, MATH);
+    Subject subject = new Subject(1L, MATH, null);
     SubjectDto subjectDto = subjectMapper.subjectToDto(subject);
 
     assertNotNull(subjectDto);

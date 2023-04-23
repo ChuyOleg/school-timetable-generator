@@ -18,5 +18,8 @@ public class Subject {
   @Column(nullable = false)
   private String name;
 
+  @ManyToOne
+  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
+  private User user;
 
 }

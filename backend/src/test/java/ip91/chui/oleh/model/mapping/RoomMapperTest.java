@@ -16,7 +16,7 @@ public class RoomMapperTest {
 
   @Test
   public void Should_ConvertRoomToDto_When_RoomIsValid() {
-    Room room = new Room(1L, ROOM_NUMBER, CAPACITY);
+    Room room = new Room(1L, ROOM_NUMBER, CAPACITY, null);
     RoomDto roomDto = roomMapper.roomToDto(room);
 
     assertEquals(room.getId(), roomDto.getId());

@@ -21,6 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
   private static final String AUTH_ENDPOINTS_PATTERN = "/v1/auth/**";
+  private static final String SWAGGER_UI_PATTERN = "/swagger-ui/**";
+  private static final String V3_API_DOCS_PATTERN = "/v3/api-docs/**";
 
   private final JwtAuthenticationFilter jwtAuthFilter;
   private final CustomUserDetailsService customUserDetailsService;
@@ -28,21 +30,20 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
-        .csrf()
-        .disable()
+        .csrf().disable()
         .authorizeHttpRequests()
-        .requestMatchers(AUTH_ENDPOINTS_PATTERN)
-        .permitAll()
-        .anyRequest()
-        .authenticated()
-        .and()
+          .requestMatchers(AUTH_ENDPOINTS_PATTERN, SWAGGER_UI_PATTERN, V3_API_DOCS_PATTERN)
+          .permitAll()
+          .anyRequest()
+          .authenticated()
+          .and()
         .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
+          .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+          .and()
         .cors()
         .and()
         .authenticationProvider(authenticationProvider())
-        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+          .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }

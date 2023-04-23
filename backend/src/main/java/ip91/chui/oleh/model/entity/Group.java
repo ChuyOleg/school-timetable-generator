@@ -36,4 +36,8 @@ public class Group {
   @OneToOne(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
   private GroupLimits groupLimits;
 
+  @ManyToOne
+  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
+  private User user;
+
 }

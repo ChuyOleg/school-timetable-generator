@@ -10,22 +10,28 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS subject (
     id serial PRIMARY KEY ,
-    name varchar(64) NOT NULL
---  UNIQUE (name, user)
+    name varchar(64) NOT NULL ,
+    user_id int NOT NULL REFERENCES users(id) ,
+
+    UNIQUE (name, user_id)
 );
 
 CREATE TABLE IF NOT EXISTS room (
     id serial PRIMARY KEY ,
     name varchar(64) NOT NULL ,
-    capacity int NOT NULL CHECK ( capacity >= 1 )
---  UNIQUE (name, user)
+    capacity int NOT NULL CHECK ( capacity >= 1 ) ,
+    user_id int NOT NULL REFERENCES users(id) ,
+
+    UNIQUE (name, user_id)
 );
 
 CREATE TABLE IF NOT EXISTS teacher (
     id serial PRIMARY KEY ,
     name varchar(64) NOT NULL ,
-    max_hours_per_week int NOT NULL CHECK ( max_hours_per_week >= 1 AND max_hours_per_week <= 35)
---  UNIQUE (name, user)
+    max_hours_per_week int NOT NULL CHECK ( max_hours_per_week >= 1 AND max_hours_per_week <= 35) ,
+    user_id int NOT NULL REFERENCES users(id) ,
+
+    UNIQUE (name, user_id)
 );
 
 CREATE TABLE IF NOT EXISTS teacher_subject (
@@ -52,9 +58,10 @@ CREATE TABLE IF NOT EXISTS class_group (
    letter varchar(1) NOT NULL ,
    shift int NOT NULL ,
    teacher_id int NOT NULL REFERENCES teacher(id) ,
+   user_id int NOT NULL REFERENCES users(id) ,
 
---  UNIQUE (grade_number, letter, user)
---  UNIQUE (teacher_id, user)
+    UNIQUE (grade_number, letter, user_id) ,
+    UNIQUE (teacher_id, user_id) ,
     CHECK (grade_number >= 1 AND grade_number <= 11) ,
     CHECK (shift >= 1 AND shift <= 2)
 );
@@ -80,7 +87,8 @@ CREATE TABLE IF NOT EXISTS subject_limits (
 
 
 CREATE TABLE IF NOT EXISTS time_table (
-    id serial PRIMARY KEY
+    id serial PRIMARY KEY ,
+    user_id int NOT NULL REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS lesson (
