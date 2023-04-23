@@ -6,9 +6,11 @@ import ip91.chui.oleh.exception.TimeSlotProcessingException;
 import ip91.chui.oleh.model.dto.GroupDto;
 import ip91.chui.oleh.model.entity.Group;
 import ip91.chui.oleh.model.entity.TimeSlot;
+import ip91.chui.oleh.model.entity.User;
 import ip91.chui.oleh.model.mapping.GroupMapper;
 import ip91.chui.oleh.repository.GroupRepository;
 import ip91.chui.oleh.repository.TimeSlotRepository;
+import ip91.chui.oleh.service.auth.AuthenticationService;
 import ip91.chui.oleh.validator.DtoValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,13 +28,16 @@ public class GroupService {
   private static final String GROUP_ID_SHOULD_BE_NOT_NULL_MSG = "You have to specify ID of the group";
   private static final String TIMESLOT_NOT_FOUND_BY_VALUES = "TimeSlot hasn't been found with values (%s, %s, %s)";
 
+  private final AuthenticationService authService;
   private final GroupRepository groupRepository;
   private final TimeSlotRepository timeSlotRepository;
   private final GroupMapper groupMapper;
   private final DtoValidator<GroupDto> groupDtoDtoValidator;
 
   public List<GroupDto> getAll() {
-    return groupRepository.findAll()
+    User user = authService.extractPrincipalFromSecurityContextHolder();
+
+    return groupRepository.findAllByUserId(user.getId())
         .stream()
         .map(groupMapper::groupToDtoLimitedInfo)
         .collect(Collectors.toList());
@@ -46,7 +51,10 @@ public class GroupService {
   public GroupDto create(GroupDto groupDto) {
     validateGroupDto(groupDto);
 
+    User user = authService.extractPrincipalFromSecurityContextHolder();
+
     Group groupToSave = groupMapper.dtoToGroup(groupDto);
+    groupToSave.setUser(user);
     setTimeSlotIdIfItIsNull(groupToSave);
 
     Group savedGroup = groupRepository.save(groupToSave);

@@ -5,8 +5,6 @@ import ip91.chui.oleh.model.entity.Subject;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class SubjectMapperTest {
@@ -17,7 +15,7 @@ class SubjectMapperTest {
 
   @Test
   void Should_ConvertSubjectToDto_When_SubjectIsValid() {
-    Subject subject = new Subject(1L, MATH, null, LocalDateTime.now(), LocalDateTime.now());
+    Subject subject = new Subject(1L, MATH, null);
     SubjectDto subjectDto = subjectMapper.subjectToDto(subject);
 
     assertNotNull(subjectDto);

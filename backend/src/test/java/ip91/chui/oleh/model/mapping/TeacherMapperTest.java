@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 
-import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class TeacherMapperTest {
@@ -19,7 +17,7 @@ class TeacherMapperTest {
 
   @Test
   void Should_ConvertTeacherToDto_When_TeacherIsValid() {
-    Teacher teacher = new Teacher(1L, JOHN_DOE, null, MAX_HOURS_PER_WEEK, null, LocalDateTime.now(), LocalDateTime.now());
+    Teacher teacher = new Teacher(1L, JOHN_DOE, null, null, MAX_HOURS_PER_WEEK, null);
 
     TeacherDto teacherDto = teacherMapper.teacherToDto(teacher);
 

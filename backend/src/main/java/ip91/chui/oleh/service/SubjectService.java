@@ -4,8 +4,10 @@ import ip91.chui.oleh.exception.SubjectDtoValidationException;
 import ip91.chui.oleh.exception.SubjectProcessingException;
 import ip91.chui.oleh.model.dto.SubjectDto;
 import ip91.chui.oleh.model.entity.Subject;
+import ip91.chui.oleh.model.entity.User;
 import ip91.chui.oleh.model.mapping.SubjectMapper;
 import ip91.chui.oleh.repository.SubjectRepository;
+import ip91.chui.oleh.service.auth.AuthenticationService;
 import ip91.chui.oleh.validator.DtoValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,12 +23,15 @@ public class SubjectService {
   private static final String SUBJECT_NOT_FOUND_BY_ID_MSG = "Subject hasn't been found with ID = (%d)";
   private static final String SUBJECT_ID_SHOULD_BE_NOT_NULL_MSG = "You have to specify ID of the subject";
 
+  private final AuthenticationService authService;
   private final SubjectRepository subjectRepository;
   private final SubjectMapper subjectMapper;
   private final DtoValidator<SubjectDto> subjectDtoValidator;
 
   public List<SubjectDto> getAll() {
-    return subjectRepository.findAll()
+    User user = authService.extractPrincipalFromSecurityContextHolder();
+
+    return subjectRepository.findAllByUserId(user.getId())
         .stream()
         .map(subjectMapper::subjectToDto)
         .collect(Collectors.toList());
@@ -39,7 +44,10 @@ public class SubjectService {
   public SubjectDto create(SubjectDto subjectDto) {
     validateSubjectDto(subjectDto);
 
+    User user = authService.extractPrincipalFromSecurityContextHolder();
+
     Subject subjectToSave = subjectMapper.dtoToSubject(subjectDto);
+    subjectToSave.setUser(user);
     Subject savedSubject = subjectRepository.save(subjectToSave);
 
     return subjectMapper.subjectToDto(savedSubject);

@@ -19,4 +19,8 @@ public class TimeTable {
   @OneToMany(mappedBy = "timeTable")
   private Set<Lesson> lessons;
 
+  @ManyToOne
+  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
+  private User user;
+
 }

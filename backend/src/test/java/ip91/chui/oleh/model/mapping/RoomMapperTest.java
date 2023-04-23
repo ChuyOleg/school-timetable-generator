@@ -5,8 +5,6 @@ import ip91.chui.oleh.model.entity.Room;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RoomMapperTest {
@@ -18,7 +16,7 @@ public class RoomMapperTest {
 
   @Test
   public void Should_ConvertRoomToDto_When_RoomIsValid() {
-    Room room = new Room(1L, ROOM_NUMBER, CAPACITY, null, LocalDateTime.now(), LocalDateTime.now());
+    Room room = new Room(1L, ROOM_NUMBER, CAPACITY, null);
     RoomDto roomDto = roomMapper.roomToDto(room);
 
     assertEquals(room.getId(), roomDto.getId());
