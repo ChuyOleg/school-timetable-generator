@@ -13,7 +13,8 @@ public class GlobalExceptionHandler {
   private static final String UNEXPECTED_ERROR_MSG = "Something went wrong";
 
   @ExceptionHandler(value = {Throwable.class})
-  public ResponseEntity<String> handleAllExceptions() {
+  public ResponseEntity<String> handleAllExceptions(Throwable throwable) {
+    System.out.println(throwable.getMessage());
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(UNEXPECTED_ERROR_MSG);
   }
 

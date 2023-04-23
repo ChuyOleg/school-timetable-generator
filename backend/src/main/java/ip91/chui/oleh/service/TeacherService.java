@@ -3,6 +3,7 @@ package ip91.chui.oleh.service;
 import ip91.chui.oleh.exception.TeacherDtoValidationException;
 import ip91.chui.oleh.exception.TeacherProcessingException;
 import ip91.chui.oleh.model.dto.TeacherDto;
+import ip91.chui.oleh.model.dto.projection.TeacherProjection;
 import ip91.chui.oleh.model.entity.Teacher;
 import ip91.chui.oleh.model.entity.User;
 import ip91.chui.oleh.model.mapping.TeacherMapper;
@@ -44,6 +45,12 @@ public class TeacherService {
         .stream()
         .map(teacherMapper::teacherToDto)
         .collect(Collectors.toList());
+  }
+
+  public List<TeacherProjection> getTeachersActualHours() {
+    User user = authService.extractPrincipalFromSecurityContextHolder();
+
+    return teacherRepository.findActualHoursForTeachersByUserId(user.getId());
   }
 
   public TeacherDto getById(Long id) {
