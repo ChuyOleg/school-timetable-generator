@@ -51,6 +51,8 @@ import { AddClassTeacherForPrimarySchoolPipe } from './pipes/add-class-teacher-f
 import { RegisterPageComponent } from './pages/register-page/register-page/register-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page/login-page.component';
 import { TokenInterceptorService } from "./services/token-interceptor.service";
+import { TimetablePageComponent } from './pages/timetable-page/timetable-page.component';
+import { InvalidWorkingLoadingBlockComponent } from './components/timetable/invalid-working-loading-block/invalid-working-loading-block.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +96,9 @@ import { TokenInterceptorService } from "./services/token-interceptor.service";
     FilterTeachersBySubjectPipe,
     AddClassTeacherForPrimarySchoolPipe,
     RegisterPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    TimetablePageComponent,
+    InvalidWorkingLoadingBlockComponent
   ],
   imports: [
     BrowserModule,
