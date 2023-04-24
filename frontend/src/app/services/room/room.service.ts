@@ -4,6 +4,7 @@ import { ErrorService } from "../error.service";
 import { Constants } from "../../config/constants";
 import { IRoom } from "../../models/room";
 import { catchError, Observable, tap, throwError } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class RoomService {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private errorService: ErrorService
   ) { }
 
@@ -53,8 +55,12 @@ export class RoomService {
   }
 
   private errorHandler(error: HttpErrorResponse) {
-    this.errorService.handle(error.message)
-    return throwError(() => error.message)
+    if (error.status === 403) {
+      this.router.navigate(['/login']).then(r => r);
+    } else {
+      this.errorService.handle(error.message);
+    }
+    return throwError(() => error.message);
   }
 
 }

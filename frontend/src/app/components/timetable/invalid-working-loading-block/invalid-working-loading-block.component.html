@@ -1,0 +1,14 @@
+<p class="text-red-600 text-sm font-bold text-center mt-5">Working loading of some teachers are specified invalid. Fix it to be able to generate a timetable</p>
+
+<div class="flex items-center justify-center mt-3">
+  <p class="text-center border border-2 border-black w-2/6 py-2">Name</p>
+  <p class="text-center border border-2 border-black w-1/6 py-2">Expected hours</p>
+  <p class="text-center border border-2 border-black w-1/6 py-2">Actual hours</p>
+</div>
+
+<div *ngFor="let teacherHoursInfo of teachersWithInvalidLoading" class="flex items-stretch justify-center">
+  <p class="text-center border border-2 border-black w-2/6 py-2">{{ teacherHoursInfo.name }}</p>
+  <p class="text-center border border-2 border-black w-1/6 py-2">{{ teacherHoursInfo.expectedHours }}</p>
+  <p class="text-center border border-2 border-black w-1/6 py-2 text-red-600">{{ teacherHoursInfo.actualHours }}</p>
+</div>
+
