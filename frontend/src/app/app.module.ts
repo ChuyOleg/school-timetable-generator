@@ -52,6 +52,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page/regis
 import { LoginPageComponent } from './pages/login-page/login-page/login-page.component';
 import { TokenInterceptorService } from "./services/token-interceptor.service";
 import { TimetablePageComponent } from './pages/timetable-page/timetable-page.component';
+import { InvalidWorkingLoadingBlockComponent } from './components/timetable/invalid-working-loading-block/invalid-working-loading-block.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { TimetablePageComponent } from './pages/timetable-page/timetable-page.co
     AddClassTeacherForPrimarySchoolPipe,
     RegisterPageComponent,
     LoginPageComponent,
-    TimetablePageComponent
+    TimetablePageComponent,
+    InvalidWorkingLoadingBlockComponent
   ],
   imports: [
     BrowserModule,
