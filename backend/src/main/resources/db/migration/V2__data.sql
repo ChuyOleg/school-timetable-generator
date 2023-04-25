@@ -5,10 +5,12 @@ FROM unnest(ARRAY['ODD', 'EVEN', 'BOTH']) week_types
          CROSS JOIN unnest(ARRAY['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY']) days
          CROSS JOIN unnest(ARRAY[1, 2, 3, 4, 5, 6, 7, 8]) lesson_numbers;
 
+
 INSERT INTO users(email, password, role)
 VALUES
     ('user@gmail.com', '$2a$10$MAwJpDfT9Nib2X3LahpD7eqsCHz6XUXfWThHSREmwRjE4oX9UDNY2', 'USER'),
     ('user_2@gmail.com', '$2a$10$EKauRMWhRGAZ94eeARfOfeRx58TlLxCRjLzkzmpK/e3qkoARmlEL2', 'USER');
+
 
 INSERT INTO subject(name, user_id)
 VALUES
@@ -38,21 +40,24 @@ VALUES
 ('Чижевська Я.Д.', 16, 1), ('Бучко Х.Д.', 16, 1), ('Ковч Т.О.', 16, 1),
 ('Осадчук І.У.', 17, 1), ('Мокрицька Ч.Л.', 17, 1), ('Білан У.А.', 17, 1),
 ('Сінчук Д.О.', 17, 1), ('Маляр С.І.', 17, 1), ('Гуцало А.Б.', 17, 1),
-('Англ вчитель 1-4 класи №1', 17, 1), ('Англ вчитель 1-4 класи №2', 16, 1),
+('Англ вчитель 1-4 класи №1', 15, 1), ('Англ вчитель 1-4 класи №2', 18, 1),
 ('Фізра вчитель 1-4 класи №1', 18, 1), ('Фізра вчитель 1-4 класи №2', 18, 1),
-('Інформатика (Д. і Т.) вчитель 1-4 класи', 19, 1),
-('Вірський І.М.', 18, 1), ('Залужний Ю.Є.', 18, 1), ('Динько О.В.', 18, 1),
-('Нім. вчитель №1', 16, 1), ('Зарубіжна вч. №1', 16, 1), ('Історія вч. №1', 19, 1),
-('Інформатика вч. №1', 16, 1), ('Хімія (ОЗД) вч. №1', 17, 1), ('Музика вч. №1', 14, 1),
-('ОБЖ вч. №1', 18, 1), ('фізра вч. №1', 20, 1), ('Біологія (Природа) вч. №1', 19, 1),
-('Трудове (хлопці) вч. №1', 19, 1), ('Трудове (дівчата) вч. №2', 19, 1),
-('Англ вч. №2', 18, 1), ('Нім. вчитель №2', 16, 1), ('Інформатика вч. №2', 16, 1),
-('Географія вч. №1', 17, 1), ('Укр мова/літ вч. №2', 21, 1), ('Укр мова/літ вч. №3', 22, 1),
-('Матем вч. №2', 22, 1), ('Матем вч. №3', 22, 1), ('Англ вч. №3', 21, 1),
-('Англ вч. №4', 21, 1), ('Нім. вч. №3', 22, 1), ('Нім вч. №4', 22, 1),
-('Історія вч. №2', 22, 1), ('Фізра вч. №2', 20, 1), ('Фізика вч. №1', 21, 1),
-('Право вч. №1', 16, 1), ('Захист вітчизни (хлопці) вч. №1', 16, 1), ('Захист вітчизни (дівчата) вч. №1', 16, 1),
-('Мистецтво вчитель', 16, 1);
+('Інформатика (Д. і Т.) вчитель 1-4 класи', 21, 1),
+('Укр мова/літ вч. №1', 19, 1), ('Матем вч. №1', 19, 1), ('Англ вч. №1', 21, 1),
+('Нім. вчитель №1', 20, 1), ('Зарубіжна вч. №1', 22, 1), ('Історія вч. №1', 20, 1),
+('Інформатика вч. №1', 19, 1), ('Хімія (ОЗД) вч. №1', 21, 1), ('Музика | ОБЖ | Мистецтво', 21, 1),
+('Укр мова/літ вч. №4', 20, 1), ('фізра вч. №1', 21, 1), ('Біологія (Природа) вч. №1', 20, 1),
+('Трудове (хлопці) вч. №1', 16, 1), ('Трудове (дівчата) вч. №1', 16, 1),
+('Англ вч. №2', 21, 1), ('Нім. вчитель №2', 20, 1), ('Інформатика вч. №2', 19, 1),
+('Географія вч. №1', 16, 1), ('Укр мова/літ вч. №2', 19, 1), ('Укр мова/літ вч. №3', 19, 1),
+('Матем вч. №2', 19, 1), ('Матем вч. №3', 19, 1), ('Англ вч. №3', 18, 1),
+('Англ вч. №4', 18, 1), ('Нім. вч. №3', 18, 1), ('Нім вч. №4', 18, 1),
+('Історія вч. №2', 20, 1), ('Фізра вч. №2', 18, 1), ('Фізика вч. №1', 18, 1),
+('Право | Зах. Вітчизни (дівчата) вч. №2', 15, 1), ('Фізика | Зах. Вітчизни (хлопці) вч. №2', 16, 1),
+('Укр мова/літ вч. №5', 15, 1), ('Матем вч. №4', 20, 1), ('Матем вч. №5', 15, 1),
+('Історія вч. №3', 20, 1), ('Хімія (ОЗД) вч. №2', 20, 1), ('Фізра вч. №3', 18, 1),
+('Біологія (Природа) вч. №2', 18, 1), ('Трудове (хлопці) вч. №2', 14, 1), ('Трудове (дівчата) вч. №2', 14, 1),
+('Англ вч. №5', 18, 1), ('Англ вч. №6', 18, 1);
 
 
 INSERT INTO teacher_subject(teacher_id, subject_id)
@@ -62,12 +67,15 @@ VALUES
 (13, 3), (14, 3), (15, 8), (16, 8), (17 ,6), (17, 9),
 (18, 10), (18, 11), (19 ,4), (19 ,28), (19 ,29), (20, 3),
 (21, 12), (22, 13), (23, 22), (23, 23), (23, 15), (24, 9),
-(25, 21), (25, 18), (26, 17), (27, 7), (28, 8), (29, 24),
+(25, 21), (25, 18), (26, 7), (26, 17), (26, 30), (27, 10), (27, 11), (28, 8), (29, 24),
 (29, 14), (30, 16), (31, 16), (32, 3), (33, 12), (34, 9),
 (35, 19), (36, 11), (36, 10), (37, 11), (37, 10), (38, 4),
 (38, 28), (38, 29), (39, 4), (39, 28), (39, 29), (40, 3),
 (41, 3), (42, 12), (43, 12), (44, 22), (44, 23), (44, 15),
-(45, 8), (46, 20), (47, 25), (48, 26), (49, 26), (50, 30);
+(45, 8), (46, 20), (47, 25), (47, 26), (48, 20), (48, 26), (49, 10), (49, 11),
+(50, 4), (50, 28), (50, 29), (51, 4), (51, 28), (51, 29), (52, 15),
+(52, 22), (52, 23), (53, 18), (53, 21), (54, 8), (55, 14), (55, 24),
+(56, 16), (57, 16), (58, 3), (59, 3);
 
 
 INSERT INTO class_group(grade_number, letter, shift, teacher_id, user_id)
@@ -150,175 +158,137 @@ VALUES
 (12, 7, 2, 12, null, null, null), (12, 8, 3, 16, 1, null, null), (12, 9, 1, 17, 5, null, null), /* 4-В */
 
 (13, 17, 1, 26, null, null, null), (13, 8, 3, 28, 1, null, null), (13, 15, 3, 23, null, null, null),
-(13, 11, 2, 18, null, null, null), (13, 7, 1, 27, null, null, null), (13, 18, 1, 25, null, null, null),
+(13, 11, 2, 18, null, null, null), (13, 7, 1, 26, null, null, null), (13, 18, 1, 25, null, null, null),
 (13, 13, 2, 22, null, null, null), (13, 9, 1, 24, 5, 34, 6), (13, 4, 5, 19, null, null, null),
 (13, 10, 3, 18, null, null, null), (13, 14, 2, 29, null, null, null), (13, 3, 3, 20, null, 32, null),
 (13, 12, 2, 21, null, 33, null), (13, 16, 2, 30, 7, 31, 8), /* 5-А */
 
 (14, 17, 1, 26, null, null, null), (14, 8, 3, 28, 1, null, null), (14, 15, 3, 23, null, null, null),
-(14, 11, 2, 18, null, null, null), (14, 7, 1, 27, null, null, null), (14, 18, 1, 25, null, null, null),
+(14, 11, 2, 18, null, null, null), (14, 7, 1, 26, null, null, null), (14, 18, 1, 25, null, null, null),
 (14, 13, 2, 22, null, null, null), (14, 9, 1, 24, 5, 34, 6), (14, 4, 5, 19, null, null, null),
 (14, 10, 3, 18, null, null, null), (14, 14, 2, 29, null, null, null), (14, 3, 3, 20, null, 32, null),
 (14, 12, 2, 21, null, 33, null), (14, 16, 2, 30, 7, 31, 8), /* 5-Б */
 
 (15, 17, 1, 26, null, null, null), (15, 8, 3, 28, 1, null, null), (15, 15, 3, 23, null, null, null),
-(15, 11, 2, 18, null, null, null), (15, 7, 1, 27, null, null, null), (15, 18, 1, 25, null, null, null),
+(15, 11, 2, 18, null, null, null), (15, 7, 1, 26, null, null, null), (15, 18, 1, 25, null, null, null),
 (15, 13, 2, 22, null, null, null), (15, 9, 1, 24, 5, 34, 6), (15, 4, 5, 19, null, null, null),
 (15, 10, 3, 18, null, null, null), (15, 14, 2, 29, null, null, null), (15, 3, 3, 20, null, 32, null),
 (15, 12, 2, 21, null, 33, null), (15, 16, 2, 30, 7, 31, 8), /* 5-В */
 
-(16, 3, 3, 20, null, 32, null), (16, 4, 5, 19, null, null, null), (16, 7, 1, 27, null, null, null),
-(16, 8, 3, 28, 2, null, null), (16, 9, 1, 24, 5, 34, 6), (16, 10, 3, 18, null, null, null),
-(16, 11, 2, 18, null, null, null), (16, 12, 2, 21, null, 33, null), (16, 13, 1, 22, null, null, null),
+(16, 3, 3, 20, null, 32, null), (16, 4, 5, 38, null, null, null), (16, 7, 1, 26, null, null, null),
+(16, 8, 3, 28, 2, null, null), (16, 9, 1, 24, 5, 34, 6), (16, 10, 3, 36, null, null, null),
+(16, 11, 2, 36, null, null, null), (16, 12, 2, 21, null, 33, null), (16, 13, 1, 22, null, null, null),
 (16, 16, 2, 30, 8, 31, 7), (16, 17, 1, 26, null, null, null), (16, 18, 1, 25, null, null, null),
 (16, 19, 1, 35, null, null, null), (16, 22, 2, 23, null, null, null), (16, 23, 2, 23, null, null, null),
 (16, 24, 2, 29, null, null, null), /* 6-А */
 
-(17, 3, 3, 20, null, 32, null), (17, 4, 5, 19, null, null, null), (17, 7, 1, 27, null, null, null),
-(17, 8, 3, 28, 2, null, null), (17, 9, 1, 24, 5, 34, 6), (17, 10, 3, 18, null, null, null),
-(17, 11, 2, 18, null, null, null), (17, 12, 2, 21, null, 33, null), (17, 13, 1, 22, null, null, null),
+(17, 3, 3, 20, null, 32, null), (17, 4, 5, 38, null, null, null), (17, 7, 1, 26, null, null, null),
+(17, 8, 3, 28, 2, null, null), (17, 9, 1, 24, 5, 34, 6), (17, 10, 3, 36, null, null, null),
+(17, 11, 2, 36, null, null, null), (17, 12, 2, 21, null, 33, null), (17, 13, 1, 22, null, null, null),
 (17, 16, 2, 30, 8, 31, 7), (17, 17, 1, 26, null, null, null), (17, 18, 1, 25, null, null, null),
 (17, 19, 1, 35, null, null, null), (17, 22, 2, 23, null, null, null), (17, 23, 2, 23, null, null, null),
 (17, 24, 2, 29, null, null, null), /* 6-Б */
 
-(18, 3, 3, 20, null, 32, null), (18, 4, 5, 19, null, null, null), (18, 7, 1, 27, null, null, null),
-(18, 8, 3, 28, 2, null, null), (18, 9, 1, 24, 5, 34, 6), (18, 10, 3, 18, null, null, null),
-(18, 11, 2, 18, null, null, null), (18, 12, 2, 21, null, 33, null), (18, 13, 1, 22, null, null, null),
+(18, 3, 3, 20, null, 32, null), (18, 4, 5, 38, null, null, null), (18, 7, 1, 26, null, null, null),
+(18, 8, 3, 28, 2, null, null), (18, 9, 1, 24, 5, 34, 6), (18, 10, 3, 36, null, null, null),
+(18, 11, 2, 36, null, null, null), (18, 12, 2, 21, null, 33, null), (18, 13, 1, 22, null, null, null),
 (18, 16, 2, 30, 8, 31, 7), (18, 17, 1, 26, null, null, null), (18, 18, 1, 25, null, null, null),
-(18, 19, 1, 35, null, null, null), (18, 22, 2, 23, null, null, null), (18, 23, 2, 23, null, null, null),
+(18, 19, 1, 35, null, null, null), (18, 22, 2, 52, null, null, null), (18, 23, 2, 52, null, null, null),
 (18, 24, 2, 29, null, null, null), /* 6-В */
 
-(19, 3, 3, 40, null, 41, null), (19, 7, 0.5, 27, null, null, null), (19, 8, 3, 45, 2, null, null),
-(19, 9, 1, 24, 5, 34, 6), (19, 10, 2, 36, null, null, null), (19, 11, 2, 36, null, null, null),
-(19, 12, 2, 42, null, 43, null), (19, 13, 1, 22, null, null, null), (19, 16, 2, 30, 8, 31, 7),
+(19, 3, 3, 40, null, 41, null), (19, 7, 0.5, 26, null, null, null), (19, 8, 3, 45, 2, null, null),
+(19, 9, 1, 24, 5, 34, 6), (19, 10, 2, 18, null, null, null), (19, 11, 2, 18, null, null, null),
+(19, 12, 2, 42, null, 43, null), (19, 13, 1, 22, null, null, null), (19, 16, 2, 56, 8, 57, 7),
 (19, 17, 0.5, 26, null, null, null), (19, 18, 1, 25, null, null, null), (19, 19, 1, 35, null, null, null),
 (19, 20, 2, 46, null, null, null), (19, 21, 2, 25, null, null, null), (19, 22, 2, 44, null, null, null),
-(19, 23, 1, 44, null, null, null), (19, 24, 2, 29, null, null, null), (19, 28, 2, 38, null, null, null),
-(19, 29, 2, 38, null, null, null), /* 7-А */
+(19, 23, 1, 44, null, null, null), (19, 24, 2, 55, null, null, null), (19, 28, 2, 19, null, null, null),
+(19, 29, 2, 19, null, null, null), /* 7-А */
 
-(20, 3, 3, 40, null, 41, null), (20, 7, 0.5, 27, null, null, null), (20, 8, 3, 45, 2, null, null),
+(20, 3, 3, 40, null, 41, null), (20, 7, 0.5, 26, null, null, null), (20, 8, 3, 45, 2, null, null),
 (20, 9, 1, 24, 5, 34, 6), (20, 10, 2, 36, null, null, null), (20, 11, 2, 36, null, null, null),
 (20, 12, 2, 42, null, 43, null), (20, 13, 1, 22, null, null, null), (20, 16, 2, 30, 8, 31, 7),
 (20, 17, 0.5, 26, null, null, null), (20, 18, 1, 25, null, null, null), (20, 19, 1, 35, null, null, null),
 (20, 20, 2, 46, null, null, null), (20, 21, 2, 25, null, null, null), (20, 22, 2, 44, null, null, null),
-(20, 23, 1, 44, null, null, null), (20, 24, 2, 29, null, null, null), (20, 28, 2, 38, null, null, null),
+(20, 23, 1, 44, null, null, null), (20, 24, 2, 55, null, null, null), (20, 28, 2, 38, null, null, null),
 (20, 29, 2, 38, null, null, null), /* 7-Б */
 
-(21, 3, 3, 40, null, 41, null), (21, 7, 0.5, 27, null, null, null), (21, 8, 3, 45, 2, null, null),
-(21, 9, 1, 24, 5, 34, 6), (21, 10, 2, 36, null, null, null), (21, 11, 2, 36, null, null, null),
+(21, 3, 3, 40, null, 41, null), (21, 7, 0.5, 26, null, null, null), (21, 8, 3, 45, 2, null, null),
+(21, 9, 1, 24, 5, 34, 6), (21, 10, 2, 37, null, null, null), (21, 11, 2, 37, null, null, null),
 (21, 12, 2, 42, null, 43, null), (21, 13, 1, 22, null, null, null), (21, 16, 2, 30, 8, 31, 7),
 (21, 17, 0.5, 26, null, null, null), (21, 18, 1, 25, null, null, null), (21, 19, 1, 35, null, null, null),
 (21, 20, 2, 46, null, null, null), (21, 21, 2, 25, null, null, null), (21, 22, 2, 44, null, null, null),
-(21, 23, 1, 44, null, null, null), (21, 24, 2, 29, null, null, null), (21, 28, 2, 38, null, null, null),
-(21, 29, 2, 38, null, null, null), /* 7-В */
+(21, 23, 1, 44, null, null, null), (21, 24, 2, 55, null, null, null), (21, 28, 2, 39, null, null, null),
+(21, 29, 2, 39, null, null, null), /* 7-В */
 
-(22, 3, 3, 40, null, 41, null), (22, 8, 3, 45, 2, null, null), (22, 9, 1, 24, 5, 34, 6),
-(22, 10, 3, 36, null, null, null), (22, 11, 2, 36, null, null, null), (22, 12, 2, 42, null, 43, null),
-(22, 13, 1, 22, null, null, null), (22, 16, 2, 30, 8, 31, 7), (22, 18, 1, 25, null, null, null),
-(22, 19, 1, 35, null, null, null), (22, 20, 2, 46, null, null, null), (22, 21, 2, 25, null, null, null),
-(22, 22, 2, 44, null, null, null), (22, 23, 1, 44, null, null, null), (22, 24, 2, 29, null, null, null),
-(22, 28, 3, 38, null, null, null), (22, 29, 2, 38, null, null, null), (22, 30, 1, 50, null, null, null), /* 8-А */
+(22, 3, 3, 40, null, 41, null), (22, 8, 3, 54, 2, null, null), (22, 9, 1, 24, 5, 34, 6),
+(22, 10, 3, 37, null, null, null), (22, 11, 2, 37, null, null, null), (22, 12, 2, 42, null, 43, null),
+(22, 13, 1, 22, null, null, null), (22, 16, 2, 56, 8, 57, 7), (22, 18, 1, 53, null, null, null),
+(22, 19, 1, 35, null, null, null), (22, 20, 2, 46, null, null, null), (22, 21, 2, 53, null, null, null),
+(22, 22, 2, 44, null, null, null), (22, 23, 1, 44, null, null, null), (22, 24, 2, 55, null, null, null),
+(22, 28, 3, 39, null, null, null), (22, 29, 2, 39, null, null, null), (22, 30, 1, 26, null, null, null), /* 8-А */
 
-(23, 3, 3, 40, null, 41, null), (23, 8, 3, 45, 2, null, null), (23, 9, 1, 24, 5, 34, 6),
-(23, 10, 3, 36, null, null, null), (23, 11, 2, 36, null, null, null), (23, 12, 2, 42, null, 43, null),
-(23, 13, 1, 22, null, null, null), (23, 16, 2, 30, 8, 31, 7), (23, 18, 1, 25, null, null, null),
-(23, 19, 1, 35, null, null, null), (23, 20, 2, 46, null, null, null), (23, 21, 2, 25, null, null, null),
-(23, 22, 2, 44, null, null, null), (23, 23, 1, 44, null, null, null), (23, 24, 2, 29, null, null, null),
-(23, 28, 3, 38, null, null, null), (23, 29, 2, 38, null, null, null), (23, 30, 1, 50, null, null, null), /* 8-Б */
+(23, 3, 3, 40, null, 41, null), (23, 8, 3, 54, 2, null, null), (23, 9, 1, 24, 5, 34, 6),
+(23, 10, 3, 37, null, null, null), (23, 11, 2, 37, null, null, null), (23, 12, 2, 42, null, 43, null),
+(23, 13, 1, 22, null, null, null), (23, 16, 2, 56, 8, 57, 7), (23, 18, 1, 53, null, null, null),
+(23, 19, 1, 35, null, null, null), (23, 20, 2, 46, null, null, null), (23, 21, 2, 53, null, null, null),
+(23, 22, 2, 44, null, null, null), (23, 23, 1, 52, null, null, null), (23, 24, 2, 55, null, null, null),
+(23, 28, 3, 39, null, null, null), (23, 29, 2, 39, null, null, null), (23, 30, 1, 26, null, null, null), /* 8-Б */
 
-(24, 3, 3, 40, null, 41, null), (24, 8, 3, 45, 2, null, null), (24, 9, 1, 24, 5, 34, 6),
-(24, 10, 3, 36, null, null, null), (24, 11, 2, 36, null, null, null), (24, 12, 2, 42, null, 43, null),
-(24, 13, 1, 22, null, null, null), (24, 16, 2, 30, 8, 31, 7), (24, 18, 1, 25, null, null, null),
-(24, 19, 1, 35, null, null, null), (24, 20, 2, 46, null, null, null), (24, 21, 2, 25, null, null, null),
-(24, 22, 2, 44, null, null, null), (24, 23, 1, 44, null, null, null), (24, 24, 2, 29, null, null, null),
-(24, 28, 3, 38, null, null, null), (24, 29, 2, 38, null, null, null), (24, 30, 1, 50, null, null, null), /* 8-В */
+(24, 3, 3, 40, null, 41, null), (24, 8, 3, 54, 2, null, null), (24, 9, 1, 24, 5, 34, 6),
+(24, 10, 3, 37, null, null, null), (24, 11, 2, 37, null, null, null), (24, 12, 2, 42, null, 43, null),
+(24, 13, 1, 22, null, null, null), (24, 16, 2, 56, 8, 57, 7), (24, 18, 1, 53, null, null, null),
+(24, 19, 1, 35, null, null, null), (24, 20, 2, 46, null, null, null), (24, 21, 2, 53, null, null, null),
+(24, 22, 2, 52, null, null, null), (24, 23, 1, 52, null, null, null), (24, 24, 2, 55, null, null, null),
+(24, 28, 3, 39, null, null, null), (24, 29, 2, 39, null, null, null), (24, 30, 1, 26, null, null, null), /* 8-В */
 
-(25, 3, 3, 40, null, 41, null), (25, 8, 3, 45, 1, null, null), (25, 9, 1, 24, 5, 34, 6),
-(25, 10, 3, 37, null, null, null), (25, 11, 2, 37, null, null, null), (25, 12, 2, 42, null, 43, null),
-(25, 13, 1, 22, null, null, null), (25, 16, 2, 30, 8, 31, 7), (25, 18, 1, 25, null, null, null),
-(25, 19, 1, 35, null, null, null), (25, 20, 2, 46, null, null, null), (25, 21, 2, 25, null, null, null),
-(25, 22, 2, 44, null, null, null), (25, 23, 1, 44, null, null, null), (25, 24, 2, 29, null, null, null),
-(25, 25, 1, 47, null, null, null), (25, 28, 3, 39, null, null, null), (25, 29, 2, 39, null, null, null),
-(25, 30, 1, 50, null, null, null), /* 9-А */
+(25, 3, 3, 58, null, 59, null), (25, 8, 3, 54, 1, null, null), (25, 9, 1, 24, 5, 34, 6),
+(25, 10, 3, 49, null, null, null), (25, 11, 2, 49, null, null, null), (25, 12, 2, 21, null, 33, null),
+(25, 13, 1, 22, null, null, null), (25, 16, 2, 56, 8, 57, 7), (25, 18, 1, 53, null, null, null),
+(25, 19, 1, 35, null, null, null), (25, 20, 2, 46, null, null, null), (25, 21, 2, 53, null, null, null),
+(25, 22, 2, 52, null, null, null), (25, 23, 1, 52, null, null, null), (25, 24, 2, 55, null, null, null),
+(25, 25, 1, 47, null, null, null), (25, 28, 3, 51, null, null, null), (25, 29, 2, 51, null, null, null),
+(25, 30, 1, 26, null, null, null), /* 9-А */
 
-(26, 3, 3, 40, null, 41, null), (26, 8, 3, 45, 1, null, null), (26, 9, 1, 24, 5, 34, 6),
-(26, 10, 3, 37, null, null, null), (26, 11, 2, 37, null, null, null), (26, 12, 2, 42, null, 43, null),
-(26, 13, 1, 22, null, null, null), (26, 16, 2, 30, 8, 31, 7), (26, 18, 1, 25, null, null, null),
-(26, 19, 1, 35, null, null, null), (26, 20, 2, 46, null, null, null), (26, 21, 2, 25, null, null, null),
-(26, 22, 2, 44, null, null, null), (26, 23, 1, 44, null, null, null), (26, 24, 2, 29, null, null, null),
-(26, 25, 1, 47, null, null, null), (26, 28, 3, 39, null, null, null), (26, 29, 2, 39, null, null, null),
-(26, 30, 1, 50, null, null, null), /* 9-Б */
+(26, 3, 3, 58, null, 59, null), (26, 8, 3, 54, 1, null, null), (26, 9, 1, 24, 5, 34, 6),
+(26, 10, 3, 49, null, null, null), (26, 11, 2, 49, null, null, null), (26, 12, 2, 21, null, 33, null),
+(26, 13, 1, 22, null, null, null), (26, 16, 2, 56, 8, 57, 7), (26, 18, 1, 53, null, null, null),
+(26, 19, 1, 35, null, null, null), (26, 20, 2, 46, null, null, null), (26, 21, 2, 53, null, null, null),
+(26, 22, 2, 52, null, null, null), (26, 23, 1, 52, null, null, null), (26, 24, 2, 55, null, null, null),
+(26, 25, 1, 47, null, null, null), (26, 28, 3, 51, null, null, null), (26, 29, 2, 51, null, null, null),
+(26, 30, 1, 26, null, null, null), /* 9-Б */
 
-(27, 3, 3, 40, null, 41, null), (27, 8, 3, 45, 1, null, null), (27, 9, 1, 24, 5, 34, 6),
-(27, 10, 3, 37, null, null, null), (27, 11, 2, 37, null, null, null), (27, 12, 2, 42, null, 43, null),
-(27, 13, 1, 22, null, null, null), (27, 16, 2, 30, 8, 31, 7), (27, 18, 1, 25, null, null, null),
-(27, 19, 1, 35, null, null, null), (27, 20, 2, 46, null, null, null), (27, 21, 2, 25, null, null, null),
-(27, 22, 2, 44, null, null, null), (27, 23, 1, 44, null, null, null), (27, 24, 2, 29, null, null, null),
-(27, 25, 1, 47, null, null, null), (27, 28, 3, 39, null, null, null), (27, 29, 2, 39, null, null, null),
-(27, 30, 1, 50, null, null, null), /* 9-В */
+(27, 3, 3, 58, null, 59, null), (27, 8, 3, 54, 1, null, null), (27, 9, 1, 24, 5, 34, 6),
+(27, 10, 3, 49, null, null, null), (27, 11, 2, 49, null, null, null), (27, 12, 2, 21, null, 33, null),
+(27, 13, 1, 22, null, null, null), (27, 16, 2, 56, 8, 57, 7), (27, 18, 1, 53, null, null, null),
+(27, 19, 1, 35, null, null, null), (27, 20, 2, 46, null, null, null), (27, 21, 2, 53, null, null, null),
+(27, 22, 2, 52, null, null, null), (27, 23, 1, 52, null, null, null), (27, 24, 2, 55, null, null, null),
+(27, 25, 1, 47, null, null, null), (27, 28, 3, 51, null, null, null), (27, 29, 2, 51, null, null, null),
+(27, 30, 1, 26, null, null, null), /* 9-В */
 
-(28, 3, 3, 40, null, 41, null), (28, 8, 3, 45, 2, null, null), (28, 9, 1, 24, 5, 34, 6),
-(28, 10, 3, 37, null, null, null), (28, 11, 2, 37, null, null, null), (28, 12, 2, 42, null, 43, null),
-(28, 13, 1, 22, null, null, null), (28, 19, 1, 35, null, null, null), (28, 20, 2, 46, null, null, null),
+(28, 3, 3, 58, null, 59, null), (28, 8, 3, 45, 2, null, null), (28, 9, 1, 24, 5, 34, 6),
+(28, 10, 3, 27, null, null, null), (28, 11, 2, 27, null, null, null), (28, 12, 2, 42, null, 43, null),
+(28, 13, 1, 22, null, null, null), (28, 19, 1, 35, null, null, null), (28, 20, 2, 48, null, null, null),
 (28, 21, 2, 25, null, null, null), (28, 22, 2, 44, null, null, null), (28, 23, 1, 44, null, null, null),
-(28, 24, 2, 29, null, null, null), (28, 25, 1, 47, null, null, null), (28, 26, 2, 48, null, 49, null),
-(28, 28, 3, 39, null, null, null), (28, 29, 2, 39, null, null, null), /* 10-А */
+(28, 24, 2, 29, null, null, null), (28, 25, 1, 47, null, null, null), (28, 26, 2, 48, null, 47, null),
+(28, 28, 3, 50, null, null, null), (28, 29, 2, 50, null, null, null), /* 10-А */
 
-(29, 3, 3, 40, null, 41, null), (29, 8, 3, 45, 2, null, null), (29, 9, 1, 24, 5, 34, 6),
-(29, 10, 3, 37, null, null, null), (29, 11, 2, 37, null, null, null), (29, 12, 2, 42, null, 43, null),
-(29, 13, 1, 22, null, null, null), (29, 19, 1, 35, null, null, null), (29, 20, 2, 46, null, null, null),
+(29, 3, 3, 58, null, 59, null), (29, 8, 3, 45, 2, null, null), (29, 9, 1, 24, 5, 34, 6),
+(29, 10, 3, 27, null, null, null), (29, 11, 2, 27, null, null, null), (29, 12, 2, 42, null, 43, null),
+(29, 13, 1, 22, null, null, null), (29, 19, 1, 35, null, null, null), (29, 20, 2, 48, null, null, null),
 (29, 21, 2, 25, null, null, null), (29, 22, 2, 44, null, null, null), (29, 23, 1, 44, null, null, null),
-(29, 24, 2, 29, null, null, null), (29, 25, 1, 47, null, null, null), (29, 26, 2, 48, null, 49, null),
-(29, 28, 3, 39, null, null, null), (29, 29, 2, 39, null, null, null), /* 10-Б */
+(29, 24, 2, 29, null, null, null), (29, 25, 1, 47, null, null, null), (29, 26, 2, 48, null, 47, null),
+(29, 28, 3, 50, null, null, null), (29, 29, 2, 50, null, null, null), /* 10-Б */
 
-(30, 3, 3, 40, null, 41, null), (30, 8, 3, 45, 2, null, null), (30, 9, 1, 24, 5, 34, 6),
-(30, 10, 3, 37, null, null, null), (30, 11, 2, 37, null, null, null), (30, 12, 2, 42, null, 43, null),
-(30, 13, 1, 22, null, null, null), (30, 19, 1, 35, null, null, null), (30, 20, 2, 46, null, null, null),
-(30, 21, 2, 25, null, null, null), (30, 22, 2, 44, null, null, null), (30, 23, 1, 44, null, null, null),
-(30, 24, 2, 29, null, null, null), (30, 25, 1, 47, null, null, null), (30, 26, 2, 48, null, 49, null),
-(30, 28, 3, 39, null, null, null), (30, 29, 2, 39, null, null, null), /* 11-А */
+(30, 3, 3, 20, null, 32, null), (30, 8, 3, 28, 2, null, null), (30, 9, 1, 24, 5, 34, 6),
+(30, 10, 3, 27, null, null, null), (30, 11, 2, 27, null, null, null), (30, 12, 2, 21, null, 33, null),
+(30, 13, 1, 22, null, null, null), (30, 19, 1, 35, null, null, null), (30, 20, 2, 48, null, null, null),
+(30, 21, 2, 53, null, null, null), (30, 22, 2, 23, null, null, null), (30, 23, 1, 23, null, null, null),
+(30, 24, 2, 29, null, null, null), (30, 25, 1, 47, null, null, null), (30, 26, 2, 48, null, 47, null),
+(30, 28, 3, 50, null, null, null), (30, 29, 2, 50, null, null, null), /* 11-А */
 
-(31, 3, 3, 40, null, 41, null), (31, 8, 3, 45, 2, null, null), (31, 9, 1, 24, 5, 34, 6),
-(31, 10, 3, 37, null, null, null), (31, 11, 2, 37, null, null, null), (31, 12, 2, 42, null, 43, null),
-(31, 13, 1, 22, null, null, null), (31, 19, 1, 35, null, null, null), (31, 20, 2, 46, null, null, null),
-(31, 21, 2, 25, null, null, null), (31, 22, 2, 44, null, null, null), (31, 23, 1, 44, null, null, null),
-(31, 24, 2, 29, null, null, null), (31, 25, 1, 47, null, null, null), (31, 26, 2, 48, null, 49, null),
-(31, 28, 3, 39, null, null, null), (31, 29, 2, 39, null, null, null); /* 11-Б */
-
-
--- WITH subject_limits_by_user_id_1 AS (
---     SELECT sl.teacher_id, teacher_2_id, hours
---     FROM (
---              SELECT *
---              FROM class_group
---              WHERE user_id = 1
---          ) AS cg
---              JOIN group_limits gl ON cg.id = gl.class_group_id
---              JOIN subject_limits sl ON gl.id = sl.group_limits_id
--- )
---
--- SELECT * FROM subject_limits_by_user_id_1 WHERE teacher_id = teacher_2_id;
-
-
-WITH subject_limits_by_user_id_1 AS (
-    SELECT sl.teacher_id, teacher_2_id, hours
-    FROM (
-             SELECT *
-             FROM class_group
-             WHERE user_id = 1
-         ) AS cg
-             JOIN group_limits gl ON cg.id = gl.class_group_id
-             JOIN subject_limits sl ON gl.id = sl.group_limits_id
-)
-
-SELECT teacher_id as id, SUM(sum_hours) as total_hours
-FROM (
-         SELECT teacher_id, SUM(hours) as sum_hours FROM subject_limits_by_user_id_1
-         GROUP BY teacher_id
-         UNION ALL
-         SELECT teacher_2_id as teacher_id, SUM(hours) as sum_hours FROM subject_limits_by_user_id_1
-         WHERE teacher_2_id IS NOT null
-         GROUP BY teacher_2_id
-     ) as subquery
-GROUP BY teacher_id
-ORDER BY teacher_id;
+(31, 3, 3, 58, null, 59, null), (31, 8, 3, 45, 2, null, null), (31, 9, 1, 24, 5, 34, 6),
+(31, 10, 3, 27, null, null, null), (31, 11, 2, 27, null, null, null), (31, 12, 2, 42, null, 43, null),
+(31, 13, 1, 22, null, null, null), (31, 19, 1, 35, null, null, null), (31, 20, 2, 48, null, null, null),
+(31, 21, 2, 25, null, null, null), (31, 22, 2, 52, null, null, null), (31, 23, 1, 52, null, null, null),
+(31, 24, 2, 29, null, null, null), (31, 25, 1, 47, null, null, null), (31, 26, 2, 48, null, 47, null),
+(31, 28, 3, 50, null, null, null), (31, 29, 2, 50, null, null, null); /* 11-Б */
