@@ -17,6 +17,7 @@ public class TimeTable {
   private Long id;
 
   @OneToMany(mappedBy = "timeTable")
+  @EqualsAndHashCode.Exclude
   private Set<Lesson> lessons;
 
   @ManyToOne

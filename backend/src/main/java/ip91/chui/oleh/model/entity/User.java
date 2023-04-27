@@ -2,10 +2,7 @@ package ip91.chui.oleh.model.entity;
 
 import ip91.chui.oleh.model.enumeration.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +28,7 @@ public class User implements UserDetails {
 
   // TODO: think about byte[] data type
   @Column(nullable = false)
+  @ToString.Exclude
   private String password;
 
   @Column(nullable = false)
