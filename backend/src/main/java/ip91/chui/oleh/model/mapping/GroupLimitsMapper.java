@@ -19,7 +19,6 @@ public interface GroupLimitsMapper {
   GroupLimits dtoToGroupLimits(GroupLimitsDto groupLimitsDto);
 
   @Named("groupLimitsToDtoLimitedInfo")
-  @Mapping(target = "interschoolCombine", ignore = true)
   GroupLimitsDto groupLimitsToDtoLimitedInfo(GroupLimits groupLimits);
 
   @AfterMapping
