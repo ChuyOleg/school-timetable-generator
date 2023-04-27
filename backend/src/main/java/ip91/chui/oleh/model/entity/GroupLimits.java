@@ -10,6 +10,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class GroupLimits {
 
   @Id
@@ -19,7 +20,7 @@ public class GroupLimits {
 
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "class_group_id", referencedColumnName = "id", nullable = false)
-  @EqualsAndHashCode.Exclude
+  @EqualsAndHashCode.Include
   @ToString.Exclude
   private Group group;
 
