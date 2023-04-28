@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -30,10 +29,7 @@ public class GroupDto {
   private int shift;
 
   @NotNull(message = "Group should have class teacher")
-  @Valid
   private TeacherDto teacherDto;
-
-  private Set<@Valid LessonDto> lessonDtoSet;
 
   @Valid
   private GroupLimitsDto groupLimitsDto;

@@ -1,11 +1,11 @@
 package ip91.chui.oleh.controller;
 
-import ip91.chui.oleh.model.dto.TimeTableFinesDto;
 import ip91.chui.oleh.model.dto.lightweigth.TimeTableDtoLightWeight;
 import ip91.chui.oleh.service.TimeTableService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,35 +14,9 @@ public class TimeTableController {
 
   private final TimeTableService service;
 
-  @GetMapping
-  public TimeTableDtoLightWeight getForUser() {
-    return service.getForUser();
-  }
-
   @GetMapping("/generate")
   public TimeTableDtoLightWeight generate() {
     return service.generate();
-  }
-
-  @PostMapping("/checkFitness")
-  public TimeTableFinesDto checkFitness(@RequestBody TimeTableDtoLightWeight timeTableDtoLightWeight) {
-    return service.checkFitness(timeTableDtoLightWeight);
-  }
-
-  @PostMapping
-  public TimeTableDtoLightWeight add(@RequestBody TimeTableDtoLightWeight timeTableDtoLightWeight) {
-    return service.create(timeTableDtoLightWeight);
-  }
-
-  @PutMapping
-  public TimeTableDtoLightWeight update(@RequestBody TimeTableDtoLightWeight timeTableDtoLightWeight) {
-    return service.update(timeTableDtoLightWeight);
-  }
-
-  @DeleteMapping("/{id}")
-  @ResponseStatus(value = HttpStatus.NO_CONTENT)
-  public void deleteById(@PathVariable Long id) {
-    service.delete(id);
   }
 
 }

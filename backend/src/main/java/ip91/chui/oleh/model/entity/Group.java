@@ -3,13 +3,13 @@ package ip91.chui.oleh.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.*;
 
 @Entity
 @Table(name = "class_group")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Group {
 
   @Id
@@ -18,9 +18,11 @@ public class Group {
   private Long id;
 
   @Column(nullable = false)
+  @EqualsAndHashCode.Include
   private int gradeNumber;
 
   @Column(length = 1, nullable = false)
+  @EqualsAndHashCode.Include
   private String letter;
 
   @Column(nullable = false)
@@ -30,14 +32,14 @@ public class Group {
   @JoinColumn(name = "teacher_id", referencedColumnName = "id", nullable = false)
   private Teacher teacher;
 
-  @OneToMany(mappedBy = "group")
-  private Set<Lesson> lessonSet;
-
   @OneToOne(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
+  @ToString.Exclude
   private GroupLimits groupLimits;
 
   @ManyToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
+  @EqualsAndHashCode.Include
+  @ToString.Exclude
   private User user;
 
 }

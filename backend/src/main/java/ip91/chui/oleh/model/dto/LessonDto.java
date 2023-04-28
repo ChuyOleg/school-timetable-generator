@@ -12,6 +12,9 @@ public class LessonDto {
 
   private Long id;
 
+  @NotNull(message = "Lesson should have group")
+  private GroupDto groupDto;
+
   @NotNull(message = "Lesson should have teacher")
   private TeacherDto teacherDto;
 

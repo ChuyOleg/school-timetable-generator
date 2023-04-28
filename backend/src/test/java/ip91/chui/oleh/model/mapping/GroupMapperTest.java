@@ -29,7 +29,7 @@ class GroupMapperTest {
 
   @Test
   void Should_ConvertGroupToDto_When_GroupIsValid() {
-    Group group = new Group(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null, null, null);
+    Group group = new Group(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null, null);
 
     GroupDto groupDto = groupMapper.groupToDto(group);
 
@@ -37,13 +37,12 @@ class GroupMapperTest {
     assertEquals(group.getGradeNumber(), groupDto.getGradeNumber());
     assertEquals(group.getLetter(), groupDto.getLetter());
     assertEquals(group.getShift(), groupDto.getShift());
-    assertNull(groupDto.getLessonDtoSet());
     assertNull(groupDto.getGroupLimitsDto());
   }
 
   @Test
   void Should_ConvertDtoToGroup_When_DtoHasId() {
-    GroupDto groupDto = new GroupDto(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null, null);
+    GroupDto groupDto = new GroupDto(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null);
 
     Group group = groupMapper.dtoToGroup(groupDto);
 
@@ -51,13 +50,12 @@ class GroupMapperTest {
     assertEquals(groupDto.getGradeNumber(), group.getGradeNumber());
     assertEquals(groupDto.getLetter(), group.getLetter());
     assertEquals(groupDto.getShift(), group.getShift());
-    assertNull(groupDto.getLessonDtoSet());
     assertNull(groupDto.getGroupLimitsDto());
   }
 
   @Test
   void Should_ConvertDtoToGroup_When_DtoHasNotId() {
-    GroupDto groupDto = new GroupDto(null, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null, null);
+    GroupDto groupDto = new GroupDto(null, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null);
 
     Group group = groupMapper.dtoToGroup(groupDto);
 
@@ -65,7 +63,6 @@ class GroupMapperTest {
     assertEquals(groupDto.getGradeNumber(), group.getGradeNumber());
     assertEquals(groupDto.getLetter(), group.getLetter());
     assertEquals(groupDto.getShift(), group.getShift());
-    assertNull(groupDto.getLessonDtoSet());
     assertNull(groupDto.getGroupLimitsDto());
   }
 
