@@ -31,6 +31,11 @@
          || getSubjectHoursFormControl(subject).errors?.min || getSubjectHoursFormControl(subject).errors?.max)
          && (getSubjectHoursFormControl(subject).dirty || submitButtonIsPressed)"
           >0.5 - 10 h/week</p>
+          <p
+            class="text-red-600 italic font-mono font-bold mb-2"
+            *ngIf="(getSubjectHoursFormControl(subject).errors?.subgroupHoursIsInteger)
+         && (getSubjectHoursFormControl(subject).dirty || submitButtonIsPressed)"
+          >Should be an integer if 2 subgroups</p>
 
           <button
             type="button"
