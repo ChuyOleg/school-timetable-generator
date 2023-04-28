@@ -4,7 +4,7 @@ import { GroupService } from "../../../services/group/group.service";
 import { SubjectService } from "../../../services/subject/subject.service";
 import { RoomService } from "../../../services/room/room.service";
 import { TeacherService } from "../../../services/teacher/teacher.service";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { ISubject } from "../../../models/subject";
 import { ITeacher } from "../../../models/teacher";
 import { IRoom } from "../../../models/room";
@@ -323,10 +323,27 @@ export class LimitsBlockComponent implements OnChanges {
       Validators.required,
       Validators.pattern("^[0-9]+(\\.5)?$"),
       Validators.min(0.5),
-      Validators.max(10)]);
+      Validators.max(10),
+      this.subgroupsHoursIsIntegerValidator.bind(this)]
+    );
 
     formControl.valueChanges.subscribe(() => this.calculateSum());
     return formControl;
+  }
+
+  private subgroupsHoursIsIntegerValidator(control: AbstractControl): ValidationErrors | null {
+    const hours: number = control.value
+
+    const teacher2 = Object.values(this.subjectFormGroupsRecord)
+      .find(formGroup => formGroup.hours === control)?.teacher2 || null;
+
+    if (teacher2 && !Number.isInteger(Number(hours))) {
+      control.setErrors({ subgroupHoursIsInteger: true })
+      return { subgroupHoursIsInteger: true };
+    } else {
+      control.setErrors(null)
+      return null;
+    }
   }
 
   private createSubjectTeacherFormControl(): FormControl<ITeacher|null> {
