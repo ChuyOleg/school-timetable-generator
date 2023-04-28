@@ -53,6 +53,7 @@ import { LoginPageComponent } from './pages/login-page/login-page/login-page.com
 import { TokenInterceptorService } from "./services/token-interceptor.service";
 import { TimetablePageComponent } from './pages/timetable-page/timetable-page.component';
 import { InvalidWorkingLoadingBlockComponent } from './components/timetable/invalid-working-loading-block/invalid-working-loading-block.component';
+import { GroupTimetableBlockComponent } from './components/timetable/group-timtable-block/group-timetable-block.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { InvalidWorkingLoadingBlockComponent } from './components/timetable/inva
     RegisterPageComponent,
     LoginPageComponent,
     TimetablePageComponent,
-    InvalidWorkingLoadingBlockComponent
+    InvalidWorkingLoadingBlockComponent,
+    GroupTimetableBlockComponent,
   ],
   imports: [
     BrowserModule,
