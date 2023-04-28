@@ -59,7 +59,6 @@ export class EditGroupComponent implements OnInit {
         letter: this.form.value.letter as string,
         shift: this.form.value.shift as number,
         teacherDto: this.form.value.teacherDto as ITeacher,
-        lessonDtoSet: this.groupService.groupToEdit.lessonDtoSet,
         groupLimitsDto: this.groupService.groupToEdit.groupLimitsDto
       }).subscribe(() => {
         this.groupExist = false;

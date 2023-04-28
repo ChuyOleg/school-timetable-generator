@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ITeacherInvalidLoading } from "../../../models/util";
+import { ITeacherInvalidLoading } from "../../../models/util/teacher-invalid-loading";
 
 @Component({
   selector: 'app-invalid-working-loading-block',
