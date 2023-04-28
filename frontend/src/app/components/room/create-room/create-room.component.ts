@@ -20,7 +20,7 @@ export class CreateRoomComponent {
       Validators.required,
       Validators.pattern("^[0-9]*$"),
       Validators.min(1),
-      Validators.max(999)
+      Validators.max(9)
     ])
   })
 
