@@ -2,7 +2,9 @@ package ip91.chui.oleh.algorithm.crossover;
 
 import ip91.chui.oleh.algorithm.crossover.chromosomeController.ChromosomeController;
 import ip91.chui.oleh.algorithm.model.Individual;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FairPointCrossover extends AbstractPointCrossover {
 
   public FairPointCrossover(ChromosomeController chromosomeController) {
