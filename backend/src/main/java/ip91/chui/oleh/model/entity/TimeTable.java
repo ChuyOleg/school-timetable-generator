@@ -13,14 +13,15 @@ import java.util.Set;
 public class TimeTable {
 
   @Id
-  @Column
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "timetableIdGenerator")
+  @SequenceGenerator(name = "timetableIdGenerator", sequenceName = "time_table_id_seq", allocationSize = 5)
   private Long id;
 
   @OneToMany(mappedBy = "timeTable")
   @EqualsAndHashCode.Exclude
   private Set<Lesson> lessons;
 
-  @ManyToOne
+  @OneToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
   private User user;
 
