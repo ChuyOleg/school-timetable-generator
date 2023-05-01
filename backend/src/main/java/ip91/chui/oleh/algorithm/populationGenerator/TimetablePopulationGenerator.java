@@ -1,9 +1,17 @@
-package ip91.chui.oleh.algorithm;
+package ip91.chui.oleh.algorithm.populationGenerator;
 
+import ip91.chui.oleh.algorithm.config.Config;
+import ip91.chui.oleh.algorithm.fitnessFunction.FitnessFunction;
+import ip91.chui.oleh.algorithm.model.Individual;
+import ip91.chui.oleh.algorithm.model.Population;
+import ip91.chui.oleh.algorithm.util.TimeSlotsHolder;
 import ip91.chui.oleh.exception.SubjectProcessingException;
-import ip91.chui.oleh.exception.TimeSlotProcessingException;
 import ip91.chui.oleh.model.dto.*;
+import ip91.chui.oleh.model.entity.User;
 import ip91.chui.oleh.model.enumeration.WeekType;
+import ip91.chui.oleh.model.mapping.GroupMapper;
+import ip91.chui.oleh.repository.GroupRepository;
+import ip91.chui.oleh.service.auth.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,25 +23,49 @@ import java.util.stream.Stream;
 
 @Component
 @RequiredArgsConstructor
-public class SimpleScheduleGenerator {
+public class TimetablePopulationGenerator implements PopulationGenerator {
 
   private static final String CANT_FIND_SUBJECT_LIMITS_ERROR = "Can't find SubjectLimits from GroupLimits by Subject name";
-  private static final String CANT_FIND_TIMESLOT_ERROR = "Can't find TimeSlot";
   private static final String HALF_SUBJECT_CANT_HAVE_SUBGROUPS_ERROR = "Half subject can't have subgroups";
   private static final int WORKING_DAYS_COUNT = 5;
 
+  private final AuthenticationService authService;
+  private final GroupRepository groupRepository;
+  private final GroupMapper groupMapper;
+  private final FitnessFunction fitnessFunction;
+  private final TimeSlotsHolder timeSlotsHolder;
   private final Random random;
 
-  // TODO: consider common subjects (HANDICRAFT, PHYSICAL_CULTURE, INFORMATICS) when room have space more than for one class
-  public TimeTableDto generate(Set<GroupDto> groups, Set<TimeSlotDto> timeSlotSet) {
-    Set<LessonDto> lessons = groups.stream()
-        .flatMap(group -> generateForSingleGroup(group, timeSlotSet).stream())
-        .collect(Collectors.toSet());
+  @Override
+  public Population generate() {
+    User user = authService.extractPrincipalFromSecurityContextHolder();
 
-    return new TimeTableDto(null, lessons);
+    List<GroupDto> groups = fetchGroupsFromDbByUserId(user.getId());
+
+    List<Individual> individuals = new ArrayList<>(Config.POPULATION_SIZE);
+
+    for (int individualNum = 0; individualNum < Config.POPULATION_SIZE; individualNum++) {
+      Object[] chromosome = groups
+          .stream()
+          .map(group -> GroupDto
+              .builder()
+              .id(group.getId())
+              .gradeNumber(group.getGradeNumber())
+              .shift(group.getShift())
+              .lessons(generateForSingleGroup(group))
+              .build()
+          )
+          .toArray();
+
+      Individual individual = new Individual(chromosome);
+      individual.setFitness(fitnessFunction.calculate(individual));
+      individuals.add(individual);
+    }
+
+    return new Population(individuals);
   }
 
-  private Set<LessonDto> generateForSingleGroup(GroupDto group, Set<TimeSlotDto> timeSlotSet) {
+  private Set<LessonDto> generateForSingleGroup(GroupDto group) {
     List<SubjectDto> availableSubjects = getAllSubjectsExceptHalfWithDuplicatesFromGroupLimits(group.getGroupLimitsDto());
     List<SubjectDto> halfSubjects = getHalfSubjectFromGroupLimits(group.getGroupLimitsDto());
     Map<DayOfWeek, Integer> hoursPerDayMap = generateHoursPerDayMap(group.getGroupLimitsDto());
@@ -41,14 +73,13 @@ public class SimpleScheduleGenerator {
     return getListOfWorkingDays()
         .stream()
         .flatMap(day -> generateLessonsForSpecificGroupSpecificDay(
-            day, hoursPerDayMap.get(day), availableSubjects, halfSubjects, group, timeSlotSet).stream()
+            day, hoursPerDayMap.get(day), availableSubjects, halfSubjects, group).stream()
         )
         .collect(Collectors.toSet());
   }
 
   private Set<LessonDto> generateLessonsForSpecificGroupSpecificDay(
-      DayOfWeek day, int hours, List<SubjectDto> availableSubjects, List<SubjectDto> halfSubjects,
-      GroupDto group, Set<TimeSlotDto> timeSlotSet
+      DayOfWeek day, int hours, List<SubjectDto> availableSubjects, List<SubjectDto> halfSubjects, GroupDto group
   ) {
 
     Set<LessonDto> lessons = new HashSet<>();
@@ -57,10 +88,10 @@ public class SimpleScheduleGenerator {
       final int lessonNumber = i + 1;
 
       if (isHalfSubjectPickTime(hours, halfSubjects.size()) || availableSubjects.isEmpty()) {
-        addHalfSubjectToLessons(WeekType.EVEN, day, lessonNumber, halfSubjects, group, timeSlotSet, lessons);
-        addHalfSubjectToLessons(WeekType.ODD, day, lessonNumber, halfSubjects, group, timeSlotSet, lessons);
+        addHalfSubjectToLessons(WeekType.EVEN, day, lessonNumber, halfSubjects, group, lessons);
+        addHalfSubjectToLessons(WeekType.ODD, day, lessonNumber, halfSubjects, group, lessons);
       } else {
-        addSubjectToLessons(day, lessonNumber, availableSubjects, group, timeSlotSet, lessons);
+        addSubjectToLessons(day, lessonNumber, availableSubjects, group, lessons);
       }
     });
 
@@ -68,14 +99,14 @@ public class SimpleScheduleGenerator {
   }
 
   private void addSubjectToLessons(
-      DayOfWeek day, int lessonNumber, List<SubjectDto> availableSubjects, GroupDto group,
-      Set<TimeSlotDto> timeSlotSet ,Set<LessonDto> lessons)
+      DayOfWeek day, int lessonNumber, List<SubjectDto> availableSubjects,
+      GroupDto group, Set<LessonDto> lessons)
   {
 
     SubjectDto subject = pickRandomSubject(availableSubjects);
     SubjectLimitsDto subjectLimits = fetchSubjectLimitsFromGroupLimits(group.getGroupLimitsDto(), subject.getName());
 
-    TimeSlotDto timeSlot = fetchTimeSlot(WeekType.BOTH, day, lessonNumber, timeSlotSet);
+    TimeSlotDto timeSlot = timeSlotsHolder.getTimeSlotByFields(WeekType.BOTH, day, lessonNumber);
     TeacherDto teacher = subjectLimits.getTeacherDto();
     RoomDto room = subjectLimits.getRoomDto();
 
@@ -89,8 +120,8 @@ public class SimpleScheduleGenerator {
   }
 
   private void addHalfSubjectToLessons(
-      WeekType week, DayOfWeek day, int lessonNumber, List<SubjectDto> halfSubjects, GroupDto group,
-      Set<TimeSlotDto> timeSlotSet ,Set<LessonDto> lessons)
+      WeekType week, DayOfWeek day, int lessonNumber, List<SubjectDto> halfSubjects,
+      GroupDto group, Set<LessonDto> lessons)
   {
 
     SubjectDto subject = pickRandomSubject(halfSubjects);
@@ -100,7 +131,7 @@ public class SimpleScheduleGenerator {
       throw new SubjectProcessingException(HALF_SUBJECT_CANT_HAVE_SUBGROUPS_ERROR);
     }
 
-    TimeSlotDto timeSlot = fetchTimeSlot(week, day, lessonNumber, timeSlotSet);
+    TimeSlotDto timeSlot = timeSlotsHolder.getTimeSlotByFields(week, day, lessonNumber);
     TeacherDto teacher = subjectLimits.getTeacherDto();
     RoomDto room = subjectLimits.getRoomDto();
 
@@ -113,14 +144,6 @@ public class SimpleScheduleGenerator {
         .filter(limits -> limits.getSubjectDto().getName().equals(subjectName))
         .findFirst()
         .orElseThrow(() -> new SubjectProcessingException(CANT_FIND_SUBJECT_LIMITS_ERROR));
-  }
-
-  private TimeSlotDto fetchTimeSlot(WeekType week, DayOfWeek day, int lessonNumber, Set<TimeSlotDto> timeSlotSet) {
-    return timeSlotSet
-        .stream()
-        .filter(t -> t.getWeekType().equals(week) && t.getDay().equals(day) && t.getLessonNumber() == lessonNumber)
-        .findFirst()
-        .orElseThrow(() -> new TimeSlotProcessingException(CANT_FIND_TIMESLOT_ERROR));
   }
 
   private SubjectDto pickRandomSubject(List<SubjectDto> subjects) {
@@ -191,6 +214,13 @@ public class SimpleScheduleGenerator {
         DayOfWeek.THURSDAY,
         DayOfWeek.FRIDAY
     ).collect(Collectors.toList());
+  }
+
+  private List<GroupDto> fetchGroupsFromDbByUserId(Long userId) {
+    return groupRepository.findAllByUserId(userId)
+        .stream()
+        .map(groupMapper::groupToDto)
+        .collect(Collectors.toList());
   }
 
 }

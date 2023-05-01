@@ -2,14 +2,15 @@ package ip91.chui.oleh.model.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.Set;
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class GroupDto {
 
   private Long id;
@@ -31,7 +32,13 @@ public class GroupDto {
   @NotNull(message = "Group should have class teacher")
   private TeacherDto teacherDto;
 
+  /* TODO: maybe it's better to create wrapper class with this field
+      cause it's used only during algorithm calculations */
+  @EqualsAndHashCode.Exclude
+  private Set<LessonDto> lessons;
+
   @Valid
+  @EqualsAndHashCode.Exclude
   private GroupLimitsDto groupLimitsDto;
 
 }
