@@ -2,6 +2,8 @@ package ip91.chui.oleh.algorithm;
 
 import ip91.chui.oleh.algorithm.config.Config;
 import ip91.chui.oleh.algorithm.crossover.Crossover;
+import ip91.chui.oleh.algorithm.fitnessFunction.FitnessFunction;
+import ip91.chui.oleh.algorithm.fitnessFunction.TimetableFitnessFunctionWithLogs;
 import ip91.chui.oleh.algorithm.generationReplacement.GenerationReplacement;
 import ip91.chui.oleh.algorithm.model.Individual;
 import ip91.chui.oleh.algorithm.model.Population;
@@ -62,9 +64,15 @@ public class EvolutionaryAlgorithm {
         .flatMap(group -> group.getLessons().stream())
         .collect(Collectors.toSet());
 
+
+    FitnessFunction fitnessFunction = new TimetableFitnessFunctionWithLogs();
+    System.out.println();
     System.out.println("---------------------------------------");
     System.out.println("Generation: " + result.getGeneration());
     System.out.println("Score: " + result.getBestIndividual().getFitness());
+
+    result.getBestIndividual().setFitness(fitnessFunction.calculate(result.getBestIndividual()));
+    System.out.println("Score_after: " + result.getBestIndividual().getFitness());
 
     return new TimeTableDto(null, lessons);
   }

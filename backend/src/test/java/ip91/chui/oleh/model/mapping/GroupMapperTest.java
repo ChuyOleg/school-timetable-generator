@@ -42,7 +42,7 @@ class GroupMapperTest {
 
   @Test
   void Should_ConvertDtoToGroup_When_DtoHasId() {
-    GroupDto groupDto = new GroupDto(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null);
+    GroupDto groupDto = new GroupDto(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null, null);
 
     Group group = groupMapper.dtoToGroup(groupDto);
 
@@ -55,7 +55,7 @@ class GroupMapperTest {
 
   @Test
   void Should_ConvertDtoToGroup_When_DtoHasNotId() {
-    GroupDto groupDto = new GroupDto(null, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null);
+    GroupDto groupDto = new GroupDto(null, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null, null);
 
     Group group = groupMapper.dtoToGroup(groupDto);
 
