@@ -2,6 +2,7 @@ package ip91.chui.oleh.algorithm.selection;
 
 import ip91.chui.oleh.algorithm.model.Individual;
 import ip91.chui.oleh.algorithm.model.Population;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
  * The class provides a method to select better half (thanks to the presorting) of the individuals in a population.
  * @author Chui Oleh
  */
+@Component
 public class HalfPopulationSelection implements Selection {
 
   /**
