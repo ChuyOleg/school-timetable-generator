@@ -88,7 +88,8 @@ CREATE TABLE IF NOT EXISTS subject_limits (
 
 CREATE TABLE IF NOT EXISTS time_table (
     id serial PRIMARY KEY ,
-    user_id int NOT NULL REFERENCES users(id)
+    user_id int NOT NULL REFERENCES users(id),
+    UNIQUE (user_id)
 );
 
 CREATE TABLE IF NOT EXISTS lesson (
