@@ -5,7 +5,6 @@ import ip91.chui.oleh.model.dto.GroupDto;
 import ip91.chui.oleh.model.dto.LessonDto;
 import ip91.chui.oleh.model.dto.RoomDto;
 import ip91.chui.oleh.model.dto.TeacherDto;
-import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.util.Arrays;
@@ -14,8 +13,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Component
-public class TimetableFitnessFunction implements FitnessFunction {
+public class TimetableFitnessFunctionWithLogs implements FitnessFunction {
 
   private static final int SUBJECTS_PER_DAY_FINE = 1;
   private static final int TEACHER_MAX_LESSONS_AT_SAME_TIME_FINE = 1;
@@ -63,6 +61,11 @@ public class TimetableFitnessFunction implements FitnessFunction {
         .count();
 
     if (sameTeacherCount > MAX_TEACHER_HAS_LESSONS_AT_SAME_TIME) {
+      System.out.println("--------------------------");
+      System.out.println("Teacher fine: teacherId: " + lessons.stream().filter(lesson -> lesson.getTeacherDto().equals(teacher)).toList().get(0).getTeacherDto().getId() + " | timeSlot: " + lessons.get(0).getTimeSlotDto());
+      System.out.println("Lessons: ");
+      lessons.stream().filter(lesson -> lesson.getTeacherDto().equals(teacher)).forEach(l -> System.out.println(l.getTeacherDto().getId() + " | "));
+      System.out.println("--------------------------");
       return TEACHER_MAX_LESSONS_AT_SAME_TIME_FINE;
     }
 
@@ -80,6 +83,7 @@ public class TimetableFitnessFunction implements FitnessFunction {
         .count();
 
     if (sameRoomCount > room.getCapacity()) {
+      System.out.println("Room fine: " + " | timeSlot: " + lessons.get(0).getTimeSlotDto());
       return ROOM_MAX_LESSONS_AT_SAME_TIME_FINE;
     }
 
@@ -94,7 +98,7 @@ public class TimetableFitnessFunction implements FitnessFunction {
           .toList();
 
       return acc + checkSubjectsPerSpecificDay(dayLessons);
-      }, Integer::sum);
+    }, Integer::sum);
   }
 
   /* group should have max 2 same subjects per day */
@@ -104,10 +108,11 @@ public class TimetableFitnessFunction implements FitnessFunction {
           .stream()
           .filter(l ->
               l.getSubjectDto().equals(lesson.getSubjectDto()) &&
-              l.getTeacherDto().equals(lesson.getTeacherDto()))
+                  l.getTeacherDto().equals(lesson.getTeacherDto()))
           .count();
 
       if (matchesCount > MAX_SAME_SUBJECT_AT_ONE_DAY_COUNT) {
+        System.out.println("Subject fine: subjectId: " + lesson.getSubjectDto().getId() + " | timeSlot: " + lesson.getTimeSlotDto());
         return acc + SUBJECTS_PER_DAY_FINE;
       }
       return acc;
