@@ -3,9 +3,7 @@ package ip91.chui.oleh.model.mapping;
 import ip91.chui.oleh.model.dto.LessonDto;
 import ip91.chui.oleh.model.dto.lightweigth.LessonDtoLightWeight;
 import ip91.chui.oleh.model.entity.Lesson;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface LessonDtoLightWeightMapper {
@@ -19,16 +17,6 @@ public interface LessonDtoLightWeightMapper {
       @Mapping(target = "timeSlotId", source = "timeSlotDto.id")
   })
   LessonDtoLightWeight toLessonDtoLightWeight(LessonDto lessonDto);
-
-  @Mappings({
-      @Mapping(target = "id", source = "id"),
-      @Mapping(target = "groupDto.id", source = "groupId"),
-      @Mapping(target = "teacherDto.id", source = "teacherId"),
-      @Mapping(target = "subjectDto.id", source = "subjectId"),
-      @Mapping(target = "roomDto.id", source = "roomId"),
-      @Mapping(target = "timeSlotDto.id", source = "timeSlotId")
-  })
-  LessonDto toLessonDto(LessonDtoLightWeight lessonDtoLightWeight);
 
   @Mappings({
       @Mapping(target = "id", source = "id"),
@@ -49,5 +37,12 @@ public interface LessonDtoLightWeightMapper {
       @Mapping(target = "timeSlot.id", source = "timeSlotId")
   })
   Lesson toLesson(LessonDtoLightWeight lessonDtoLightWeight);
+
+  @AfterMapping
+  default void setRoomNullIfRoomIdIsNull(@MappingTarget Lesson lesson) {
+    if (lesson.getId() == null) {
+      lesson.setRoom(null);
+    }
+  }
 
 }
