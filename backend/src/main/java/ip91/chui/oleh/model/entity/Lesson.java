@@ -12,7 +12,7 @@ public class Lesson {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lessonIdGenerator")
-  @SequenceGenerator(name = "lessonIdGenerator", sequenceName = "lesson_id_seq", allocationSize = 100)
+  @SequenceGenerator(name = "lessonIdGenerator", sequenceName = "lesson_id_seq", allocationSize = 500)
   private Long id;
 
   @ManyToOne
@@ -35,7 +35,7 @@ public class Lesson {
   @JoinColumn(name = "room_id", referencedColumnName = "id")
   private Room room;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "time_table_id", referencedColumnName = "id")
   private TimeTable timeTable;
 
