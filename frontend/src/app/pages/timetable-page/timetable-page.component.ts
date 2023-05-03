@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TeacherService } from "../../services/teacher/teacher.service";
-import { firstValueFrom } from "rxjs";
+import { delay, firstValueFrom } from "rxjs";
 import { ITeacherInvalidLoading } from "../../models/util/teacher-invalid-loading";
 import { GroupService } from "../../services/group/group.service";
 import { ILessonLightweight } from "../../models/util/lesson-lightweight";
@@ -12,12 +12,13 @@ import { TimeslotService } from "../../services/timeslot/timeslot.service";
 import { ITimeSlot } from "../../models/time-slot";
 import { KeyValue } from "@angular/common";
 import { TimetableService } from "../../services/timetable/timetable.service";
+import { DialogService } from "../../services/dialog.service";
 
 @Component({
   selector: 'app-timetable-page',
   templateUrl: './timetable-page.component.html'
 })
-export class TimetablePageComponent {
+export class TimetablePageComponent implements OnInit {
 
   public timetableByGroups: Map<number, ILessonLightweight[]> = new Map()
   public teachersById: Record<number, ITeacher> = []
@@ -29,23 +30,54 @@ export class TimetablePageComponent {
   public days: string[] = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П`ятниця']
   nums: number[] = Array.from({length: 8}, (_, i) => i + 1);
   public viewState: boolean = false
-  public isGenerated: boolean = false
+  public generateButtonIsClicked: boolean = false;
+  public loading: boolean = false
+  public isTimetablePresent: boolean = false
 
   constructor(
     private teacherService: TeacherService,
     private subjectService: SubjectService,
     private timeslotService: TimeslotService,
     private groupService: GroupService,
-    private timetableService: TimetableService
+    public timetableService: TimetableService,
+    private dialogService: DialogService
   ) {
   }
 
-  async generate() {
+  async ngOnInit() {
     await this.checkTeachersLoading();
     if (this.teachersWithInvalidLoading.length === 0) {
+      this.loading = true;
+
+      this.timetableService.getForUser().pipe(delay(500)).subscribe(async timetable => {
+        if (timetable) {
+          await this.loadExtraData();
+          timetable.lessons.forEach(lesson => {
+            if (this.timetableByGroups.get(lesson.groupId) == null) {
+              this.timetableByGroups.set(lesson.groupId, [lesson]);
+            } else {
+              this.timetableByGroups.get(lesson.groupId)?.push(lesson)
+            }
+          })
+
+          this.isTimetablePresent = true
+        } else {
+          this.isTimetablePresent = false;
+        }
+
+        this.loading = false;
+      })
+    }
+  }
+
+  async generate() {
+    this.generateButtonIsClicked = true;
+    await this.checkTeachersLoading();
+    if (this.teachersWithInvalidLoading.length === 0) {
+      this.loading = true;
       await this.loadExtraData();
-      this.timetableService.generate().subscribe(data => {
-        data.lessons.forEach(lesson => {
+      this.timetableService.generate().subscribe(timetable => {
+        timetable.lessons.forEach(lesson => {
           if (this.timetableByGroups.get(lesson.groupId) == null) {
             this.timetableByGroups.set(lesson.groupId, [lesson]);
           } else {
@@ -53,13 +85,46 @@ export class TimetablePageComponent {
           }
         })
 
-        this.isGenerated = true
+        this.loading = false;
+        this.isTimetablePresent = true
       });
+    }
+    this.generateButtonIsClicked = false;
+  }
+
+  submit() {
+    if (this.timetableService.timetable?.id) {
+      this.update();
+    } else {
+      this.save();
     }
   }
 
   save() {
-    console.log("Saving...")
+    if (this.timetableService.timetable) {
+      this.timetableService.save(this.timetableService.timetable).subscribe();
+    }
+  }
+
+  update() {
+    if (this.timetableService.timetable) {
+      this.timetableService.update(this.timetableService.timetable).subscribe();
+    }
+  }
+
+  delete() {
+    this.dialogService.confirmDialog({
+      title: "Видалення розкладу",
+      message: `Ви дійсно хочете видалити розклад?`,
+      cancelText: "Ні",
+      confirmText: "Так"
+    }).subscribe(bool => {
+      if (this.timetableService.timetable && this.timetableService.timetable.id && bool) {
+        this.timetableService.delete(this.timetableService.timetable?.id).subscribe(() => {
+          this.isTimetablePresent = false;
+        });
+      }
+    })
   }
 
   private async checkTeachersLoading() {
