@@ -17,11 +17,12 @@ public class TimeTable {
   @SequenceGenerator(name = "timetableIdGenerator", sequenceName = "time_table_id_seq", allocationSize = 5)
   private Long id;
 
-  @OneToMany(mappedBy = "timeTable", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "timeTable", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
   @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Set<Lesson> lessons;
 
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
   private User user;
 
