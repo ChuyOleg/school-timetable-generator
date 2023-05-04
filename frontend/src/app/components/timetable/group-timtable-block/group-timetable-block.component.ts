@@ -7,6 +7,8 @@ import { ISubject } from "../../../models/subject";
 import { EWeekType } from "../../../models/enumeration/week-type";
 import { ITeacher } from "../../../models/teacher";
 import { ILessonInTimetableComplexInfo } from "../../../models/util/lesson-in-timetable-complex-info";
+import { TimetableService } from "../../../services/timetable/timetable.service";
+import { ILesson } from "../../../models/lesson";
 
 @Component({
   selector: 'app-group-timetable-block',
@@ -31,6 +33,9 @@ export class GroupTimetableBlockComponent implements OnChanges {
   days: EDayOfWeek[] = [EDayOfWeek.MONDAY, EDayOfWeek.TUESDAY, EDayOfWeek.WEDNESDAY, EDayOfWeek.THURSDAY, EDayOfWeek.FRIDAY]
   nums: number[] = Array.from({length: 8}, (_, i) => i + 1);
 
+  constructor(
+    private timetableService: TimetableService
+  ) {}
 
   ngOnChanges() {
     if (this.areAllInputsLoaded() && !this.isLoaded) {
@@ -147,6 +152,56 @@ export class GroupTimetableBlockComponent implements OnChanges {
 
   isFriday(day: EDayOfWeek): boolean {
     return day === EDayOfWeek.FRIDAY;
+  }
+
+  lesson1HasFine(day: EDayOfWeek, lessonNumber: number): boolean {
+    const lesson = this.getDayLessonsByDay(day)[lessonNumber].lesson1
+
+    if (lesson) {
+      return (this.timetableService.timetableFines?.teacherFines.find(l => this.areEqual(lesson, l)) != null);
+    }
+
+    return false;
+  }
+
+  lesson2HasFine(day: EDayOfWeek, lessonNumber: number): boolean {
+    const lesson = this.getDayLessonsByDay(day)[lessonNumber].lesson2
+
+    if (lesson) {
+      return (this.timetableService.timetableFines?.teacherFines.find(l => this.areEqual(lesson, l)) != null);
+    }
+
+    return false;
+  }
+
+  evenLessonHasFine(day: EDayOfWeek, lessonNumber: number): boolean {
+    const lesson = this.getDayLessonsByDay(day)[lessonNumber].evenLesson
+
+    if (lesson) {
+      return (this.timetableService.timetableFines?.teacherFines.find(l => this.areEqual(lesson, l)) != null);
+    }
+
+    return false;
+  }
+
+  oddLessonHasFine(day: EDayOfWeek, lessonNumber: number): boolean {
+    const lesson = this.getDayLessonsByDay(day)[lessonNumber].oddLesson
+
+    if (lesson) {
+      return (this.timetableService.timetableFines?.teacherFines.find(l => this.areEqual(lesson, l)) != null);
+    }
+
+    return false;
+  }
+
+
+  private areEqual(lesson1: ILessonLightweight, lesson2: ILesson): boolean {
+    return (lesson1.id && lesson2.id && lesson1?.id === lesson2.id) ||
+      (
+        lesson1?.groupId === lesson2.groupDto.id && lesson1?.teacherId === lesson2.teacherDto.id &&
+        lesson1?.subjectId === lesson2.subjectDto.id && (lesson1?.roomId === (lesson2.roomDto?.id || null)) &&
+        lesson1?.timeSlotId === lesson2.timeSlotDto.id
+      );
   }
 
   private getDayLessonsByDay(day: EDayOfWeek): Record<number, ILessonInTimetableComplexInfo> {
