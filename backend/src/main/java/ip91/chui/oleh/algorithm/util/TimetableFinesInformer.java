@@ -43,10 +43,6 @@ public class TimetableFinesInformer {
       group.setGroupLimitsDto(null);
     });
 
-    System.out.println("subjectFine: " + timeTableFinesDto.getSubjectFines().size());
-    System.out.println("teacherFine: " + timeTableFinesDto.getTeacherFines().size());
-    System.out.println("roomFine: " + timeTableFinesDto.getRoomFines().size());
-
     return timeTableFinesDto;
   }
 
@@ -70,11 +66,6 @@ public class TimetableFinesInformer {
         .count();
 
     if (sameTeacherCount > MAX_TEACHER_HAS_LESSONS_AT_SAME_TIME) {
-//      System.out.println("--------------------------");
-//      System.out.println("Teacher fine: teacherId: " + lessons.stream().filter(lesson -> lesson.getTeacherDto().equals(checkedLesson.getTeacherDto())).toList().get(0).getTeacherDto().getId() + " | timeSlot: " + lessons.get(0).getTimeSlotDto());
-//      System.out.println("Lessons: ");
-//      lessons.stream().filter(lesson -> lesson.getTeacherDto().equals(checkedLesson.getTeacherDto())).forEach(l -> System.out.println(l.getTeacherDto().getId() + " | "));
-//      System.out.println("--------------------------");
       timeTableFinesDto.getTeacherFines().add(checkedLesson);
     }
   }
@@ -90,7 +81,6 @@ public class TimetableFinesInformer {
         .count();
 
     if (sameRoomCount > checkedLesson.getRoomDto().getCapacity()) {
-//      System.out.println("Room fine: " + " | timeSlot: " + lessons.get(0).getTimeSlotDto());
       timeTableFinesDto.getRoomFines().add(checkedLesson);
     }
   }
@@ -118,7 +108,6 @@ public class TimetableFinesInformer {
           .count();
 
       if (matchesCount > MAX_SAME_SUBJECT_AT_ONE_DAY_COUNT) {
-//        System.out.println("Subject fine: subjectId: " + lesson.getSubjectDto().getId() + " | timeSlot: " + lesson.getTimeSlotDto());
         timeTableFinesDto.getSubjectFines().add(lesson);
       }
     });
