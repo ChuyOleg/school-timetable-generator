@@ -99,5 +99,5 @@ CREATE TABLE IF NOT EXISTS lesson (
     subject_id int NOT NULL REFERENCES subject(id) ,
     time_slot_id int NOT NULL REFERENCES time_slot(id) ,
     room_id int REFERENCES room(id) ,
-    time_table_id int REFERENCES time_table(id)
+    time_table_id int REFERENCES time_table(id) ON DELETE CASCADE
 );

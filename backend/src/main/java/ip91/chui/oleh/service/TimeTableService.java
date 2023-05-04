@@ -1,8 +1,10 @@
 package ip91.chui.oleh.service;
 
 import ip91.chui.oleh.algorithm.EvolutionaryAlgorithm;
+import ip91.chui.oleh.algorithm.util.TimetableFinesInformer;
 import ip91.chui.oleh.exception.TimeTableDtoLightWeightValidationException;
 import ip91.chui.oleh.exception.TimeTableProcessingException;
+import ip91.chui.oleh.model.dto.TimeTableFinesDto;
 import ip91.chui.oleh.model.dto.lightweigth.TimeTableDtoLightWeight;
 import ip91.chui.oleh.model.entity.TimeTable;
 import ip91.chui.oleh.model.entity.User;
@@ -22,6 +24,7 @@ public class TimeTableService {
   private static final String TIMETABLE_ID_SHOULD_BE_NOT_NULL_MSG = "You have to specify ID of the timetable";
 
   private final EvolutionaryAlgorithm algorithm;
+  private final TimetableFinesInformer finesInformer;
   private final AuthenticationService authService;
   private final TimeTableRepository timeTableRepository;
   private final TimeTableDtoLightWeightMapper timeTableDtoLightWeightMapper;
@@ -38,6 +41,10 @@ public class TimeTableService {
 
   public TimeTableDtoLightWeight generate() {
     return timeTableDtoLightWeightMapper.toTimeTableDtoLightWeight(algorithm.generate());
+  }
+
+  public TimeTableFinesDto checkFitness(TimeTableDtoLightWeight timeTableDtoLightWeight) {
+    return finesInformer.check(timeTableDtoLightWeight);
   }
 
   public TimeTableDtoLightWeight create(TimeTableDtoLightWeight timeTableDtoLightWeight) {
