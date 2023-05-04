@@ -15,6 +15,7 @@ public class Group {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groupIdGenerator")
   @SequenceGenerator(name = "groupIdGenerator", sequenceName = "class_group_id_seq", allocationSize = 10)
+  @EqualsAndHashCode.Include
   private Long id;
 
   @Column(nullable = false)
