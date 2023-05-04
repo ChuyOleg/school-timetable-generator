@@ -33,6 +33,7 @@ export class TimetablePageComponent implements OnInit {
   public generateButtonIsClicked: boolean = false;
   public loading: boolean = false
   public isTimetablePresent: boolean = false
+  public checkFitnessButtonIsClicked = false
 
   constructor(
     private teacherService: TeacherService,
@@ -45,7 +46,9 @@ export class TimetablePageComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.loading = true
     await this.checkTeachersLoading();
+    this.loading = false
     if (this.teachersWithInvalidLoading.length === 0) {
       this.loading = true;
 
@@ -76,7 +79,7 @@ export class TimetablePageComponent implements OnInit {
     if (this.teachersWithInvalidLoading.length === 0) {
       this.loading = true;
       await this.loadExtraData();
-      this.timetableService.generate().subscribe(timetable => {
+      this.timetableService.generate().subscribe(async timetable => {
         timetable.lessons.forEach(lesson => {
           if (this.timetableByGroups.get(lesson.groupId) == null) {
             this.timetableByGroups.set(lesson.groupId, [lesson]);
@@ -84,6 +87,8 @@ export class TimetablePageComponent implements OnInit {
             this.timetableByGroups.get(lesson.groupId)?.push(lesson)
           }
         })
+
+        await this.checkFitness();
 
         this.loading = false;
         this.isTimetablePresent = true
@@ -109,6 +114,14 @@ export class TimetablePageComponent implements OnInit {
   update() {
     if (this.timetableService.timetable) {
       this.timetableService.update(this.timetableService.timetable).subscribe();
+      this.checkFitnessButtonIsClicked = false;
+    }
+  }
+
+  async checkFitness() {
+    if (this.timetableService.timetable) {
+      await firstValueFrom(this.timetableService.checkFitness(this.timetableService.timetable));
+      this.checkFitnessButtonIsClicked = true;
     }
   }
 
@@ -119,10 +132,17 @@ export class TimetablePageComponent implements OnInit {
       cancelText: "Ні",
       confirmText: "Так"
     }).subscribe(bool => {
-      if (this.timetableService.timetable && this.timetableService.timetable.id && bool) {
-        this.timetableService.delete(this.timetableService.timetable?.id).subscribe(() => {
+      if (this.timetableService.timetable && bool) {
+        if (this.timetableService.timetable.id) {
+          this.timetableService.delete(this.timetableService.timetable?.id).subscribe(() => {
+            this.isTimetablePresent = false;
+            this.checkFitnessButtonIsClicked = false;
+          });
+        } else {
+          this.timetableService.timetable = null;
           this.isTimetablePresent = false;
-        });
+          this.checkFitnessButtonIsClicked = false;
+        }
       }
     })
   }
