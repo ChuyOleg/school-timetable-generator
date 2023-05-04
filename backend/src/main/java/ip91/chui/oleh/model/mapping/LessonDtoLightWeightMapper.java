@@ -40,7 +40,7 @@ public interface LessonDtoLightWeightMapper {
 
   @AfterMapping
   default void setRoomNullIfRoomIdIsNull(@MappingTarget Lesson lesson) {
-    if (lesson.getId() == null) {
+    if (lesson.getRoom().getId() == null) {
       lesson.setRoom(null);
     }
   }
