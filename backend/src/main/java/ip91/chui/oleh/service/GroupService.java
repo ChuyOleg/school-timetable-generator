@@ -48,7 +48,9 @@ public class GroupService {
   public GroupDto getById(Long id) {
     Group group = findGroupById(id);
     User user = authService.extractPrincipalFromSecurityContextHolder();
-    setTeacherToSubjectLimits(group.getGroupLimits().getSubjectLimitsSet(), user.getId());
+    if (group.getGroupLimits() != null) {
+      setTeacherToSubjectLimits(group.getGroupLimits().getSubjectLimitsSet(), user.getId());
+    }
     return groupMapper.groupToDto(group);
   }
 
@@ -80,7 +82,9 @@ public class GroupService {
       Group groupToUpdate = groupMapper.dtoToGroup(groupDto);
       setTimeSlotIdIfItIsNull(groupToUpdate);
       User user = authService.extractPrincipalFromSecurityContextHolder();
-      setTeacherToSubjectLimits(groupToUpdate.getGroupLimits().getSubjectLimitsSet(), user.getId());
+      if (groupToUpdate.getGroupLimits() != null) {
+        setTeacherToSubjectLimits(groupToUpdate.getGroupLimits().getSubjectLimitsSet(), user.getId());
+      }
 
       Group updatedGroup = groupRepository.save(groupToUpdate);
       return groupMapper.groupToDto(updatedGroup);
