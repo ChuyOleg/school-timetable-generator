@@ -21,7 +21,7 @@ public class Room {
   @Column(nullable = false)
   private int capacity;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
   private User user;
 

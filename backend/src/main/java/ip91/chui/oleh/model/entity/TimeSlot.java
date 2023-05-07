@@ -14,7 +14,6 @@ import java.time.DayOfWeek;
 public class TimeSlot {
 
   @Id
-  @Column
   private Long id;
 
   @Column(nullable = false)
