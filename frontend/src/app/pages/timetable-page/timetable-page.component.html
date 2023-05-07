@@ -91,7 +91,12 @@
     timetableService.timetableFines.roomFines.length > 0"
     class="mt-5">
     <p class="text-red-500 font-bold text-sm text-center">
-      Розклад має деякі погрішності. Відредагуйте наявний або створіть новий, після цього оцініть розклад знову.
+      Розклад має деякі погрішності
+      ({{
+        timetableService.timetableFines.teacherFines.length +
+        timetableService.timetableFines.subjectFines.length +
+        timetableService.timetableFines.roomFines.length
+      }}). Відредагуйте наявний або створіть новий, після цього оцініть розклад знову.
     </p>
   </div>
 </div>

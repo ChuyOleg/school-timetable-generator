@@ -54,6 +54,7 @@ export class TimetablePageComponent implements OnInit {
 
       this.timetableService.getForUser().pipe(delay(500)).subscribe(async timetable => {
         if (timetable) {
+          this.timetableByGroups = new Map()
           await this.loadExtraData();
           timetable.lessons.forEach(lesson => {
             if (this.timetableByGroups.get(lesson.groupId) == null) {
@@ -71,6 +72,7 @@ export class TimetablePageComponent implements OnInit {
         this.loading = false;
       })
     }
+    this.timetableService.lessonToSwitch = null;
   }
 
   async generate() {
@@ -80,6 +82,7 @@ export class TimetablePageComponent implements OnInit {
       this.loading = true;
       await this.loadExtraData();
       this.timetableService.generate().subscribe(async timetable => {
+        this.timetableByGroups = new Map()
         timetable.lessons.forEach(lesson => {
           if (this.timetableByGroups.get(lesson.groupId) == null) {
             this.timetableByGroups.set(lesson.groupId, [lesson]);
@@ -94,6 +97,7 @@ export class TimetablePageComponent implements OnInit {
         this.isTimetablePresent = true
       });
     }
+    this.timetableService.lessonToSwitch = null;
     this.generateButtonIsClicked = false;
   }
 
@@ -103,6 +107,7 @@ export class TimetablePageComponent implements OnInit {
     } else {
       this.save();
     }
+    this.timetableService.lessonToSwitch = null;
   }
 
   save() {
@@ -113,8 +118,10 @@ export class TimetablePageComponent implements OnInit {
 
   update() {
     if (this.timetableService.timetable) {
-      this.timetableService.update(this.timetableService.timetable).subscribe();
-      this.checkFitnessButtonIsClicked = false;
+      this.timetableService.update(this.timetableService.timetable).subscribe(() => {
+        this.checkFitnessButtonIsClicked = false;
+        window.location.reload()
+      });
     }
   }
 
@@ -143,6 +150,7 @@ export class TimetablePageComponent implements OnInit {
           this.isTimetablePresent = false;
           this.checkFitnessButtonIsClicked = false;
         }
+        this.timetableService.lessonToSwitch = null;
       }
     })
   }
