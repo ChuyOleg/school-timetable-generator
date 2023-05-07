@@ -1,49 +1,73 @@
 <div [ngClass]="{'bg-gray-300': group.gradeNumber % 2}">
-  <div class="text-center font-bold py-2">{{ group.gradeNumber + '-' + group.letter }}</div>
+  <div class="text-center py-2 flex justify-center relative border-r border-l">
+    <p class="font-bold">{{ group.gradeNumber + '-' + group.letter }}</p>
+    <div class="absolute top-0 right-2">
+      <p class="text-sm"><mat-icon>access_time</mat-icon> {{ group.shift }}</p>
+    </div>
+  </div>
 
   <div *ngFor="let day of days">
-    <div *ngFor="let lessonNumber of nums">
-      <div *ngIf="hasLesson(day, lessonNumber)">
+    <div *ngFor="let lessonNumber of nums" class="border border-1">
+      <div *ngIf="hasLesson(day, lessonNumber)"
+           class="hover:bg-blue-400 hover:cursor-pointer"
+           [ngClass]="{'bg-blue-400' : isLessonToSwitch(day, lessonNumber)}"
+           (click)="pickOrSwitchLesson(day, lessonNumber)">
 
         <div *ngIf="viewState">
-          <p class="w-[200px] pl-4 border border-1"
+          <p class="w-[200px] pl-4"
+             [ngClass]="{ 'border-blue-400' : isLessonToSwitch(day, lessonNumber) }"
              *ngIf="isLesson1Present(day, lessonNumber) && isLesson2Present(day, lessonNumber)"
           >
-            {{ (getLesson1TeacherName(day, lessonNumber) | slice:0:8)
-            + ' | ' +
-            (getLesson2TeacherName(day, lessonNumber) | slice: 0:8) }}
+            <span [ngClass]="{ 'text-red-500 font-bold' : lesson1HasFine(day, lessonNumber) }">
+              {{ getLesson1TeacherName(day, lessonNumber) | slice:0:8 }}
+            </span>
+            <span> | </span>
+            <span [ngClass]="{ 'text-red-500 font-bold' : lesson2HasFine(day, lessonNumber) }">
+              {{ getLesson2TeacherName(day, lessonNumber) | slice:0:8 }}
+            </span>
           </p>
 
-          <p class="w-[200px] pl-4 border border-1"
+          <p class="w-[200px] pl-4"
              *ngIf="isLesson1Present(day, lessonNumber) && !isLesson2Present(day, lessonNumber)"
+             [ngClass]="{ 'text-red-500 font-bold' : lesson1HasFine(day, lessonNumber) }"
           >
             {{ getLesson1TeacherName(day, lessonNumber) | slice:0:18 }}
           </p>
 
-          <p class="w-[200px] pl-4 border border-1" *ngIf="!isLesson1Present(day, lessonNumber)">
-            {{ (getEvenLessonTeacherName(day, lessonNumber) | slice:0:8)
-            + ' / ' +
-            (getOddLessonTeacherName(day, lessonNumber) | slice:0:8) }}
+          <p class="w-[200px] pl-4" *ngIf="!isLesson1Present(day, lessonNumber)">
+            <span [ngClass]="{ 'text-red-500 font-bold' : evenLessonHasFine(day, lessonNumber) }">
+              {{ getEvenLessonTeacherName(day, lessonNumber) | slice:0:8 }}
+            </span>
+            <span> / </span>
+            <span [ngClass]="{ 'text-red-500 font-bold' : oddLessonHasFine(day, lessonNumber) }">
+              {{ getOddLessonTeacherName(day, lessonNumber) | slice:0:8 }}
+            </span>
           </p>
         </div>
 
         <div *ngIf="!viewState">
-          <p class="w-[200px] pl-4 border border-1" *ngIf="isLesson1Present(day, lessonNumber)">
+          <p class="w-[200px] pl-4" *ngIf="isLesson1Present(day, lessonNumber)"
+            [ngClass]="{ 'text-red-500 font-bold' : lesson1HasFine(day, lessonNumber) }"
+          >
             {{ getLesson1SubjectName(day, lessonNumber) | slice:0:18 }}
           </p>
 
-          <p class="w-[200px] pl-4 border border-1" *ngIf="!isLesson1Present(day, lessonNumber)">
-            {{ (getEvenLessonSubjectName(day, lessonNumber) | slice:0:8)
-            + ' / ' +
-            (getOddLessonSubjectName(day, lessonNumber) | slice:0:8) }}
+          <p class="w-[200px] pl-4" *ngIf="!isLesson1Present(day, lessonNumber)">
+            <span [ngClass]="{ 'text-red-500 font-bold' : evenLessonHasFine(day, lessonNumber) }">
+              {{ getEvenLessonSubjectName(day, lessonNumber) | slice:0:8 }}
+            </span>
+            <span> / </span>
+            <span [ngClass]="{ 'text-red-500 font-bold' : oddLessonHasFine(day, lessonNumber) }">
+              {{ getOddLessonSubjectName(day, lessonNumber) | slice:0:8 }}
+            </span>
           </p>
         </div>
 
       </div>
 
       <div *ngIf="!hasLesson(day, lessonNumber)">
-        <p class="w-[200px] pl-4 border border-1 bg-gray-400 text-center font-bold" *ngIf="isInterschoolCombine(day, lessonNumber)">МНВК</p>
-        <p class="w-[200px] pl-4 border border-1 text-center" *ngIf="!isInterschoolCombine(day, lessonNumber)">-</p>
+        <p class="w-[200px] pl-4 bg-gray-400 text-center font-bold" *ngIf="isInterschoolCombine(day, lessonNumber)">МНВК</p>
+        <p class="w-[200px] pl-4 text-center" *ngIf="!isInterschoolCombine(day, lessonNumber)">-</p>
       </div>
 
     </div><br *ngIf="!isFriday(day)">

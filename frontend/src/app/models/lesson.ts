@@ -9,6 +9,6 @@ export interface ILesson {
   groupDto: IGroup
   teacherDto: ITeacher
   subjectDto: ISubject
-  roomDto: IRoom
+  roomDto?: IRoom
   timeSlotDto: ITimeSlot
 }
