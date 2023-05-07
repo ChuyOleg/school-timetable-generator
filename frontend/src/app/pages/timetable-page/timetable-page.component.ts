@@ -33,6 +33,7 @@ export class TimetablePageComponent implements OnInit {
   public generateButtonIsClicked: boolean = false;
   public loading: boolean = false
   public isTimetablePresent: boolean = false
+  public checkFitnessButtonIsClicked = false
 
   constructor(
     private teacherService: TeacherService,
@@ -45,12 +46,15 @@ export class TimetablePageComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.loading = true
     await this.checkTeachersLoading();
+    this.loading = false
     if (this.teachersWithInvalidLoading.length === 0) {
       this.loading = true;
 
       this.timetableService.getForUser().pipe(delay(500)).subscribe(async timetable => {
         if (timetable) {
+          this.timetableByGroups = new Map()
           await this.loadExtraData();
           timetable.lessons.forEach(lesson => {
             if (this.timetableByGroups.get(lesson.groupId) == null) {
@@ -68,6 +72,7 @@ export class TimetablePageComponent implements OnInit {
         this.loading = false;
       })
     }
+    this.timetableService.lessonToSwitch = null;
   }
 
   async generate() {
@@ -76,7 +81,8 @@ export class TimetablePageComponent implements OnInit {
     if (this.teachersWithInvalidLoading.length === 0) {
       this.loading = true;
       await this.loadExtraData();
-      this.timetableService.generate().subscribe(timetable => {
+      this.timetableService.generate().subscribe(async timetable => {
+        this.timetableByGroups = new Map()
         timetable.lessons.forEach(lesson => {
           if (this.timetableByGroups.get(lesson.groupId) == null) {
             this.timetableByGroups.set(lesson.groupId, [lesson]);
@@ -85,10 +91,13 @@ export class TimetablePageComponent implements OnInit {
           }
         })
 
+        await this.checkFitness();
+
         this.loading = false;
         this.isTimetablePresent = true
       });
     }
+    this.timetableService.lessonToSwitch = null;
     this.generateButtonIsClicked = false;
   }
 
@@ -98,6 +107,7 @@ export class TimetablePageComponent implements OnInit {
     } else {
       this.save();
     }
+    this.timetableService.lessonToSwitch = null;
   }
 
   save() {
@@ -108,7 +118,17 @@ export class TimetablePageComponent implements OnInit {
 
   update() {
     if (this.timetableService.timetable) {
-      this.timetableService.update(this.timetableService.timetable).subscribe();
+      this.timetableService.update(this.timetableService.timetable).subscribe(() => {
+        this.checkFitnessButtonIsClicked = false;
+        window.location.reload()
+      });
+    }
+  }
+
+  async checkFitness() {
+    if (this.timetableService.timetable) {
+      await firstValueFrom(this.timetableService.checkFitness(this.timetableService.timetable));
+      this.checkFitnessButtonIsClicked = true;
     }
   }
 
@@ -119,10 +139,18 @@ export class TimetablePageComponent implements OnInit {
       cancelText: "Ні",
       confirmText: "Так"
     }).subscribe(bool => {
-      if (this.timetableService.timetable && this.timetableService.timetable.id && bool) {
-        this.timetableService.delete(this.timetableService.timetable?.id).subscribe(() => {
+      if (this.timetableService.timetable && bool) {
+        if (this.timetableService.timetable.id) {
+          this.timetableService.delete(this.timetableService.timetable?.id).subscribe(() => {
+            this.isTimetablePresent = false;
+            this.checkFitnessButtonIsClicked = false;
+          });
+        } else {
+          this.timetableService.timetable = null;
           this.isTimetablePresent = false;
-        });
+          this.checkFitnessButtonIsClicked = false;
+        }
+        this.timetableService.lessonToSwitch = null;
       }
     })
   }

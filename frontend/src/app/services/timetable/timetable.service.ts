@@ -5,6 +5,8 @@ import { ErrorService } from "../error.service";
 import { Constants } from "../../config/constants";
 import { catchError, Observable, tap, throwError } from "rxjs";
 import { ITimetable } from "../../models/timetable";
+import { ITimetableFines } from "../../models/util/timetable-fines";
+import { ILessonInTimetableComplexInfo } from "../../models/util/lesson-in-timetable-complex-info";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,8 @@ export class TimetableService {
 
   private baseUrl = Constants.API_BASE_URL
   timetable: ITimetable | null
+  timetableFines: ITimetableFines | null
+  lessonToSwitch: ILessonInTimetableComplexInfo | null
 
   getForUser(): Observable<ITimetable> {
     return this.http.get<ITimetable>(`${this.baseUrl}timetables`)
@@ -32,6 +36,14 @@ export class TimetableService {
     return this.http.get<ITimetable>(`${this.baseUrl}timetables/generate`)
       .pipe(
         tap(timetable => this.timetable = timetable),
+        catchError(this.errorHandler.bind(this))
+      )
+  }
+
+  checkFitness(timetable: ITimetable): Observable<ITimetableFines> {
+    return this.http.post<ITimetableFines>(`${this.baseUrl}timetables/checkFitness`, timetable)
+      .pipe(
+        tap(timetableFines => this.timetableFines = timetableFines),
         catchError(this.errorHandler.bind(this))
       )
   }
