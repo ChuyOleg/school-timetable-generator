@@ -6,6 +6,7 @@ import { Constants } from "../../config/constants";
 import { catchError, Observable, tap, throwError } from "rxjs";
 import { ITimetable } from "../../models/timetable";
 import { ITimetableFines } from "../../models/util/timetable-fines";
+import { ILessonInTimetableComplexInfo } from "../../models/util/lesson-in-timetable-complex-info";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class TimetableService {
   private baseUrl = Constants.API_BASE_URL
   timetable: ITimetable | null
   timetableFines: ITimetableFines | null
+  lessonToSwitch: ILessonInTimetableComplexInfo | null
 
   getForUser(): Observable<ITimetable> {
     return this.http.get<ITimetable>(`${this.baseUrl}timetables`)
