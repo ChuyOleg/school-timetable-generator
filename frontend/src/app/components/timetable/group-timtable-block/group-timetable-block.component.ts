@@ -93,6 +93,104 @@ export class GroupTimetableBlockComponent implements OnChanges {
     }
   }
 
+  isLessonToSwitch(day: EDayOfWeek, lessonNumber: number): boolean {
+    if (this.timetableService.lessonToSwitch == null) {
+      return false;
+    }
+
+    return this.timetableService.lessonToSwitch === this.getDayLessonsByDay(day)[lessonNumber];
+  }
+
+  pickOrSwitchLesson(day: EDayOfWeek, lessonNumber: number) {
+    const pickedLesson = this.getDayLessonsByDay(day)[lessonNumber];
+
+    if (this.timetableService.lessonToSwitch == null) {
+      this.timetableService.lessonToSwitch = pickedLesson
+    } else if (this.timetableService.lessonToSwitch == pickedLesson) {
+      this.timetableService.lessonToSwitch = null;
+    } else {
+      const lessonToSwitch = this.timetableService.lessonToSwitch;
+
+      if (this.areGroupsEqual(pickedLesson, lessonToSwitch)) {
+        const pickedLessonTimeSlot = this.fetchTimeSlotFromLessonInfo(pickedLesson);
+        const lessonToSwitchTimeSlot = this.fetchTimeSlotFromLessonInfo(lessonToSwitch);
+        if (!pickedLessonTimeSlot || !lessonToSwitchTimeSlot) {
+          return;
+        }
+
+        this.resetTimeSlot(pickedLesson, lessonToSwitchTimeSlot);
+        this.resetTimeSlot(lessonToSwitch, pickedLessonTimeSlot);
+
+        this.resetDaysLessons(pickedLesson, lessonToSwitchTimeSlot);
+        this.resetDaysLessons(lessonToSwitch, pickedLessonTimeSlot);
+
+        this.timetableService.lessonToSwitch = null;
+      } else {
+        this.timetableService.lessonToSwitch = pickedLesson;
+      }
+    }
+  }
+
+  private resetTimeSlot(info: ILessonInTimetableComplexInfo, timeSlot: ITimeSlot) {
+    if (info.lesson1) {
+      const newTimeSlotId = this.getTimeSlotIdByWeek(timeSlot, EWeekType.BOTH);
+      if (!newTimeSlotId) {
+        return;
+      }
+
+      info.lesson1.timeSlotId = newTimeSlotId;
+      if (info.lesson2) {
+        info.lesson2.timeSlotId = newTimeSlotId;
+      }
+    } else if (info.evenLesson && info.oddLesson) {
+      const newEvenTimeSlotId = this.getTimeSlotIdByWeek(timeSlot, EWeekType.EVEN);
+      const newOddTimeSlotId = this.getTimeSlotIdByWeek(timeSlot, EWeekType.ODD);
+      if (!newEvenTimeSlotId || !newOddTimeSlotId) {
+        return;
+      }
+
+      info.evenLesson.timeSlotId = newEvenTimeSlotId;
+      info.oddLesson.timeSlotId = newOddTimeSlotId;
+    }
+  }
+
+  private resetDaysLessons(info: ILessonInTimetableComplexInfo, timeSlot: ITimeSlot) {
+    if (info.lesson1) {
+      this.getDayLessonsByDay(timeSlot.day)[timeSlot.lessonNumber] = { lesson1: info.lesson1 }
+      if (info.lesson2) {
+        this.getDayLessonsByDay(timeSlot.day)[timeSlot.lessonNumber].lesson2 = info.lesson2;
+      }
+    } else if (info.evenLesson && info.oddLesson) {
+      this.getDayLessonsByDay(timeSlot.day)[timeSlot.lessonNumber] = { evenLesson: info.evenLesson, oddLesson: info.oddLesson }
+    }
+  }
+
+  private getTimeSlotIdByWeek(timeSlot: ITimeSlot, weekType: EWeekType) {
+    if (timeSlot.weekType === weekType) {
+      return timeSlot.id;
+    } else {
+      return Object.values(this.timeslotsById)
+        .find(t => t.day === timeSlot.day && t.lessonNumber === timeSlot.lessonNumber && t.weekType === weekType)?.id;
+    }
+  }
+
+
+  private areGroupsEqual(info1: ILessonInTimetableComplexInfo, info2: ILessonInTimetableComplexInfo): boolean {
+    const lesson1GroupId: number = info1.lesson1?.groupId || info1.evenLesson?.groupId || 0;
+    const lesson2GroupId: number = info2.lesson1?.groupId || info2.evenLesson?.groupId || -1;
+
+    return lesson1GroupId === lesson2GroupId;
+  }
+
+  private fetchTimeSlotFromLessonInfo(info: ILessonInTimetableComplexInfo): ITimeSlot | null {
+    const timeSlotId = info.lesson1?.timeSlotId || info.evenLesson?.timeSlotId;
+
+    if (timeSlotId == null) {
+      return null;
+    }
+    return this.timeslotsById[timeSlotId];
+  }
+
   isInterschoolCombine(day: EDayOfWeek, lessonNumber: number): boolean {
     if (this.group.groupLimitsDto?.interschoolCombine) {
       const combine = this.group.groupLimitsDto?.interschoolCombine;
@@ -157,41 +255,47 @@ export class GroupTimetableBlockComponent implements OnChanges {
   lesson1HasFine(day: EDayOfWeek, lessonNumber: number): boolean {
     const lesson = this.getDayLessonsByDay(day)[lessonNumber].lesson1
 
-    if (lesson) {
-      return (this.timetableService.timetableFines?.teacherFines.find(l => this.areEqual(lesson, l)) != null);
+    if (lesson == null) {
+      return false;
     }
 
-    return false;
+    return this.hasFine(lesson);
   }
 
   lesson2HasFine(day: EDayOfWeek, lessonNumber: number): boolean {
     const lesson = this.getDayLessonsByDay(day)[lessonNumber].lesson2
 
-    if (lesson) {
-      return (this.timetableService.timetableFines?.teacherFines.find(l => this.areEqual(lesson, l)) != null);
+    if (lesson == null) {
+      return false;
     }
 
-    return false;
+    return this.hasFine(lesson);
   }
 
   evenLessonHasFine(day: EDayOfWeek, lessonNumber: number): boolean {
     const lesson = this.getDayLessonsByDay(day)[lessonNumber].evenLesson
 
-    if (lesson) {
-      return (this.timetableService.timetableFines?.teacherFines.find(l => this.areEqual(lesson, l)) != null);
+    if (lesson == null) {
+      return false;
     }
 
-    return false;
+    return this.hasFine(lesson);
   }
 
   oddLessonHasFine(day: EDayOfWeek, lessonNumber: number): boolean {
     const lesson = this.getDayLessonsByDay(day)[lessonNumber].oddLesson
 
-    if (lesson) {
-      return (this.timetableService.timetableFines?.teacherFines.find(l => this.areEqual(lesson, l)) != null);
+    if (lesson == null) {
+      return false;
     }
 
-    return false;
+    return this.hasFine(lesson);
+  }
+
+  private hasFine(lesson: ILessonLightweight): boolean {
+    return (this.timetableService.timetableFines?.subjectFines.find(l => this.areEqual(lesson, l)) != null) ||
+      (this.timetableService.timetableFines?.teacherFines.find(l => this.areEqual(lesson, l)) != null) ||
+      (this.timetableService.timetableFines?.roomFines.find(l => this.areEqual(lesson, l)) != null);
   }
 
 
