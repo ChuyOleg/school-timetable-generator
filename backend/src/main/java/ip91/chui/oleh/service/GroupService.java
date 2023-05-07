@@ -4,11 +4,10 @@ import ip91.chui.oleh.exception.GroupDtoValidationException;
 import ip91.chui.oleh.exception.GroupProcessingException;
 import ip91.chui.oleh.exception.TimeSlotProcessingException;
 import ip91.chui.oleh.model.dto.GroupDto;
-import ip91.chui.oleh.model.entity.Group;
-import ip91.chui.oleh.model.entity.TimeSlot;
-import ip91.chui.oleh.model.entity.User;
+import ip91.chui.oleh.model.entity.*;
 import ip91.chui.oleh.model.mapping.GroupMapper;
 import ip91.chui.oleh.repository.GroupRepository;
+import ip91.chui.oleh.repository.TeacherRepository;
 import ip91.chui.oleh.repository.TimeSlotRepository;
 import ip91.chui.oleh.service.auth.AuthenticationService;
 import ip91.chui.oleh.validator.DtoValidator;
@@ -16,7 +15,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,7 @@ public class GroupService {
   private final AuthenticationService authService;
   private final GroupRepository groupRepository;
   private final TimeSlotRepository timeSlotRepository;
+  private final TeacherRepository teacherRepository;
   private final GroupMapper groupMapper;
   private final DtoValidator<GroupDto> groupDtoDtoValidator;
 
@@ -44,7 +46,10 @@ public class GroupService {
   }
 
   public GroupDto getById(Long id) {
-    return groupMapper.groupToDto(findGroupById(id));
+    Group group = findGroupById(id);
+    User user = authService.extractPrincipalFromSecurityContextHolder();
+    setTeacherToSubjectLimits(group.getGroupLimits().getSubjectLimitsSet(), user.getId());
+    return groupMapper.groupToDto(group);
   }
 
   @Transactional
@@ -54,8 +59,12 @@ public class GroupService {
     User user = authService.extractPrincipalFromSecurityContextHolder();
 
     Group groupToSave = groupMapper.dtoToGroup(groupDto);
+
     groupToSave.setUser(user);
     setTimeSlotIdIfItIsNull(groupToSave);
+    if (groupToSave.getGroupLimits() != null) {
+      setTeacherToSubjectLimits(groupToSave.getGroupLimits().getSubjectLimitsSet(), user.getId());
+    }
 
     Group savedGroup = groupRepository.save(groupToSave);
 
@@ -70,6 +79,8 @@ public class GroupService {
     if (groupRepository.existsById(groupDto.getId())) {
       Group groupToUpdate = groupMapper.dtoToGroup(groupDto);
       setTimeSlotIdIfItIsNull(groupToUpdate);
+      User user = authService.extractPrincipalFromSecurityContextHolder();
+      setTeacherToSubjectLimits(groupToUpdate.getGroupLimits().getSubjectLimitsSet(), user.getId());
 
       Group updatedGroup = groupRepository.save(groupToUpdate);
       return groupMapper.groupToDto(updatedGroup);
@@ -118,6 +129,20 @@ public class GroupService {
     if (groupDto.getId() == null) {
       throw new GroupDtoValidationException(GROUP_ID_SHOULD_BE_NOT_NULL_MSG);
     }
+  }
+
+  private void setTeacherToSubjectLimits(Set<SubjectLimits> subjectLimits, Long userId) {
+    Map<Long, Teacher> teacherById = new HashMap<>();
+    List<Teacher> teachers = teacherRepository.findAllByUserId(userId);
+
+    teachers.forEach(teacher -> teacherById.put(teacher.getId(), teacher));
+
+    subjectLimits.forEach(subjLimits -> {
+      subjLimits.setTeacher(teacherById.get(subjLimits.getTeacher().getId()));
+      if (subjLimits.getTeacher2() != null) {
+        subjLimits.setTeacher2(teacherById.get(subjLimits.getTeacher2().getId()));
+      }
+    });
   }
 
 }
