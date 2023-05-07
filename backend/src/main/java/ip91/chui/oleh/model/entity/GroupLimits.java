@@ -24,7 +24,7 @@ public class GroupLimits {
   @ToString.Exclude
   private Group group;
 
-  @OneToMany(mappedBy = "groupLimits", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "groupLimits", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
   private Set<SubjectLimits> subjectLimitsSet;
 
   @Column(nullable = false)

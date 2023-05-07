@@ -18,7 +18,7 @@ public class Subject {
   @Column(nullable = false)
   private String name;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
   private User user;
 
