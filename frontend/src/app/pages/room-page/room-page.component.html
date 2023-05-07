@@ -1,10 +1,10 @@
-<h3 class="font-bold text-center mt-3 mb-5">Rooms</h3>
+<h3 class="font-bold text-center mt-3 mb-5">Кімнати</h3>
 
 <div class="flex items-center justify-center">
   <input
     type="text"
     class="mb-5 border py-2 px-4 w-2/3"
-    placeholder="Filter rooms..."
+    placeholder="Фільтрувати кімнати..."
     [(ngModel)]="term"
   >
 </div>
@@ -26,11 +26,11 @@
   ></app-room-block>
 </div>
 
-<app-room-modal *ngIf="modalService.createIsVisible$ | async" title="Create new room">
+<app-room-modal *ngIf="modalService.createIsVisible$ | async" title="Створити нову кімнату">
   <app-create-room></app-create-room>
 </app-room-modal>
 
-<app-room-modal *ngIf="modalService.updateIsVisible$ | async" title="Update room">
+<app-room-modal *ngIf="modalService.updateIsVisible$ | async" title="Обновити кімнату">
   <app-edit-room></app-edit-room>
 </app-room-modal>
 
