@@ -33,11 +33,11 @@ public class Group {
   @JoinColumn(name = "teacher_id", referencedColumnName = "id", nullable = false)
   private Teacher teacher;
 
-  @OneToOne(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToOne(mappedBy = "group", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
   @ToString.Exclude
   private GroupLimits groupLimits;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
   @EqualsAndHashCode.Include
   @ToString.Exclude
