@@ -29,7 +29,9 @@ export class AuthService {
   authenticate(userAuth: IUserAuth): Observable<HttpResponse<any>> {
     return this.http.post<HttpResponse<any>>(`${this.baseUrl + this.AUTH_URL_PREFIX}authenticate`, userAuth, { observe: 'response' })
       .pipe(
-        catchError(error => this.errorHandler(error, 'Invalid email or password. Please try again.'))
+        catchError(error => this.errorHandler(error,
+          'Невірна адреса електронної пошти або пароль. Будь ласка спробуйте ще раз.'
+        ))
       )
   }
 
@@ -37,7 +39,7 @@ export class AuthService {
     return this.http.get<boolean>(`${this.baseUrl + this.AUTH_URL_PREFIX}existsByEmail`, {
       params: new HttpParams().set('email', email)
     }).pipe(
-      catchError(error => this.errorHandler(error, 'User with this email already exists'))
+      catchError(error => this.errorHandler(error, 'Користувач із цією електронною адресою вже існує'))
     )
   }
 
