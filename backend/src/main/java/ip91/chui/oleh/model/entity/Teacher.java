@@ -20,21 +20,19 @@ public class Teacher {
   @Column(nullable = false)
   private String name;
 
-  @ManyToMany()
+  @ManyToMany
   @JoinTable(
       name = "teacher_subject",
       joinColumns = @JoinColumn(name = "teacher_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id")
   )
+  @EqualsAndHashCode.Exclude
   private Set<Subject> subjects;
-
-  @OneToMany(mappedBy = "teacher")
-  private Set<Lesson> lessons;
 
   @Column(nullable = false)
   private int maxHoursPerWeek;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
   private User user;
 
