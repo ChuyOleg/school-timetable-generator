@@ -364,4 +364,14 @@ export class LimitsBlockComponent implements OnChanges {
     return room1 && room2 ? room1.id === room2.id : room1 === room2;
   }
 
+  translateDayToUkrainian(day: EDayOfWeek): string {
+    switch (day) {
+      case EDayOfWeek.MONDAY: return 'Понеділок';
+      case EDayOfWeek.TUESDAY: return 'Вівторок';
+      case EDayOfWeek.WEDNESDAY: return 'Середа';
+      case EDayOfWeek.THURSDAY: return 'Четвер';
+      case EDayOfWeek.FRIDAY: return "П'ятниця";
+    }
+  }
+
 }
