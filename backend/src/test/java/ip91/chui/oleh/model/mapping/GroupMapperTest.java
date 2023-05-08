@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,7 +31,7 @@ class GroupMapperTest {
 
   @Test
   void Should_ConvertGroupToDto_When_GroupIsValid() {
-    Group group = new Group(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null, null);
+    Group group = new Group(1L, GRADE_NUMBER_7, LETTER_A, SHIFT_1, null, null, null, LocalDateTime.now(), LocalDateTime.now());
 
     GroupDto groupDto = groupMapper.groupToDto(group);
 
