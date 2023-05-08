@@ -18,6 +18,9 @@ export class TeacherService {
     private errorService: ErrorService
   ) { }
 
+  private defaultErrorMsg: string = 'Упс, щось пішло не так...';
+  private teacherIsInUsingErrorMsg: string = 'Даний вчитель вже використовується або щось пішло не так...';
+
   private baseUrl = Constants.API_BASE_URL;
   teachers: ITeacher[] = []
   freeClassTeachers: ITeacher[] = []
@@ -27,7 +30,7 @@ export class TeacherService {
     return this.http.get<ITeacher[]>(`${this.baseUrl}teachers`)
       .pipe(
         tap(teachers => this.teachers = teachers),
-        catchError(this.errorHandler.bind(this))
+        catchError(error => this.errorHandler(error, this.defaultErrorMsg))
       )
   }
 
@@ -35,14 +38,14 @@ export class TeacherService {
     return this.http.get<ITeacher[]>(`${this.baseUrl}teachers/freeClassTeachers`)
       .pipe(
         tap(teachers => this.freeClassTeachers = teachers),
-        catchError(this.errorHandler.bind(this))
+        catchError(error => this.errorHandler(error, this.defaultErrorMsg))
       )
   }
 
   getTeachersHours(): Observable<ITeacherProjection[]> {
     return this.http.get<ITeacherProjection[]>(`${this.baseUrl}teachers/actualHours`)
       .pipe(
-        catchError(this.errorHandler.bind(this))
+        catchError(error => this.errorHandler(error, this.defaultErrorMsg))
       )
   }
 
@@ -50,7 +53,7 @@ export class TeacherService {
     return this.http.post<ITeacher>(`${this.baseUrl}teachers`, teacher)
       .pipe(
         tap(teacher => this.teachers.push(teacher)),
-        catchError(this.errorHandler.bind(this))
+        catchError(error => this.errorHandler(error, this.defaultErrorMsg))
       );
   }
 
@@ -59,7 +62,7 @@ export class TeacherService {
       .pipe(
         tap(() => this.teachers = this.teachers.filter(t => t.id != teacher.id)),
         tap(t => this.teachers.push(t)),
-        catchError(this.errorHandler.bind(this))
+        catchError(error => this.errorHandler(error, this.defaultErrorMsg))
       )
   }
 
@@ -67,15 +70,15 @@ export class TeacherService {
     return this.http.delete<void>(`${this.baseUrl}teachers/${id}`)
       .pipe(
         tap(() => this.teachers = this.teachers.filter(t => t.id != id)),
-        catchError(this.errorHandler.bind(this))
+        catchError(error => this.errorHandler(error, this.teacherIsInUsingErrorMsg))
       )
   }
 
-  private errorHandler(error: HttpErrorResponse) {
+  private errorHandler(error: HttpErrorResponse, message: string) {
     if (error.status === 403) {
       this.router.navigate(['/login']).then(r => r);
     } else {
-      this.errorService.handle(error.message);
+      this.errorService.handle(message);
     }
     return throwError(() => error.message);
   }

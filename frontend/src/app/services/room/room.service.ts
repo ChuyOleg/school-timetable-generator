@@ -17,6 +17,9 @@ export class RoomService {
     private errorService: ErrorService
   ) { }
 
+  private defaultErrorMsg: string = 'Упс, щось пішло не так...';
+  private roomIsInUsingErrorMsg: string = 'Дана кімната вже використовується або щось пішло не так...';
+
   private baseUrl = Constants.API_BASE_URL
   rooms: IRoom[] = []
   roomToEdit: IRoom
@@ -25,7 +28,7 @@ export class RoomService {
     return this.http.get<IRoom[]>(`${this.baseUrl}rooms`)
       .pipe(
         tap(rooms => this.rooms = rooms),
-        catchError(this.errorHandler.bind(this))
+        catchError(error => this.errorHandler(error, this.defaultErrorMsg))
       )
   }
 
@@ -33,7 +36,7 @@ export class RoomService {
     return this.http.post<IRoom>(`${this.baseUrl}rooms`, room)
       .pipe(
         tap(room => this.rooms.push(room)),
-        catchError(this.errorHandler.bind(this))
+        catchError(error => this.errorHandler(error, this.defaultErrorMsg))
       )
   }
 
@@ -42,7 +45,7 @@ export class RoomService {
       .pipe(
         tap(() => this.rooms = this.rooms.filter(r => r.id != room.id)),
         tap(room => this.rooms.push(room)),
-        catchError(this.errorHandler.bind(this))
+        catchError(error => this.errorHandler(error, this.defaultErrorMsg))
       )
   }
 
@@ -50,15 +53,15 @@ export class RoomService {
     return this.http.delete<void>(`${this.baseUrl}rooms/${id}`)
       .pipe(
         tap(() => this.rooms = this.rooms.filter(r => r.id != id)),
-        catchError(this.errorHandler.bind(this))
+        catchError(error => this.errorHandler(error, this.roomIsInUsingErrorMsg))
       )
   }
 
-  private errorHandler(error: HttpErrorResponse) {
+  private errorHandler(error: HttpErrorResponse, message: string) {
     if (error.status === 403) {
       this.router.navigate(['/login']).then(r => r);
     } else {
-      this.errorService.handle(error.message);
+      this.errorService.handle(message);
     }
     return throwError(() => error.message);
   }
