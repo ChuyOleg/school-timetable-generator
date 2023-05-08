@@ -13,7 +13,6 @@ import { CreateSubjectComponent } from './components/subject/create-subject/crea
 import { FocusDirective } from './directives/focus.directive';
 import { MatIconModule } from "@angular/material/icon";
 import { SubjectPageComponent } from './pages/subject-page/subject-page.component';
-import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { EditSubjectComponent } from './components/subject/edit-subject/edit-subject.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -65,7 +64,6 @@ import { GroupTimetableBlockComponent } from './components/timetable/group-timta
     CreateSubjectComponent,
     FocusDirective,
     SubjectPageComponent,
-    AboutPageComponent,
     NavigationComponent,
     EditSubjectComponent,
     FooterComponent,

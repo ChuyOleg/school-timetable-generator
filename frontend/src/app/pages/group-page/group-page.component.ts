@@ -11,6 +11,7 @@ export class GroupPageComponent implements OnInit {
 
   loading: boolean = false
   term = ''
+  maxGroupCount = 40
 
   constructor(
     public groupService: GroupService,

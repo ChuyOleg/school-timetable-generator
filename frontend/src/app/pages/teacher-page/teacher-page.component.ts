@@ -11,6 +11,7 @@ export class TeacherPageComponent implements OnInit {
 
   loading: boolean = false
   term = ''
+  maxTeacherCount = 60
 
   constructor(
     public teacherService: TeacherService,

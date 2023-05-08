@@ -1,12 +1,19 @@
-<h3 class="font-bold text-center mt-3 mb-5">Subjects</h3>
+<h3 class="font-bold text-center mt-3 mb-5">Предмети</h3>
 
 <div class="flex items-center justify-center">
   <input
     type="text"
     class="mb-5 border py-2 px-4 w-2/3"
-    placeholder="Filter subjects..."
+    placeholder="Фільтрувати предмети..."
     [(ngModel)]="term"
   >
+</div>
+
+<div
+  class="text-center text-red-800 font-bold mb-3"
+  *ngIf="subjectService.subjects.length == maxSubjectCount"
+>
+  Ви створили максимальну кількість предметів ({{ maxSubjectCount }})
 </div>
 
 <div role="status" *ngIf="loading" class="flex justify-center mt-2">
@@ -26,15 +33,16 @@
   ></app-subject-block>
 </div>
 
-<app-subject-modal *ngIf="modalService.createIsVisible$ | async" title="Create new subject">
+<app-subject-modal *ngIf="modalService.createIsVisible$ | async" title="Створити новий предмет">
   <app-create-subject></app-create-subject>
 </app-subject-modal>
 
-<app-subject-modal *ngIf="modalService.updateIsVisible$ | async" title="Update subject">
+<app-subject-modal *ngIf="modalService.updateIsVisible$ | async" title="Обновити предмет">
   <app-edit-subject></app-edit-subject>
 </app-subject-modal>
 
 <button
   class="rounded-full bg-red-700 text-white fixed right-5 bottom-16 py-2 px-4"
+  *ngIf="subjectService.subjects.length < maxSubjectCount"
   (click)="modalService.openCreateModal()"
 >+</button>

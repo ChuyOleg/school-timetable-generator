@@ -43,7 +43,7 @@ export class EditRoomComponent {
         capacity: this.form.value.capacity as number
       }).subscribe(() => {
         this.roomNameExist = false;
-        this.modalService.closeCreateModal();
+        this.modalService.closeUpdateModal();
       })
     }
   }

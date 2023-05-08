@@ -1,12 +1,19 @@
-<h3 class="font-bold text-center mt-3 mb-5">Groups</h3>
+<h3 class="font-bold text-center mt-3 mb-5">Класи</h3>
 
 <div class="flex items-center justify-center">
   <input
     type="text"
     class="mb-5 border py-2 px-4 w-2/3"
-    placeholder="Filter groups..."
+    placeholder="Фільтрувати класи..."
     [(ngModel)]="term"
   >
+</div>
+
+<div
+  class="text-center text-red-800 font-bold mb-3"
+  *ngIf="groupService.groups.length == maxGroupCount"
+>
+  Ви створили максимальну кількість класів ({{ maxGroupCount }})
 </div>
 
 <div role="status" *ngIf="loading" class="flex justify-center mt-2">
@@ -26,15 +33,16 @@
   ></app-group-block>
 </div>
 
-<app-group-modal *ngIf="modalService.createIsVisible$ | async" title="Create new group">
+<app-group-modal *ngIf="modalService.createIsVisible$ | async" title="Створити новий клас">
   <app-create-group></app-create-group>
 </app-group-modal>
 
-<app-group-modal *ngIf="modalService.updateIsVisible$ | async" title="Update group">
+<app-group-modal *ngIf="modalService.updateIsVisible$ | async" title="Обновити клас">
   <app-edit-group></app-edit-group>
 </app-group-modal>
 
 <button
   class="rounded-full bg-red-700 text-white fixed right-5 bottom-16 py-2 px-4"
+  *ngIf="groupService.groups.length < maxGroupCount"
   (click)="modalService.openCreateModal()"
 >+</button>

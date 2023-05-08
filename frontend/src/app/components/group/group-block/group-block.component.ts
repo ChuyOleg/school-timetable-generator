@@ -21,10 +21,10 @@ export class GroupBlockComponent {
 
   delete() {
     this.dialogService.confirmDialog({
-      title: "Are u sure?",
-      message: `Do u want to delete [ ${this.group.gradeNumber + '-' + this.group.letter} ]?`,
-      cancelText: "No",
-      confirmText: "Yep"
+      title: "Ви впевнені?",
+      message: `Хочете видалити [ ${this.group.gradeNumber + '-' + this.group.letter} ]?`,
+      cancelText: "Ні",
+      confirmText: "Так"
     }).subscribe(bool => {
       if (this.group.id && bool) {
         this.groupService.deleteById(this.group.id)

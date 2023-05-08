@@ -1,4 +1,4 @@
-<h3 class="font-bold text-center mt-3 mb-5">Timetable</h3>
+<h3 class="font-bold text-center mt-3 mb-5">Розклад</h3>
 
 <div class="text-center mt-5" *ngIf="!isTimetablePresent && !loading && !generateButtonIsClicked">
   <button
@@ -7,7 +7,7 @@
        hover:text-white py-2 px-4 border border-2 border-blue-500 hover:border-transparent rounded"
     (click)="generate()"
   >
-    Generate
+    Згенерувати
   </button>
 </div>
 
@@ -32,7 +32,7 @@
         after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
         after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
       ></div>
-      <span class="ml-3 text-sm font-medium text-gray-400 dark:text-gray-500">View</span>
+      <span class="ml-3 text-sm font-medium text-gray-400 dark:text-gray-500">Вигляд</span>
     </label>
   </div>
 
