@@ -57,7 +57,7 @@ export class SubjectService {
     if (error.status === 403) {
       this.router.navigate(['/login']).then(r => r);
     } else {
-      this.errorService.handle(error.message);
+      this.errorService.handle('Упс, щось пішло не так...');
     }
     return throwError(() => error.message);
   }
