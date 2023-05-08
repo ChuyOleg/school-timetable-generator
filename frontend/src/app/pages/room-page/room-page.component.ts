@@ -11,6 +11,7 @@ export class RoomPageComponent implements OnInit {
 
   loading: boolean = false
   term = ''
+  maxRoomNumber = 10;
 
   constructor(
     public roomService: RoomService,

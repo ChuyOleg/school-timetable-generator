@@ -11,6 +11,7 @@ export class SubjectPageComponent implements OnInit{
 
   loading: boolean = false
   term = ''
+  maxSubjectCount = 40
 
   constructor(
     public subjectService: SubjectService,
