@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS time_table (
 
 CREATE TABLE IF NOT EXISTS lesson (
     id serial PRIMARY KEY ,
-    group_id int NOT NULL REFERENCES class_group(id) ON DELETE CASCADE ,
+    group_id int NOT NULL REFERENCES class_group(id) ,
     teacher_id int NOT NULL REFERENCES teacher(id) ,
     subject_id int NOT NULL REFERENCES subject(id) ,
     time_slot_id int NOT NULL REFERENCES time_slot(id) ,
