@@ -2,6 +2,11 @@ package ip91.chui.oleh.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -10,6 +15,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EntityListeners(AuditingEntityListener.class)
 public class Group {
 
   @Id
@@ -42,5 +48,13 @@ public class Group {
   @EqualsAndHashCode.Include
   @ToString.Exclude
   private User user;
+
+  @Column(name = "created_date", nullable = false, updatable = false)
+  @CreatedDate
+  private LocalDateTime createdDate;
+
+  @Column(name = "modified_date")
+  @LastModifiedDate
+  private LocalDateTime modifiedDate;
 
 }

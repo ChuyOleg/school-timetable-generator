@@ -4,11 +4,13 @@ import ip91.chui.oleh.model.dto.projection.TeacherProjection;
 import ip91.chui.oleh.model.entity.Teacher;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
@@ -47,5 +49,12 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
      GROUP BY teacher_id
      """, nativeQuery = true)
   List<TeacherProjection> findActualHoursForTeachersByUserId(@Param("userId") Long userId);
+
+  @Modifying
+  @Query(value = """
+    DELETE FROM teacher
+    WHERE user_id IN :userIdSet AND modified_date < (NOW() - INTERVAL '28 DAY')
+  """, nativeQuery = true)
+  void deleteStaleTeachers(@Param("userIdSet") Set<Long> userIdSet);
 
 }
