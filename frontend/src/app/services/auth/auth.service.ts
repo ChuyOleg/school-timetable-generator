@@ -22,7 +22,7 @@ export class AuthService {
   register(userRegister: IUserRegister): Observable<HttpResponse<any>> {
     return this.http.post<HttpResponse<any>>(`${this.baseUrl + this.AUTH_URL_PREFIX}register`, userRegister, { observe: 'response' })
       .pipe(
-        catchError(error => this.errorHandler(error, 'Registration error'))
+        catchError(error => this.errorHandler(error, 'Упс, щось пішло не так...'))
       )
   }
 
