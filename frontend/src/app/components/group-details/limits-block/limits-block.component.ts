@@ -110,6 +110,14 @@ export class LimitsBlockComponent implements OnChanges {
           valid = this.subjectFormGroupsRecord[s.id].teacher2?.valid || false;
         }
 
+        if (valid && this.subjectFormGroupsRecord[s.id].room) {
+          valid = this.subjectFormGroupsRecord[s.id].room?.valid || false;
+        }
+
+        if (valid && this.subjectFormGroupsRecord[s.id].room2) {
+          valid = this.subjectFormGroupsRecord[s.id].room2?.valid || false;
+        }
+
         return valid;
       }
       return false;
@@ -332,7 +340,7 @@ export class LimitsBlockComponent implements OnChanges {
   }
 
   private subgroupsHoursIsIntegerValidator(control: AbstractControl): ValidationErrors | null {
-    const hours: number = control.value
+    const hours: number = control.value;
 
     const teacher2 = Object.values(this.subjectFormGroupsRecord)
       .find(formGroup => formGroup.hours === control)?.teacher2 || null;
@@ -348,12 +356,41 @@ export class LimitsBlockComponent implements OnChanges {
 
   private createSubjectTeacherFormControl(): FormControl<ITeacher|null> {
     return new FormControl<ITeacher|null>(null, [
-      Validators.required
-    ]);
+      Validators.required,
+      this.subgroupsTeachersAreDifferentValidator.bind(this)]
+    );
+  }
+
+  private subgroupsTeachersAreDifferentValidator(control: AbstractControl): ValidationErrors | null {
+    const formGroup = Object.values(this.subjectFormGroupsRecord)
+      .find(formGroup => (formGroup.teacher === control) || (formGroup.teacher2 === control));
+
+    if (formGroup && formGroup.teacher2?.value && (formGroup.teacher.value?.id === formGroup.teacher2.value?.id)) {
+      control.setErrors({ subgroupsTeachersAreSame: true })
+      return { subgroupsTeachersAreSame: true };
+    } else {
+      control.setErrors(null);
+      return null;
+    }
   }
 
   private createSubjectRoomFormControl(): FormControl<IRoom|null> {
-    return new FormControl<IRoom|null>(null, []);
+    return new FormControl<IRoom|null>(null, [
+      this.subgroupsRoomsAreDifferentValidator.bind(this)
+    ]);
+  }
+
+  private subgroupsRoomsAreDifferentValidator(control: AbstractControl): ValidationErrors | null {
+    const formGroup = Object.values(this.subjectFormGroupsRecord)
+      .find(formGroup => (formGroup.room === control) || (formGroup.room2 === control));
+
+    if (formGroup && formGroup.room2?.value && (formGroup.room.value?.id === formGroup.room2.value?.id)) {
+      control.setErrors({ subgroupsRoomsAreSame: true })
+      return { subgroupsRoomsAreSame: true };
+    } else {
+      control.setErrors(null);
+      return null;
+    }
   }
 
   compareTeachers(teacher1: ITeacher, teacher2: ITeacher) {
