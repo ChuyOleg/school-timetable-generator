@@ -1,10 +1,10 @@
-<h3 class="font-bold text-center mt-3 mb-5">Teachers</h3>
+<h3 class="font-bold text-center mt-3 mb-5">Вчителі</h3>
 
 <div class="flex items-center justify-center">
   <input
     type="text"
     class="mb-5 border py-2 px-4 w-2/3"
-    placeholder="Filter teachers..."
+    placeholder="Фільтрувати вчителів..."
     [(ngModel)]="term"
   >
 </div>
@@ -26,11 +26,11 @@
   ></app-teacher-block>
 </div>
 
-<app-teacher-modal *ngIf="modalService.createIsVisible$ | async" title="Create new teacher">
+<app-teacher-modal *ngIf="modalService.createIsVisible$ | async" title="Створити нового вчителя">
   <app-create-teacher></app-create-teacher>
 </app-teacher-modal>
 
-<app-teacher-modal *ngIf="modalService.updateIsVisible$ | async" title="Update teacher">
+<app-teacher-modal *ngIf="modalService.updateIsVisible$ | async" title="Обновити вчителя">
   <app-edit-teacher></app-edit-teacher>
 </app-teacher-modal>
 
