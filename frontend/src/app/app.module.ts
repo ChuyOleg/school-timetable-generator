@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SubjectBlockComponent } from "./components/subject/subject-block/subject-block.component";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { GlobalErrorComponent } from './components/global-error/global-error.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FilterSubjectsPipe } from './pipes/filter-subjects.pipe';
@@ -13,7 +13,6 @@ import { CreateSubjectComponent } from './components/subject/create-subject/crea
 import { FocusDirective } from './directives/focus.directive';
 import { MatIconModule } from "@angular/material/icon";
 import { SubjectPageComponent } from './pages/subject-page/subject-page.component';
-import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { EditSubjectComponent } from './components/subject/edit-subject/edit-subject.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -37,6 +36,23 @@ import { RoomBlockComponent } from './components/room/room-block/room-block.comp
 import { CreateRoomComponent } from './components/room/create-room/create-room.component';
 import { RoomModalComponent } from './components/room/room-modal/room-modal.component';
 import { EditRoomComponent } from './components/room/edit-room/edit-room.component';
+import { GroupPageComponent } from './pages/group-page/group-page.component';
+import { GroupBlockComponent } from './components/group/group-block/group-block.component';
+import { CreateGroupComponent } from './components/group/create-group/create-group.component';
+import { GroupModalComponent } from './components/group/group-modal/group-modal.component';
+import { FilterGroupsPipe } from './pipes/filter-groups.pipe';
+import { SortGroupsPipe } from './pipes/sort-groups.pipe';
+import { EditGroupComponent } from './components/group/edit-group/edit-group.component';
+import { GroupDetailsPageComponent } from './pages/group-details-page/group-details-page.component';
+import { LimitsBlockComponent } from './components/group-details/limits-block/limits-block.component';
+import { FilterTeachersBySubjectPipe } from './pipes/filter-teachers-by-subject.pipe';
+import { AddClassTeacherForPrimarySchoolPipe } from './pipes/add-class-teacher-for-primary-school.pipe';
+import { RegisterPageComponent } from './pages/register-page/register-page/register-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page/login-page.component';
+import { TokenInterceptorService } from "./services/token-interceptor.service";
+import { TimetablePageComponent } from './pages/timetable-page/timetable-page.component';
+import { InvalidWorkingLoadingBlockComponent } from './components/timetable/invalid-working-loading-block/invalid-working-loading-block.component';
+import { GroupTimetableBlockComponent } from './components/timetable/group-timtable-block/group-timetable-block.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +64,6 @@ import { EditRoomComponent } from './components/room/edit-room/edit-room.compone
     CreateSubjectComponent,
     FocusDirective,
     SubjectPageComponent,
-    AboutPageComponent,
     NavigationComponent,
     EditSubjectComponent,
     FooterComponent,
@@ -67,7 +82,23 @@ import { EditRoomComponent } from './components/room/edit-room/edit-room.compone
     RoomBlockComponent,
     CreateRoomComponent,
     RoomModalComponent,
-    EditRoomComponent
+    EditRoomComponent,
+    GroupPageComponent,
+    GroupBlockComponent,
+    CreateGroupComponent,
+    GroupModalComponent,
+    FilterGroupsPipe,
+    SortGroupsPipe,
+    EditGroupComponent,
+    GroupDetailsPageComponent,
+    LimitsBlockComponent,
+    FilterTeachersBySubjectPipe,
+    AddClassTeacherForPrimarySchoolPipe,
+    RegisterPageComponent,
+    LoginPageComponent,
+    TimetablePageComponent,
+    InvalidWorkingLoadingBlockComponent,
+    GroupTimetableBlockComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +112,14 @@ import { EditRoomComponent } from './components/room/edit-room/edit-room.compone
     MatSelectModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    TokenInterceptorService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,20 +1,42 @@
 package ip91.chui.oleh.model.entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Set;
 
+@Entity
+@Table(name = "time_table")
 @Data
-@Setter
-@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class TimeTable {
 
-  private Long timetableId;
-  private List<Group> groups;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "timetableIdGenerator")
+  @SequenceGenerator(name = "timetableIdGenerator", sequenceName = "time_table_id_seq", allocationSize = 5)
+  private Long id;
 
-  public TimeTable(List<Group> groups) {
-    this.groups = groups;
-  }
+  @OneToMany(mappedBy = "timeTable", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private Set<Lesson> lessons;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
+  private User user;
+
+  @Column(name = "created_date", nullable = false, updatable = false)
+  @CreatedDate
+  private LocalDateTime createdDate;
+
+  @Column(name = "modified_date")
+  @LastModifiedDate
+  private LocalDateTime modifiedDate;
+
 }

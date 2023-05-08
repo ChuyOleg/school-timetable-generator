@@ -5,6 +5,8 @@ import ip91.chui.oleh.model.entity.Room;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RoomMapperTest {
@@ -16,11 +18,11 @@ public class RoomMapperTest {
 
   @Test
   public void Should_ConvertRoomToDto_When_RoomIsValid() {
-    Room room = new Room(1L, ROOM_NUMBER, CAPACITY);
+    Room room = new Room(1L, ROOM_NUMBER, CAPACITY, null, LocalDateTime.now(), LocalDateTime.now());
     RoomDto roomDto = roomMapper.roomToDto(room);
 
     assertEquals(room.getId(), roomDto.getId());
-    assertEquals(room.getRoomName(), roomDto.getRoomName());
+    assertEquals(room.getName(), roomDto.getName());
     assertEquals(room.getCapacity(), roomDto.getCapacity());
   }
 
@@ -30,7 +32,7 @@ public class RoomMapperTest {
     Room room = roomMapper.dtoToRoom(roomDto);
 
     assertEquals(roomDto.getId(), room.getId());
-    assertEquals(roomDto.getRoomName(), room.getRoomName());
+    assertEquals(roomDto.getName(), room.getName());
     assertEquals(roomDto.getCapacity(), room.getCapacity());
   }
 
@@ -40,7 +42,7 @@ public class RoomMapperTest {
     Room room = roomMapper.dtoToRoom(roomDto);
 
     assertNull(room.getId());
-    assertEquals(roomDto.getRoomName(), room.getRoomName());
+    assertEquals(roomDto.getName(), room.getName());
     assertEquals(roomDto.getCapacity(), room.getCapacity());
   }
 

@@ -1,6 +1,5 @@
 package ip91.chui.oleh.model.entity;
 
-import ip91.chui.oleh.model.enumeration.LessonNumber;
 import ip91.chui.oleh.model.enumeration.WeekType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,29 +8,23 @@ import java.time.DayOfWeek;
 
 @Entity
 @Table(name = "time_slot")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class TimeSlot {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "timeSlotIdGenerator")
-  @SequenceGenerator(name = "timeSlotIdGenerator", sequenceName = "timeSlotIdSequence", allocationSize = 10)
   private Long id;
 
-  @Enumerated(EnumType.STRING)
-  private LessonNumber lessonNumber;
+  @Column(nullable = false)
+  private int lessonNumber;
 
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private DayOfWeek day;
 
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private WeekType weekType;
 
-  public TimeSlot(LessonNumber lessonNumber, DayOfWeek day, WeekType weekType) {
-    this.lessonNumber = lessonNumber;
-    this.day = day;
-    this.weekType = weekType;
-  }
 }

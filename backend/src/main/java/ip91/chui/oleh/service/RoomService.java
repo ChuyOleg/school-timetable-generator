@@ -4,8 +4,10 @@ import ip91.chui.oleh.exception.RoomDtoValidationException;
 import ip91.chui.oleh.exception.RoomProcessingException;
 import ip91.chui.oleh.model.dto.RoomDto;
 import ip91.chui.oleh.model.entity.Room;
+import ip91.chui.oleh.model.entity.User;
 import ip91.chui.oleh.model.mapping.RoomMapper;
 import ip91.chui.oleh.repository.RoomRepository;
+import ip91.chui.oleh.service.auth.AuthenticationService;
 import ip91.chui.oleh.validator.DtoValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,12 +23,15 @@ public class RoomService {
   private static final String ROOM_NOT_FOUND_BY_ID_MSG = "Room hasn't been found with ID = (%d)";
   private static final String ROOM_ID_SHOULD_BE_NOT_NULL_MSG = "You have to specify ID of the room";
 
+  private final AuthenticationService authService;
   private final RoomRepository roomRepository;
   private final RoomMapper roomMapper;
   private final DtoValidator<RoomDto> roomDtoDtoValidator;
 
   public List<RoomDto> getAll() {
-    return roomRepository.findAll()
+    User user = authService.extractPrincipalFromSecurityContextHolder();
+
+    return roomRepository.findAllByUserId(user.getId())
         .stream()
         .map(roomMapper::roomToDto)
         .collect(Collectors.toList());
@@ -39,7 +44,10 @@ public class RoomService {
   public RoomDto create(RoomDto roomDto) {
     validateRoomDto(roomDto);
 
+    User user = authService.extractPrincipalFromSecurityContextHolder();
+
     Room roomToSave = roomMapper.dtoToRoom(roomDto);
+    roomToSave.setUser(user);
     Room savedRoom = roomRepository.save(roomToSave);
 
     return roomMapper.roomToDto(savedRoom);

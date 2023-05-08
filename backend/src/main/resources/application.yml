@@ -15,24 +15,33 @@ server:
 # spring
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/school_timetable
-    username: oleh
-    password: qwerty
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/school_timetable
+    username: ${DB_USERNAME:oleh}
+    password: ${DB_PASSWORD:qwerty}
+
     hikari:
       connection-timeout: 30000
       maximum-pool-size: 10
       minimum-idle: 2
       connection-test-query: SELECT version()
 
+  flyway:
+    baseline-on-migrate: true
+
   jpa:
     database: postgresql
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 500
+          batch_versioned_data: true
+        order_updates: true
+#        generate_statistics: true
         format_sql: true
-        show_sql: true
+#        show_sql: true
 
 # cors
 web:
@@ -41,3 +50,10 @@ web:
     allowed-origins: 'http://localhost:4200'
     allowed-methods: GET, POST, PUT, DELETE, OPTIONS
     max-age: 3600
+
+
+security:
+  jwt:
+    signing-key: ${SCHOOL_TIMETABLE_GENERATOR_SIGNING_KEY:232808AB4D625165F4F8571D2A7133343147397A14832848298A409E63526255}
+    access-token:
+      expiration: 14_400_000 # 4 hours

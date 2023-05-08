@@ -18,32 +18,32 @@ export class EditRoomComponent {
   roomNameExist: boolean = false
 
   form = new FormGroup({
-    name: new FormControl<string>(this.roomService.roomToEdit.roomName, [
+    name: new FormControl<string>(this.roomService.roomToEdit.name, [
       Validators.required
     ]),
     capacity: new FormControl<number>(this.roomService.roomToEdit.capacity, [
       Validators.required,
       Validators.pattern("^[0-9]*$"),
       Validators.min(1),
-      Validators.max(999)
+      Validators.max(9)
     ])
   })
 
   submit() {
     const roomExist: boolean = this.roomService.rooms
       .filter(room => room.id != this.roomService.roomToEdit.id)
-      .find(room => room.roomName === this.form.value.name) != null;
+      .find(room => room.name === this.form.value.name) != null;
 
     if (roomExist) {
       this.roomNameExist = true;
     } else {
       this.roomService.edit({
         id: this.roomService.roomToEdit.id,
-        roomName: this.form.value.name as string,
+        name: this.form.value.name as string,
         capacity: this.form.value.capacity as number
       }).subscribe(() => {
         this.roomNameExist = false;
-        this.modalService.closeCreateModal();
+        this.modalService.closeUpdateModal();
       })
     }
   }

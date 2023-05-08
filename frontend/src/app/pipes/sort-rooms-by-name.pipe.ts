@@ -8,7 +8,7 @@ export class SortRoomsByNamePipe implements PipeTransform {
 
   transform(rooms: IRoom[]): IRoom[] {
     return rooms.sort((r1: IRoom, r2: IRoom) => {
-      return r1.roomName.localeCompare(r2.roomName);
+      return r1.name.localeCompare(r2.name);
     })
   }
 

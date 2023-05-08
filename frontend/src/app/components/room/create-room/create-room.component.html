@@ -4,30 +4,31 @@
     <input
       type="text"
       class="border w-full py-2 px-4 mb-1"
-      placeholder="Room name"
+      placeholder="Назва кімнати"
       formControlName="name"
+      maxlength="32"
       appFocus
     >
 
     <p
       class="text-red-600 font-mono font-bold mb-2"
       *ngIf="roomNameExist"
-    >Room with this name already exists</p>
+    >Кімната з такою назвою вже існує</p>
 
     <p
       class="text-red-600 font-mono font-bold mb-2"
       *ngIf="name.errors?.required && (name.dirty || submitButtonIsPressed)"
-    >Name of the room can't be empty</p>
+    >Назва не може бути пустою</p>
   </div>
 
   <div class="w-full mb-4">
     <div class="flex justify-end items-center">
       <input
         type="text"
-        class="border w-2/12 py-2 px-2 text-center"
-        placeholder="xxx"
+        class="border w-1/12 py-2 px-2 text-center"
+        placeholder="x"
         formControlName="capacity"
-        maxlength="3"
+        maxlength="1"
       >
       <span class="italic text-lg font-bold ml-2"><mat-icon class="pt-1">people</mat-icon></span>
     </div>
@@ -38,7 +39,7 @@
        || capacity.errors?.min || capacity.errors?.max)
        && (capacity.dirty || submitButtonIsPressed)"
       [align]="'end'"
-    >1 - 999 <mat-icon class="pt-1">people</mat-icon></p>
+    >1 - 9 <mat-icon class="pt-1">people</mat-icon></p>
   </div>
 
   <div class="flex justify-center items-center">
@@ -47,7 +48,7 @@
       class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold
        hover:text-white py-2 px-4 border border-2 border-blue-500 hover:border-transparent rounded"
     >
-      Create
+      Створити
     </button>
 
     <div class="w-4"></div>
@@ -58,7 +59,7 @@
        hover:text-white py-2 px-4 border border-2 border-red-500 hover:border-transparent rounded"
       (click)="modalService.closeCreateModal()"
     >
-      Cancel
+      Відмінити
     </button>
   </div>
 

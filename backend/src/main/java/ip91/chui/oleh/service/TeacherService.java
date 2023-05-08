@@ -3,9 +3,12 @@ package ip91.chui.oleh.service;
 import ip91.chui.oleh.exception.TeacherDtoValidationException;
 import ip91.chui.oleh.exception.TeacherProcessingException;
 import ip91.chui.oleh.model.dto.TeacherDto;
+import ip91.chui.oleh.model.dto.projection.TeacherProjection;
 import ip91.chui.oleh.model.entity.Teacher;
+import ip91.chui.oleh.model.entity.User;
 import ip91.chui.oleh.model.mapping.TeacherMapper;
 import ip91.chui.oleh.repository.TeacherRepository;
+import ip91.chui.oleh.service.auth.AuthenticationService;
 import ip91.chui.oleh.validator.DtoValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,15 +24,33 @@ public class TeacherService {
   private static final String TEACHER_NOT_FOUND_BY_ID = "Teacher hasn't been found with ID = (%d)";
   private static final String TEACHER_ID_SHOULD_BE_NOT_NULL_MSG = "You have to specify ID of the teacher";
 
+  private final AuthenticationService authService;
   private final TeacherRepository teacherRepository;
   private final TeacherMapper teacherMapper;
   private final DtoValidator<TeacherDto> teacherDtoValidator;
 
   public List<TeacherDto> getAll() {
-    return teacherRepository.findAll()
+    User user = authService.extractPrincipalFromSecurityContextHolder();
+
+    return teacherRepository.findAllByUserId(user.getId())
         .stream()
         .map(teacherMapper::teacherToDto)
         .collect(Collectors.toList());
+  }
+
+  public List<TeacherDto> getAllWhoAreNotClassTeacher() {
+    User user = authService.extractPrincipalFromSecurityContextHolder();
+
+    return teacherRepository.findAllWhoAreNotClassTeacher(user.getId())
+        .stream()
+        .map(teacherMapper::teacherToDto)
+        .collect(Collectors.toList());
+  }
+
+  public List<TeacherProjection> getTeachersActualHours() {
+    User user = authService.extractPrincipalFromSecurityContextHolder();
+
+    return teacherRepository.findActualHoursForTeachersByUserId(user.getId());
   }
 
   public TeacherDto getById(Long id) {
@@ -39,7 +60,10 @@ public class TeacherService {
   public TeacherDto create(TeacherDto teacherDto) {
     validateTeacherDto(teacherDto);
 
+    User user = authService.extractPrincipalFromSecurityContextHolder();
+
     Teacher teacherToSave = teacherMapper.dtoToTeacher(teacherDto);
+    teacherToSave.setUser(user);
     Teacher savedTeacher = teacherRepository.save(teacherToSave);
 
     return teacherMapper.teacherToDto(savedTeacher);

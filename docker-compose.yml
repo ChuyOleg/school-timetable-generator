@@ -1,0 +1,55 @@
+version: "3"
+services:
+
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    environment:
+      DB_HOST: "db"
+      DB_USERNAME: "Oleh"
+      DB_PASSWORD: "Oleh_Password"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    environment:
+      API_BASE_URL: "http://backend:8080/school-timetable-generator-api/"
+    ports:
+      - "4200:80"
+
+  db:
+    image: postgres:alpine
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    environment:
+      POSTGRES_DB: "school_timetable"
+      POSTGRES_USER: "Oleh"
+      POSTGRES_PASSWORD: "Oleh_Password"
+    ports:
+      - "8081:5432"
+    volumes:
+      - postgre_spring_volume:/var/lib/postgresql/data
+#    ne
+
+volumes:
+  postgre_spring_volume:
+    driver: local
+
+#networks:
+#  custom_network:

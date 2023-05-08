@@ -1,19 +1,37 @@
 package ip91.chui.oleh.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.Map;
+import java.util.Set;
 
-@RequiredArgsConstructor
+@Entity
+@Table(name = "group_limits")
+@Data
 @AllArgsConstructor
-@Getter
-@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class GroupLimits {
 
-  private final Map<Subject, Double> groupMaxSubjectCountMap;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groupLimitsIdGenerator")
+  @SequenceGenerator(name = "groupLimitsIdGenerator", sequenceName = "group_limits_id_seq", allocationSize = 10)
+  private Long id;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "class_group_id", referencedColumnName = "id", nullable = false)
+  @EqualsAndHashCode.Include
+  @ToString.Exclude
+  private Group group;
+
+  @OneToMany(mappedBy = "groupLimits", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
+  private Set<SubjectLimits> subjectLimitsSet;
+
+  @Column(nullable = false)
+  private int maxHoursPerWeek;
+
+  @ManyToOne
+  @JoinColumn(name = "combine_time_slot_id", referencedColumnName = "id")
   private TimeSlot interschoolCombine;
 
 }

@@ -2,43 +2,51 @@ package ip91.chui.oleh.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @Table(name = "teacher")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
+@EntityListeners(AuditingEntityListener.class)
 public class Teacher {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "teacherIdGenerator")
-  @SequenceGenerator(name = "teacherIdGenerator", sequenceName = "teacherIdSequence", allocationSize = 10)
+  @SequenceGenerator(name = "teacherIdGenerator", sequenceName = "teacher_id_seq", allocationSize = 10)
   private Long id;
 
-  @Column
+  @Column(nullable = false)
   private String name;
 
-  @ManyToMany()
+  @ManyToMany
   @JoinTable(
-      name = "subject_teacher",
+      name = "teacher_subject",
       joinColumns = @JoinColumn(name = "teacher_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id")
   )
+  @EqualsAndHashCode.Exclude
   private Set<Subject> subjects;
 
-  @OneToMany(mappedBy = "teacher")
-  private Set<Lesson> lessons;
-
-  @Column
+  @Column(nullable = false)
   private int maxHoursPerWeek;
 
-  public Teacher(String name, Set<Subject> subjects, int maxHoursPerWeek) {
-    this.name = name;
-    this.subjects = subjects;
-    this.maxHoursPerWeek = maxHoursPerWeek;
-  }
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
+  private User user;
+
+  @Column(name = "created_date", nullable = false, updatable = false)
+  @CreatedDate
+  private LocalDateTime createdDate;
+
+  @Column(name = "modified_date")
+  @LastModifiedDate
+  private LocalDateTime modifiedDate;
+
 }

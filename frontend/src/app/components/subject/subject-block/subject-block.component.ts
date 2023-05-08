@@ -20,10 +20,10 @@ export class SubjectBlockComponent {
 
   delete() {
     this.dialogService.confirmDialog({
-      title: "Are u sure?",
-      message: `Do u want to delete [ ${this.subject.name} ]?`,
-      cancelText: "No",
-      confirmText: "Yep"
+      title: "Ви впевнені?",
+      message: `Хочете видалити [ ${this.subject.name} ]?`,
+      cancelText: "Ні",
+      confirmText: "Так"
     }).subscribe(bool => {
       if (this.subject.id && bool) {
         this.subjectService.deleteById(this.subject.id)

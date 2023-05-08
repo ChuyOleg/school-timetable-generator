@@ -21,10 +21,10 @@ export class TeacherBlockComponent {
 
   delete() {
     this.dialogService.confirmDialog({
-      title: "Are u sure?",
-      message: `Do u want to delete [ ${this.teacher.name} ]?`,
-      cancelText: "No",
-      confirmText: "Yep"
+      title: "Ви впевнені?",
+      message: `Хочете видалити [ ${this.teacher.name} ]?`,
+      cancelText: "Ні",
+      confirmText: "Так"
     }).subscribe(bool => {
       if (this.teacher.id && bool) {
         this.teacherService.deleteById(this.teacher.id)

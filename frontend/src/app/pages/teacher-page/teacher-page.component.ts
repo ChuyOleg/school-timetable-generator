@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TeacherService } from "../../services/teacher/teacher.service";
 import { TeacherModalService } from "../../services/teacher/teacher-modal.service";
+import { delay } from "rxjs";
 
 @Component({
   selector: 'app-teacher-page',
@@ -10,6 +11,7 @@ export class TeacherPageComponent implements OnInit {
 
   loading: boolean = false
   term = ''
+  maxTeacherCount = 60
 
   constructor(
     public teacherService: TeacherService,
@@ -19,7 +21,7 @@ export class TeacherPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.teacherService.getAll().subscribe(() => {
+    this.teacherService.getAll().pipe(delay(500)).subscribe(() => {
       this.loading = false;
     })
   }
