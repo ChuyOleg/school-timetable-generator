@@ -15,9 +15,9 @@ server:
 # spring
 spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:5432/school_timetable
-    username: ${DB_USERNAME:oleh}
-    password: ${DB_PASSWORD:qwerty}
+    url: jdbc:postgresql://${DB_HOST}:5432/school_timetable
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
     hikari:
       connection-timeout: 30000
@@ -54,6 +54,6 @@ web:
 
 security:
   jwt:
-    signing-key: ${SCHOOL_TIMETABLE_GENERATOR_SIGNING_KEY:232808AB4D625165F4F8571D2A7133343147397A14832848298A409E63526255}
+    signing-key: ${SCHOOL_TIMETABLE_GENERATOR_SIGNING_KEY}
     access-token:
       expiration: 14_400_000 # 4 hours
