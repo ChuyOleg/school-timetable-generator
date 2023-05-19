@@ -33,3 +33,4 @@ build/
 .vscode/
 /mvnw.cmd
 /mvnw
+/class_group.uml
