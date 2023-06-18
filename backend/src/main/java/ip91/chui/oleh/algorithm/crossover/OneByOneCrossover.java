@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 @Component
 public class OneByOneCrossover implements Crossover {
 
-
   @Override
   public List<Individual> process(List<Individual> individuals) {
     List<Individual> offspring = new ArrayList<>();
@@ -41,7 +40,6 @@ public class OneByOneCrossover implements Crossover {
     return offspring;
   }
 
-  // TODO: maybe creating a new Group is redundant, so mutation create new Lesson (think)
   private void setGeneFromParentToChild(Individual parent, Individual child, int geneNum) {
     GroupDto group = (GroupDto) parent.getChromosome()[geneNum];
     child.getChromosome()[geneNum] = GroupDto.builder()
@@ -57,4 +55,5 @@ public class OneByOneCrossover implements Crossover {
         )
         .build();
   }
+
 }
