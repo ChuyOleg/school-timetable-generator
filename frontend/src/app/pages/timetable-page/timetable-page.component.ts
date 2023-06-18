@@ -113,6 +113,7 @@ export class TimetablePageComponent implements OnInit {
   save() {
     if (this.timetableService.timetable) {
       this.timetableService.save(this.timetableService.timetable).subscribe();
+      window.location.reload()
     }
   }
 

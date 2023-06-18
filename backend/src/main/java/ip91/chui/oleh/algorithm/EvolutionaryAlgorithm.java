@@ -13,6 +13,7 @@ import ip91.chui.oleh.algorithm.selection.Selection;
 import ip91.chui.oleh.model.dto.GroupDto;
 import ip91.chui.oleh.model.dto.LessonDto;
 import ip91.chui.oleh.model.dto.TimeTableDto;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -24,9 +25,10 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Component
+@Log4j2
 public class EvolutionaryAlgorithm {
 
-  private static final int ONE_MILLISECOND_IN_NANOSECONDS = 1000000;
+  private static final int ONE_MILLISECOND_IN_NANOSECONDS = 1_000_000;
 
   private final PopulationGenerator populationGenerator;
   private final Selection selection;
@@ -62,9 +64,9 @@ public class EvolutionaryAlgorithm {
         .flatMap(group -> group.getLessons().stream())
         .collect(Collectors.toSet());
 
-    System.out.println("---------------------------------------");
-    System.out.println("Generation: " + result.getGeneration());
-    System.out.println("Score: " + result.getBestIndividual().getFitness());
+    log.info("------------------------------------");
+    log.info("Generation: " + result.getGeneration());
+    log.info("Score: " + result.getBestIndividual().getFitness());
 
     return new TimeTableDto(null, lessons);
   }
@@ -154,13 +156,13 @@ public class EvolutionaryAlgorithm {
       if (result.getBestIndividual().getFitness() != 0) {
         resultFailCount++;
       }
-      System.out.println("Iter: " + iter +  " | Score: " + result.getBestIndividual().getFitness());
+      log.info("Iter: " + iter +  " | Score: " + result.getBestIndividual().getFitness());
     }
 
     midDurationTime = (midDurationTime / Config.TEST_PERFORMANCE_ITERATION_NUM) / ONE_MILLISECOND_IN_NANOSECONDS;
     midFitness = midFitness / Config.TEST_PERFORMANCE_ITERATION_NUM;
 
-    System.out.println("Duration: " + midDurationTime + " | midFitness: " + midFitness + " | resultFail: " + resultFailCount);
+    log.info("Duration: " + midDurationTime + " | midFitness: " + midFitness + " | resultFail: " + resultFailCount);
   }
 
   private void warmUpMachine() {
