@@ -44,19 +44,19 @@ You have two options to run the application: manual setup or using `docker-compo
 1. Create a user in PostgreSQL with the username "oleh" and password "qwerty".
 2. Create a database named `school_timetable` on behalf of the user "oleh".
 3. Open a terminal in the root of the project.
-4. Navigate to the `backend` directory: `cd backend`.
+4. Navigate to the `backend` directory: ```cd backend```.
 5. Run the following Maven commands in order:
-    - `mvn dependency:go-offline`
-    - `mvn clean install`
-    - `mvn spring-boot:run`
+    - ```mvn dependency:go-offline```
+    - ```mvn clean install```
+    - ```mvn spring-boot:run```
 6. Open a new terminal in the root of the project.
-7. Navigate to the `frontend` directory: `cd frontend`.
-8. Install the required dependencies: `npm install`.
-9. Start the application: `npm start`.
+7. Navigate to the `frontend` directory: ```cd frontend```.
+8. Install the required dependencies: ```npm install```.
+9. Start the application: ```npm start```.
 
 #### Using Docker Compose
 
-1. Run the following command to start the application: `docker-compose up -d`.
+1. Run the following command to start the application: ```docker-compose up -d```.
 
 ### Test User Credentials
 
