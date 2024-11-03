@@ -52,6 +52,14 @@
 			<scope>test</scope>
 		</dependency>
 
+<!--		ToDo: 06/10/24 Do I really need this one? Check documentation:
+<!- https://docs.spring.io/spring-boot/docs/3.0.2/reference/html/configuration-metadata.html#appendix.configuration-metadata.annotation-processor&ndash;&gt;-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 <!--		SWAGGER -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
