@@ -3,6 +3,7 @@ package ip91.chui.oleh.model.dto;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
@@ -10,8 +11,10 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class TeacherDto {
 
+  @EqualsAndHashCode.Include
   private Long id;
 
   @NotBlank(message = "Name should be not empty")

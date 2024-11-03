@@ -57,3 +57,13 @@ security:
     signing-key: ${SCHOOL_TIMETABLE_GENERATOR_SIGNING_KEY:232808AB4D625165F4F8571D2A7133343147397A14832848298A409E63526255}
     access-token:
       expiration: 14_400_000 # 4 hours
+
+algorithm:
+  fitness-function:
+    sameSubjectsPerDayLimit: 2
+    sameSubjectPerDayFine: 1
+#    todo: 05/10/24 there should be exception. e.g: labor work or physical culture teacher
+#     could have 2 subgroups from different groups at one lesson
+    teacherMaxLessonsAtSameTimeLimit: 1
+    teacherMaxLessonsAtSameTimeFine: 1
+    roomMaxLessonsAtSameTimeFine: 1

@@ -1,5 +1,6 @@
 package ip91.chui.oleh.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -7,13 +8,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
   private static final String UNEXPECTED_ERROR_MSG = "Something went wrong";
 
   @ExceptionHandler(value = {Throwable.class})
-  public ResponseEntity<String> handleAllExceptions() {
+  public ResponseEntity<String> handleAllExceptions(Throwable throwable) {
+    log.error("Unexpected error has been thrown.", throwable);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(UNEXPECTED_ERROR_MSG);
   }
 
