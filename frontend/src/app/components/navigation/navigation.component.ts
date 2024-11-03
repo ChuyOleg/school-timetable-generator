@@ -18,5 +18,4 @@ export class NavigationComponent {
     this.cookieService.delete(Constants.COOKIE_ACCESS_TOKEN_NAME);
     this.router.navigate(['/login']).then(r => r);
   }
-
 }

@@ -34,6 +34,13 @@ export class TeacherService {
       )
   }
 
+  getById(id: number): Observable<ITeacher> {
+    return this.http.get<ITeacher>(`${this.baseUrl}teachers/${id}`)
+      .pipe(
+        catchError(error => this.errorHandler(error, this.defaultErrorMsg))
+      )
+  }
+
   getFreeClassTeachers(): Observable<ITeacher[]> {
     return this.http.get<ITeacher[]>(`${this.baseUrl}teachers/freeClassTeachers`)
       .pipe(
