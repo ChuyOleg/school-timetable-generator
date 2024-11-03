@@ -13,5 +13,4 @@ export class FocusDirective implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
   }
-
 }

@@ -44,7 +44,7 @@ import { FilterGroupsPipe } from './pipes/filter-groups.pipe';
 import { SortGroupsPipe } from './pipes/sort-groups.pipe';
 import { EditGroupComponent } from './components/group/edit-group/edit-group.component';
 import { GroupDetailsPageComponent } from './pages/group-details-page/group-details-page.component';
-import { LimitsBlockComponent } from './components/group-details/limits-block/limits-block.component';
+import { GroupLimitsBlockComponent } from './components/group-details/limits-block/group-limits-block.component';
 import { FilterTeachersBySubjectPipe } from './pipes/filter-teachers-by-subject.pipe';
 import { AddClassTeacherForPrimarySchoolPipe } from './pipes/add-class-teacher-for-primary-school.pipe';
 import { RegisterPageComponent } from './pages/register-page/register-page/register-page.component';
@@ -53,6 +53,14 @@ import { TokenInterceptorService } from "./services/token-interceptor.service";
 import { TimetablePageComponent } from './pages/timetable-page/timetable-page.component';
 import { InvalidWorkingLoadingBlockComponent } from './components/timetable/invalid-working-loading-block/invalid-working-loading-block.component';
 import { GroupTimetableBlockComponent } from './components/timetable/group-timtable-block/group-timetable-block.component';
+import { TeacherLimitsBlockComponent } from './components/teacher-details/limits-block/teacher-limits-block.component';
+import { TeacherDetailsPageComponent } from './pages/teacher-details-page/teacher-details-page/teacher-details-page.component';
+import { TranslateDayPipe } from './pipes/translate-day.pipe';
+import { LoaderComponent } from "./components/shared/loader/loader.component";
+import { CreateCancelButtonsComponent } from './components/shared/button/create-cancel-buttons/create-cancel-buttons.component';
+import { GroupDetailsMnvkComponent } from './components/group-details/components/mnvk/group-details-mnvk.component';
+import { GroupDetailsLessonFormComponent } from './components/group-details/components/lesson-form/group-details-lesson-form.component';
+import { SortLessonLimitsBySubjectNamePipe } from './pipes/sort-lesson-limits-by-subject-name.pipe';
 
 @NgModule({
   declarations: [
@@ -91,7 +99,7 @@ import { GroupTimetableBlockComponent } from './components/timetable/group-timta
     SortGroupsPipe,
     EditGroupComponent,
     GroupDetailsPageComponent,
-    LimitsBlockComponent,
+    GroupLimitsBlockComponent,
     FilterTeachersBySubjectPipe,
     AddClassTeacherForPrimarySchoolPipe,
     RegisterPageComponent,
@@ -99,6 +107,14 @@ import { GroupTimetableBlockComponent } from './components/timetable/group-timta
     TimetablePageComponent,
     InvalidWorkingLoadingBlockComponent,
     GroupTimetableBlockComponent,
+    TeacherLimitsBlockComponent,
+    TeacherDetailsPageComponent,
+    TranslateDayPipe,
+    LoaderComponent,
+    CreateCancelButtonsComponent,
+    GroupDetailsMnvkComponent,
+    GroupDetailsLessonFormComponent,
+    SortLessonLimitsBySubjectNamePipe,
   ],
   imports: [
     BrowserModule,
