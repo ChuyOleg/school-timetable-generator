@@ -17,5 +17,12 @@
       (click)="update()"
     ><mat-icon class="text-base">edit</mat-icon></button>
 
+    <a routerLink="/rooms/{{room.id}}"
+       class="absolute -top-1 left-0 text-amber-700"
+       [ngClass]="{
+        'text-green-500' : room.roomLimitDtoSet && room.roomLimitDtoSet.length > 0,
+        'text-gray-400' : !room.roomLimitDtoSet || room.roomLimitDtoSet.length == 0
+       }">
+      <mat-icon class="text-lg">home</mat-icon></a>
   </div>
 </div>

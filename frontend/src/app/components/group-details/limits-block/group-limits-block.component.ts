@@ -20,6 +20,8 @@ import { InterschoolCombine } from "../model/InterschoolCombine";
 
 // todo: 16/10/24 user has no possibility to pick 'NO teacher_2' or 'NO room' when it picked some value.
 //  In case, user did it accidentally - he should have choice to unset it.
+// todo: 06/11/24  do not forget about possibility for user to set fixed lessons (those cannot be changed)
+//  (that should be a new functionality non-related to this page, apparently).
 @Component({
   selector: 'app-group-limits-block',
   templateUrl: './group-limits-block.component.html'
@@ -145,6 +147,7 @@ export class GroupLimitsBlockComponent implements OnChanges {
 
   pickSubject() {
     const subject = this.newSubjectFormControl.value as ISubject;
+    if (subject == null) return;
 
     this.unpickedSubjects = this.unpickedSubjects.filter(subj => subj.id != subject.id);
 

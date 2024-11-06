@@ -1,0 +1,68 @@
+<form *ngIf="pageState.isLoaded" (ngSubmit)="submit()">
+
+  <div *ngFor="let constraint of constraints | sortRoomLimitsByDay" class="mt-4 mb-2">
+    <div class="w-full flex relative"
+       [ngClass]="{'animate-ping' : isDeleted(constraint) }">
+
+      <div class="w-1/3 text-center">
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>День</mat-label>
+          <mat-select [formControl]="constraint.day">
+            <mat-option *ngFor="let day of days" [value]="day">{{ day | translateDay }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="w-1/3 text-center">
+        <mat-form-field appearance="fill" class="w-full ml-2">
+          <mat-label>Від уроку</mat-label>
+          <mat-select [formControl]="constraint.lessonFrom">
+            <mat-option *ngFor="let lessonNumber of lessonNumbers" [value]="lessonNumber">{{ lessonNumber }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="w-1/3 text-center">
+        <mat-form-field appearance="fill" class="w-full ml-4">
+          <mat-label>До уроку</mat-label>
+          <mat-select [formControl]="constraint.lessonTo">
+            <mat-option *ngFor="let lessonNumber of lessonNumbers" [value]="lessonNumber">{{ lessonNumber }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <p
+          class="text-red-600 italic font-mono font-bold mb-2 text-sm"
+          *ngIf="!areLessonNumbersValid(constraint)"
+        >Порядок уроків повинен бути по зростанню</p>
+      </div>
+
+      <button
+        type="button"
+        class="absolute -right-20 top-0 py-4 px-3 bg-transparent hover:bg-red-500
+             text-red-700 font-semibold hover:text-white py-2 px-4 border border-2
+              border-red-500 hover:border-transparent rounded"
+        (click)="deleteConstraint(constraint)"
+      >&times;</button>
+
+    </div>
+  </div>
+
+
+  <button
+    class="bg-transparent text-green-700 font-semibold py-4 px-6
+          border border-2 border-green-500 rounded ml-5
+          hover:bg-green-500 hover:border-transparent hover:text-white"
+    type="button"
+    (click)="addNewConstraint()"
+  >+</button>
+
+  <div class="text-center">
+    <button
+      type="submit"
+      class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold
+       hover:text-white py-2 px-4 border border-2 border-blue-500 hover:border-transparent rounded"
+      [ngClass]="{ 'hover:bg-yellow-500 text-yellow-600 border-yellow-500' : pageState.isDataAlreadyCreated }"
+    >{{ pageState.isDataAlreadyCreated ? 'Обновити' : 'Зберегти' }}</button>
+  </div>
+
+</form>

@@ -61,6 +61,9 @@ import { CreateCancelButtonsComponent } from './components/shared/button/create-
 import { GroupDetailsMnvkComponent } from './components/group-details/components/mnvk/group-details-mnvk.component';
 import { GroupDetailsLessonFormComponent } from './components/group-details/components/lesson-form/group-details-lesson-form.component';
 import { SortLessonLimitsBySubjectNamePipe } from './pipes/sort-lesson-limits-by-subject-name.pipe';
+import { RoomLimitsComponent } from './components/room-details/room-limits/room-limits.component';
+import { RoomDetailsPageComponent } from './pages/room-details-page/room-details-page.component';
+import { SortRoomLimitsByDayPipe } from './pipes/sort-room-limits-by-day.pipe';
 
 @NgModule({
   declarations: [
@@ -115,6 +118,9 @@ import { SortLessonLimitsBySubjectNamePipe } from './pipes/sort-lesson-limits-by
     GroupDetailsMnvkComponent,
     GroupDetailsLessonFormComponent,
     SortLessonLimitsBySubjectNamePipe,
+    RoomLimitsComponent,
+    RoomDetailsPageComponent,
+    SortRoomLimitsByDayPipe,
   ],
   imports: [
     BrowserModule,

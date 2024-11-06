@@ -93,7 +93,7 @@ public class DefaultDtoFactoryUtil {
   }
 
   public RoomDto room() {
-    return new RoomDto(DEFAULT_ROOM_ID, DEFAULT_ROOM_NAME, DEFAULT_ROOM_CAPACITY);
+    return new RoomDto(DEFAULT_ROOM_ID, DEFAULT_ROOM_NAME, DEFAULT_ROOM_CAPACITY, null);
   }
 
   public SubjectDto subject() {

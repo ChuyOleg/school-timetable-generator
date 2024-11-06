@@ -34,6 +34,14 @@ VALUES
     ('Трудовий клас (дівчата)', 2, 1, now()), ('Трудовий клас (хлопці)', 2, 1, now());
 
 
+INSERT INTO room_limit(room_id, day, lesson_number_from, lesson_number_to)
+VALUES
+    (1, 'MONDAY', 6, 8),
+    (1, 'WEDNESDAY', 5, 8),
+    (1, 'FRIDAY', 7, 8),
+    (3, 'THURSDAY', 1, 3);
+
+
 INSERT INTO teacher(name, max_hours_per_week, user_id, created_date)
 VALUES
 ('Чернихівська З.Д.', 16, 1, now()), ('Маньковська О.А', 16, 1, now()), ('Тищик Е.Р.', 16, 1, now()),

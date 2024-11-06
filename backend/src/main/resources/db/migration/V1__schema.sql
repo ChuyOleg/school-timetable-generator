@@ -29,6 +29,19 @@ CREATE TABLE IF NOT EXISTS room (
     UNIQUE (name, user_id)
 );
 
+CREATE TABLE IF NOT EXISTS room_limit (
+    id serial PRIMARY KEY ,
+    room_id int NOT NULL REFERENCES room(id) ON DELETE CASCADE ,
+    day varchar(16) NOT NULL ,
+    lesson_number_from int NOT NULL ,
+    lesson_number_to int NOT NULL ,
+
+    CHECK (day in ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY')) ,
+    CHECK (lesson_number_from >= 1 AND lesson_number_from <= 8) ,
+    CHECK (lesson_number_to >= 1 AND lesson_number_to <= 8) ,
+    CHECK (lesson_number_from < lesson_number_to)
+);
+
 CREATE TABLE IF NOT EXISTS teacher (
     id serial PRIMARY KEY ,
     name varchar(64) NOT NULL ,
