@@ -32,6 +32,12 @@ export class RoomService {
       )
   }
 
+  getById(id: number): Observable<IRoom> {
+    return this.http.get<IRoom>(`${this.baseUrl}rooms/${id}`)
+      .pipe(
+        catchError(error => this.errorHandler(error, this.defaultErrorMsg))
+      )
+  }
   create(room: IRoom): Observable<IRoom> {
     return this.http.post<IRoom>(`${this.baseUrl}rooms`, room)
       .pipe(

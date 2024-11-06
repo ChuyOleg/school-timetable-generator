@@ -1,6 +1,7 @@
 package ip91.chui.oleh.model.entity;
 
 import jakarta.persistence.*;
+import java.util.Set;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -26,6 +27,9 @@ public class Room {
 
   @Column(nullable = false)
   private int capacity;
+
+  @OneToMany(mappedBy = "room", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
+  private Set<RoomLimit> roomLimitSet;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)

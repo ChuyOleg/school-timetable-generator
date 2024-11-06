@@ -10,6 +10,7 @@ import { LoginPageComponent } from "./pages/login-page/login-page/login-page.com
 import { TimetablePageComponent } from "./pages/timetable-page/timetable-page.component";
 import { TeacherDetailsPageComponent }
   from "./pages/teacher-details-page/teacher-details-page/teacher-details-page.component";
+import { RoomDetailsPageComponent } from "./pages/room-details-page/room-details-page.component";
 
 const routes: Routes = [
   { path: 'registration', component: RegisterPageComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'teachers', component: TeacherPageComponent },
   { path: 'teachers/:id', component: TeacherDetailsPageComponent },
   { path: 'rooms', component: RoomPageComponent },
+  { path: 'rooms/:id', component: RoomDetailsPageComponent },
   { path: 'groups', component: GroupPageComponent },
   { path: 'groups/:id', component: GroupDetailsPageComponent },
   { path: 'timetable', component: TimetablePageComponent },
