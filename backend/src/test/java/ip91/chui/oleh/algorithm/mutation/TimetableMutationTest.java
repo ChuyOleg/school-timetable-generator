@@ -97,7 +97,7 @@ class TimetableMutationTest {
   }
 
   private RoomDto getDefaultRoomDto() {
-    return new RoomDto(1L, "Default", 2);
+    return new RoomDto(1L, "Default", 2, null);
   }
 
   private SubjectDto getSubjectByLessonNumber(int lessonNumber) {

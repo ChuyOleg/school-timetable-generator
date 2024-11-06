@@ -155,7 +155,7 @@ class TimetableFinesInformerTest {
   }
 
   private RoomDto getDefaultRoomDtoWithCapacity2() {
-    return new RoomDto(ROOM_ID_1, "Default", 2);
+    return new RoomDto(ROOM_ID_1, "Default", 2, null);
   }
 
   private Set<GroupDto> mockGroupsHolderBehavior() {
