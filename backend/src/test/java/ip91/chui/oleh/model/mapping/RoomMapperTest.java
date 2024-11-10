@@ -1,9 +1,9 @@
 package ip91.chui.oleh.model.mapping;
 
-import ip91.chui.oleh.model.dto.RoomDto;
-import ip91.chui.oleh.model.dto.RoomLimitDto;
-import ip91.chui.oleh.model.entity.Room;
-import ip91.chui.oleh.model.entity.RoomLimit;
+import ip91.chui.oleh.model.dto.room.RoomDto;
+import ip91.chui.oleh.model.dto.room.RoomLimitDto;
+import ip91.chui.oleh.model.entity.room.Room;
+import ip91.chui.oleh.model.entity.room.RoomLimit;
 import java.time.DayOfWeek;
 import java.util.Set;
 import org.junit.jupiter.api.Test;

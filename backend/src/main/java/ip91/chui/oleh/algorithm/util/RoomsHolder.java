@@ -1,6 +1,6 @@
 package ip91.chui.oleh.algorithm.util;
 
-import ip91.chui.oleh.model.dto.RoomDto;
+import ip91.chui.oleh.model.dto.room.RoomDto;
 import ip91.chui.oleh.model.entity.User;
 import ip91.chui.oleh.model.mapping.RoomMapper;
 import ip91.chui.oleh.repository.RoomRepository;

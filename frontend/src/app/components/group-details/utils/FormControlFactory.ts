@@ -1,6 +1,6 @@
 import { FormControl, Validators } from "@angular/forms";
 import { IRoom } from "../../../models/room";
-import { ITeacher } from "../../../models/teacher";
+import { ITeacher } from "../../../models/teacher/teacher";
 import { Utils } from "./Utils";
 import { LessonLimitsHolder } from "../model/LessonLimitsHolder";
 

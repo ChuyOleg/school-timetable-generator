@@ -1,5 +1,5 @@
 import { IGroupLimits } from "./group-limits";
-import { ITeacher } from "./teacher";
+import { ITeacher } from "./teacher/teacher";
 
 export interface IGroup {
   id?: number

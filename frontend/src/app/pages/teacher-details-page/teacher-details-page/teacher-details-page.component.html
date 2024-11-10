@@ -2,10 +2,13 @@
   <h2 class="text-center text-lg mt-2 font-bold">
     {{ teacher.name }}
   </h2>
+  <h3 class="text-center text-lg font-bold">
+<!--    <mat-icon class="italic text-lg font-bold pt-1">people</mat-icon> {{ teacher. .capacity }}-->
+  </h3>
 </div>
 
-<!--<app-teacher-limits-block [teacher]="teacher">-->
-<!--</app-teacher-limits-block>-->
+<app-teacher-limits [teacher]="teacher">
+</app-teacher-limits>
 
 <button
   routerLink="/teachers"

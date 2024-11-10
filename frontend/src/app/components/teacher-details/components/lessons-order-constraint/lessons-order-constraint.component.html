@@ -1,0 +1,16 @@
+<div class="border-b border-b-3 border-b-black pb-4 mb-4">
+  <h3 class="text-center mb-3">Обмеження 'Послідовність уроків'</h3>
+
+  <div class="flex justify-center text-center">
+    <div class="w-1/3">
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Важливість послідовності уроків</mat-label>
+        <mat-select [formControl]="constraint.importanceLevel">
+          <mat-option *ngFor="let level of importanceLevels" [value]="level">
+            {{ level | translateLessonsOrderImportanceLevel }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

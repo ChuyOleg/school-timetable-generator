@@ -4,7 +4,7 @@ import ip91.chui.oleh.algorithm.fitnessFunction.FitnessFunctionContext;
 import ip91.chui.oleh.algorithm.model.Individual;
 import ip91.chui.oleh.model.dto.GroupDto;
 import ip91.chui.oleh.model.dto.LessonDto;
-import ip91.chui.oleh.model.dto.TeacherDto;
+import ip91.chui.oleh.model.dto.teacher.TeacherDto;
 import ip91.chui.oleh.model.dto.TimeSlotDto;
 import java.util.Arrays;
 import java.util.HashMap;
