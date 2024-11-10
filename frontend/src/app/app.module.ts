@@ -53,7 +53,6 @@ import { TokenInterceptorService } from "./services/token-interceptor.service";
 import { TimetablePageComponent } from './pages/timetable-page/timetable-page.component';
 import { InvalidWorkingLoadingBlockComponent } from './components/timetable/invalid-working-loading-block/invalid-working-loading-block.component';
 import { GroupTimetableBlockComponent } from './components/timetable/group-timtable-block/group-timetable-block.component';
-import { TeacherLimitsBlockComponent } from './components/teacher-details/limits-block/teacher-limits-block.component';
 import { TeacherDetailsPageComponent } from './pages/teacher-details-page/teacher-details-page/teacher-details-page.component';
 import { TranslateDayPipe } from './pipes/translate-day.pipe';
 import { LoaderComponent } from "./components/shared/loader/loader.component";
@@ -64,6 +63,14 @@ import { SortLessonLimitsBySubjectNamePipe } from './pipes/sort-lesson-limits-by
 import { RoomLimitsComponent } from './components/room-details/room-limits/room-limits.component';
 import { RoomDetailsPageComponent } from './pages/room-details-page/room-details-page.component';
 import { SortRoomLimitsByDayPipe } from './pipes/sort-room-limits-by-day.pipe';
+import { TeacherLimitsComponent } from './components/teacher-details/teacher-limits/teacher-limits.component';
+import { FreeDayConstraintsComponent } from './components/teacher-details/components/free-day-constraints/free-day-constraints.component';
+import { MaxLessonsConstraintComponent } from './components/teacher-details/components/max-lessons-constraint/max-lessons-constraint.component';
+import { FreeDayBlockComponent } from './components/teacher-details/components/free-day-block/free-day-block.component';
+import { DesiredPeriodConstraintsComponent } from './components/teacher-details/components/desired-period-constraints/desired-period-constraints.component';
+import { DesiredPeriodBlockComponent } from './components/teacher-details/components/desired-period-block/desired-period-block.component';
+import { LessonsOrderConstraintComponent } from './components/teacher-details/components/lessons-order-constraint/lessons-order-constraint.component';
+import { TranslateLessonsOrderImportanceLevelPipe } from './pipes/translate-lessons-order-importance-level.pipe';
 
 @NgModule({
   declarations: [
@@ -110,7 +117,6 @@ import { SortRoomLimitsByDayPipe } from './pipes/sort-room-limits-by-day.pipe';
     TimetablePageComponent,
     InvalidWorkingLoadingBlockComponent,
     GroupTimetableBlockComponent,
-    TeacherLimitsBlockComponent,
     TeacherDetailsPageComponent,
     TranslateDayPipe,
     LoaderComponent,
@@ -121,6 +127,14 @@ import { SortRoomLimitsByDayPipe } from './pipes/sort-room-limits-by-day.pipe';
     RoomLimitsComponent,
     RoomDetailsPageComponent,
     SortRoomLimitsByDayPipe,
+    TeacherLimitsComponent,
+    FreeDayConstraintsComponent,
+    MaxLessonsConstraintComponent,
+    FreeDayBlockComponent,
+    DesiredPeriodConstraintsComponent,
+    DesiredPeriodBlockComponent,
+    LessonsOrderConstraintComponent,
+    TranslateLessonsOrderImportanceLevelPipe,
   ],
   imports: [
     BrowserModule,

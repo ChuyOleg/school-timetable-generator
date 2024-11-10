@@ -1,5 +1,6 @@
 package ip91.chui.oleh.model.entity;
 
+import ip91.chui.oleh.model.entity.teacher.Teacher;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

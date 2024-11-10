@@ -3,9 +3,8 @@ package ip91.chui.oleh.algorithm;
 import ip91.chui.oleh.algorithm.model.Individual;
 import ip91.chui.oleh.model.dto.GroupDto;
 import ip91.chui.oleh.model.dto.LessonDto;
-import ip91.chui.oleh.model.dto.RoomDto;
 import ip91.chui.oleh.model.dto.SubjectDto;
-import ip91.chui.oleh.model.dto.TeacherDto;
+import ip91.chui.oleh.model.dto.teacher.TeacherDto;
 import ip91.chui.oleh.model.dto.TimeSlotDto;
 import ip91.chui.oleh.model.enumeration.WeekType;
 import java.time.DayOfWeek;
@@ -81,7 +80,7 @@ public class ModelUtil {
 
 
   private TeacherDto teacher(Long id) {
-    return new TeacherDto(id, DEFAULT_TEACHER_NAME, null, DEFAULT_TEACHER_MAX_HOURS);
+    return new TeacherDto(id, DEFAULT_TEACHER_NAME, null, DEFAULT_TEACHER_MAX_HOURS, null);
   }
 
 //  private LessonDto uniqueLesson(Long id) {

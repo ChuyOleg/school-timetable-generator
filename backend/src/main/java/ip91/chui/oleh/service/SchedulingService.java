@@ -2,6 +2,7 @@ package ip91.chui.oleh.service;
 
 import ip91.chui.oleh.model.entity.User;
 import ip91.chui.oleh.repository.*;
+import ip91.chui.oleh.repository.teacher.TeacherRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.scheduling.annotation.Scheduled;

@@ -53,6 +53,52 @@ CREATE TABLE IF NOT EXISTS teacher (
     UNIQUE (name, user_id)
 );
 
+CREATE TABLE IF NOT EXISTS teacher_limits (
+    id serial PRIMARY KEY ,
+    teacher_id int NOT NULL REFERENCES teacher(id) ON DELETE CASCADE ,
+
+    UNIQUE (teacher_id)
+);
+
+CREATE TABLE IF NOT EXISTS free_day_limit (
+    id serial PRIMARY KEY ,
+    teacher_limits_id int NOT NULL REFERENCES teacher_limits(id) ON DELETE CASCADE ,
+    day varchar(16) NOT NULL ,
+
+    CHECK (day in ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY'))
+);
+
+CREATE TABLE IF NOT EXISTS lessons_order_limit (
+    id serial PRIMARY KEY ,
+    teacher_limits_id int NOT NULL REFERENCES teacher_limits(id) ON DELETE CASCADE ,
+    importance_level varchar(16) NOT NULL ,
+
+    UNIQUE (teacher_limits_id) ,
+    CHECK (importance_level in ('HIGH', 'MEDIUM', 'LOW'))
+);
+
+CREATE TABLE IF NOT EXISTS max_lessons_limit (
+    id serial PRIMARY KEY ,
+    teacher_limits_id int NOT NULL REFERENCES teacher_limits(id) ON DELETE CASCADE ,
+    count int NOT NULL ,
+
+    UNIQUE (teacher_limits_id) ,
+    CHECK (count >= 1 AND count <= 8)
+);
+
+CREATE TABLE IF NOT EXISTS desired_period_limit (
+    id serial PRIMARY KEY ,
+    teacher_limits_id int NOT NULL REFERENCES teacher_limits(id) ON DELETE CASCADE ,
+    day varchar(16) NOT NULL ,
+    lesson_from int NOT NULL ,
+    lesson_to int NOT NULL ,
+
+    CHECK (day in ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY')) ,
+    CHECK (lesson_from >= 1 AND lesson_from <= 8) ,
+    CHECK (lesson_to >= 1 AND lesson_to <= 8) ,
+    CHECK (lesson_from < lesson_to)
+);
+
 CREATE TABLE IF NOT EXISTS teacher_subject (
     teacher_id int REFERENCES teacher(id) ON DELETE CASCADE ,
     subject_id int REFERENCES subject(id) ,

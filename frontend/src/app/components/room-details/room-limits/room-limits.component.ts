@@ -55,12 +55,11 @@ export class RoomLimitsComponent implements OnInit, OnChanges {
   }
 
   private areLimitsValid(): boolean {
-    return this.constraints.every(constraint => {
-      const lessonFrom = constraint.lessonFrom;
-      const lessonTo = constraint.lessonTo;
-
-      return constraint.day.valid && lessonFrom.valid && lessonTo.valid
-        && this.areLessonNumbersValid(constraint)});
+    return this.constraints.every(constraint =>
+      constraint.day.valid
+      && constraint.lessonFrom.valid
+      && constraint.lessonTo.valid
+      && this.areLessonNumbersValid(constraint) );
   }
 
   areLessonNumbersValid(constraint: RoomConstraint): boolean {

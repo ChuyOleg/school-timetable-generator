@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { GroupModalService } from "../../../services/group/group-modal.service";
 import { GroupService } from "../../../services/group/group.service";
-import { ITeacher } from "../../../models/teacher";
+import { ITeacher } from "../../../models/teacher/teacher";
 import { TeacherService } from "../../../services/teacher/teacher.service";
 import { IGroup } from "../../../models/group";
 

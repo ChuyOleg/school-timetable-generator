@@ -5,6 +5,8 @@ import ip91.chui.oleh.algorithm.fitnessFunction.FitnessFunction;
 import ip91.chui.oleh.algorithm.model.Individual;
 import ip91.chui.oleh.algorithm.util.TimeSlotsHolder;
 import ip91.chui.oleh.model.dto.*;
+import ip91.chui.oleh.model.dto.room.RoomDto;
+import ip91.chui.oleh.model.dto.teacher.TeacherDto;
 import ip91.chui.oleh.model.enumeration.WeekType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.DayOfWeek;
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -93,7 +94,7 @@ class TimetableMutationTest {
   }
 
   private TeacherDto getDefaultTeacherDto() {
-    return new TeacherDto(1L, "Default", null, 18);
+    return new TeacherDto(1L, "Default", null, 18, null);
   }
 
   private RoomDto getDefaultRoomDto() {

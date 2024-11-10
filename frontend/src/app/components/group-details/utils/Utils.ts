@@ -1,6 +1,6 @@
 import { FormControl } from "@angular/forms";
 import { ISubjectLimits } from "../../../models/subject-limits";
-import { ITeacher } from "../../../models/teacher";
+import { ITeacher } from "../../../models/teacher/teacher";
 import { IRoom } from "../../../models/room";
 import { ISubject } from "../../../models/subject";
 import { IGroup } from "../../../models/group";
