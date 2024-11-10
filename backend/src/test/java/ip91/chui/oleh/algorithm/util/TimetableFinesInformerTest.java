@@ -3,6 +3,8 @@ package ip91.chui.oleh.algorithm.util;
 import ip91.chui.oleh.model.dto.*;
 import ip91.chui.oleh.model.dto.lightweigth.LessonDtoLightWeight;
 import ip91.chui.oleh.model.dto.lightweigth.TimeTableDtoLightWeight;
+import ip91.chui.oleh.model.dto.room.RoomDto;
+import ip91.chui.oleh.model.dto.teacher.TeacherDto;
 import ip91.chui.oleh.model.enumeration.WeekType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -151,7 +153,7 @@ class TimetableFinesInformerTest {
   }
 
   private TeacherDto getDefaultTeacherDto() {
-    return new TeacherDto(TEACHER_ID_1, "Default", null, 18);
+    return new TeacherDto(TEACHER_ID_1, "Default", null, 18, null);
   }
 
   private RoomDto getDefaultRoomDtoWithCapacity2() {

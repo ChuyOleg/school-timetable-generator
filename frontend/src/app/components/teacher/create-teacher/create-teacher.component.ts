@@ -4,7 +4,8 @@ import { TeacherService } from "../../../services/teacher/teacher.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ISubject } from "../../../models/subject";
 import { SubjectService } from "../../../services/subject/subject.service";
-import { ITeacher } from "../../../models/teacher";
+import { ITeacher } from "../../../models/teacher/teacher";
+import { EImportanceLevel } from "../../../models/enumeration/importance-level";
 
 @Component({
   selector: 'app-create-teacher',
@@ -54,7 +55,8 @@ export class CreateTeacherComponent implements OnInit {
     return {
       name: name as string,
       subjectDtoSet: subjectDtoSet as ISubject[],
-      maxHoursPerWeek: maxHoursPerWeek as number };
+      maxHoursPerWeek: maxHoursPerWeek as number,
+      limits: { lessonsOrderLimit: {importanceLevel: EImportanceLevel.MEDIUM}, freeDayLimits: [], desiredPeriodLimits: [] }};
   }
 
   private teacherIsCreatedPostActions() {

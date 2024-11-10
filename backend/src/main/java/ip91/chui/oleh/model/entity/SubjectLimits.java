@@ -1,5 +1,7 @@
 package ip91.chui.oleh.model.entity;
 
+import ip91.chui.oleh.model.entity.room.Room;
+import ip91.chui.oleh.model.entity.teacher.Teacher;
 import jakarta.persistence.*;
 import lombok.*;
 

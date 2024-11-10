@@ -1,5 +1,5 @@
 import { FormControl } from "@angular/forms";
-import { ITeacher } from "../../../models/teacher";
+import { ITeacher } from "../../../models/teacher/teacher";
 import { IRoom } from "../../../models/room";
 
 export interface LessonLimitsGroup {

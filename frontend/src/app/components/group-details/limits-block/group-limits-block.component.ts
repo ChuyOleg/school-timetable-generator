@@ -31,11 +31,8 @@ export class GroupLimitsBlockComponent implements OnChanges {
   @Input() group: IGroup
 
   newSubjectFormControl: FormControl<ISubject|null> = new FormControl<ISubject|null>(null, [])
-
-
   pickedLessonConstraints: LessonLimitsHolder[] = []
   unpickedSubjects: ISubject[] = []
-
   maxHoursPerWeek: FormControl<number | null>;
   pageState: GroupLimitsPageState;
   interschoolCombine: InterschoolCombine;

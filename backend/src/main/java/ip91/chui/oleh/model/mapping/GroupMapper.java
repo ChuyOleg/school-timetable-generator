@@ -2,6 +2,7 @@ package ip91.chui.oleh.model.mapping;
 
 import ip91.chui.oleh.model.dto.GroupDto;
 import ip91.chui.oleh.model.entity.Group;
+import ip91.chui.oleh.model.mapping.teacher.TeacherMapper;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", uses = { GroupLimitsMapper.class, TeacherMapper.class })

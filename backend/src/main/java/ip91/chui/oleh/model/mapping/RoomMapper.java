@@ -1,7 +1,7 @@
 package ip91.chui.oleh.model.mapping;
 
-import ip91.chui.oleh.model.dto.RoomDto;
-import ip91.chui.oleh.model.entity.Room;
+import ip91.chui.oleh.model.dto.room.RoomDto;
+import ip91.chui.oleh.model.entity.room.Room;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

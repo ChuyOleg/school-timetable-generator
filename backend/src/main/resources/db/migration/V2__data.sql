@@ -84,6 +84,50 @@ VALUES
 (56, 16), (57, 16), (58, 3), (59, 3);
 
 
+INSERT INTO teacher_limits(teacher_id)
+VALUES
+(1), (2), (3), (4), (5), (6), (7), (8), (9), (10),
+(11), (12), (13), (14), (15), (16), (17), (18), (19), (20),
+(21), (22), (23), (24), (25), (26), (27), (28), (29), (30),
+(31), (32), (33), (34), (35), (36), (37), (38), (39), (40),
+(41), (42), (43), (44), (45), (46), (47), (48), (49), (50),
+(51), (52), (53), (54), (55), (56), (57), (58), (59);
+
+
+INSERT INTO free_day_limit(teacher_limits_id, day)
+VALUES
+(24, 'FRIDAY'), (18, 'TUESDAY'), (27, 'THURSDAY'), (30, 'FRIDAY'), (26, 'MONDAY'),
+(26, 'THURSDAY'), (38, 'TUESDAY'), (38, 'WEDNESDAY'), (45, 'MONDAY'), (50, 'WEDNESDAY');
+
+
+INSERT INTO lessons_order_limit(teacher_limits_id, importance_level)
+VALUES
+(1, 'HIGH'), (2, 'MEDIUM'), (3, 'MEDIUM'), (4, 'MEDIUM'), (5, 'HIGH'),
+(6, 'MEDIUM'), (7, 'MEDIUM'), (8, 'MEDIUM'), (9, 'LOW'), (10, 'HIGH'),
+(11, 'HIGH'), (12, 'LOW'), (13, 'HIGH'), (14, 'MEDIUM'), (15, 'HIGH'),
+(16, 'HIGH'), (17, 'MEDIUM'), (18, 'MEDIUM'), (19, 'LOW'), (20, 'HIGH'),
+(21, 'LOW'), (22, 'LOW'), (23, 'MEDIUM'), (24, 'HIGH'), (25, 'HIGH'),
+(26, 'HIGH'), (27, 'HIGH'), (28, 'HIGH'), (29, 'MEDIUM'), (30, 'HIGH'),
+(31, 'LOW'), (32, 'HIGH'), (33, 'MEDIUM'), (34, 'HIGH'), (35, 'LOW'),
+(36, 'HIGH'), (37, 'MEDIUM'), (38, 'HIGH'), (39, 'MEDIUM'), (40, 'MEDIUM'),
+(41, 'LOW'), (42, 'HIGH'), (43, 'MEDIUM'), (44, 'LOW'), (45, 'MEDIUM'),
+(46, 'MEDIUM'), (47, 'MEDIUM'), (48, 'MEDIUM'), (49, 'HIGH'), (50, 'MEDIUM'),
+(51, 'LOW'), (52, 'HIGH'), (53, 'MEDIUM'), (54, 'LOW'), (55, 'HIGH'),
+(56, 'MEDIUM'), (57, 'HIGH'), (58, 'MEDIUM'), (59, 'MEDIUM');
+
+
+INSERT INTO max_lessons_limit(teacher_limits_id, count)
+VALUES
+(43, 5), (31, 4), (47, 4), (16, 5);
+
+
+INSERT INTO desired_period_limit(teacher_limits_id, day, lesson_from, lesson_to)
+VALUES
+(43, 'MONDAY', 1, 4), (46, 'MONDAY', 1, 4), (46, 'TUESDAY', 1, 4), (46, 'WEDNESDAY', 1, 4),
+(46, 'THURSDAY', 1, 4), (46, 'FRIDAY', 1, 4), (35, 'MONDAY', 2, 8), (35, 'FRIDAY', 2, 8),
+(37, 'TUESDAY', 3, 8), (37, 'THURSDAY', 3, 8), (32, 'WEDNESDAY', 3, 5), (29, 'FRIDAY', 5, 7);
+
+
 INSERT INTO class_group(grade_number, letter, shift, teacher_id, user_id, created_date)
 VALUES
 (1, 'А', 1, 1, 1, now()), (1, 'Б', 1, 2, 1, now()), (1, 'В', 1, 3, 1, now()),

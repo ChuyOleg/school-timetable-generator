@@ -1,6 +1,6 @@
 package ip91.chui.oleh.controller;
 
-import ip91.chui.oleh.model.dto.RoomDto;
+import ip91.chui.oleh.model.dto.room.RoomDto;
 import ip91.chui.oleh.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

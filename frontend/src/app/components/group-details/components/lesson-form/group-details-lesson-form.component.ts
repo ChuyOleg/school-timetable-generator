@@ -4,7 +4,7 @@ import { TeacherService } from "../../../../services/teacher/teacher.service";
 import { RoomService } from "../../../../services/room/room.service";
 import { FormControlFactory } from "../../utils/FormControlFactory";
 import { FormControl } from "@angular/forms";
-import { ITeacher } from "../../../../models/teacher";
+import { ITeacher } from "../../../../models/teacher/teacher";
 import { IRoom } from "../../../../models/room";
 import { LessonLimitsHolder } from "../../model/LessonLimitsHolder";
 import { ValidatorUtils } from "../../utils/ValidatorUtils";

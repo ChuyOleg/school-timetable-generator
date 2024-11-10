@@ -2,21 +2,25 @@ package ip91.chui.oleh.service;
 
 import ip91.chui.oleh.exception.TeacherDtoValidationException;
 import ip91.chui.oleh.exception.TeacherProcessingException;
-import ip91.chui.oleh.model.dto.TeacherDto;
+import ip91.chui.oleh.model.dto.teacher.TeacherDto;
 import ip91.chui.oleh.model.dto.projection.TeacherProjection;
-import ip91.chui.oleh.model.entity.Teacher;
+import ip91.chui.oleh.model.entity.teacher.Teacher;
 import ip91.chui.oleh.model.entity.User;
-import ip91.chui.oleh.model.mapping.TeacherMapper;
-import ip91.chui.oleh.repository.TeacherRepository;
+import ip91.chui.oleh.model.mapping.teacher.TeacherMapper;
+import ip91.chui.oleh.repository.teacher.TeacherRepository;
+import ip91.chui.oleh.repository.teacher.limit.MaxLessonsLimitRepository;
 import ip91.chui.oleh.service.auth.AuthenticationService;
 import ip91.chui.oleh.validator.DtoValidator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TeacherService {
@@ -26,6 +30,7 @@ public class TeacherService {
 
   private final AuthenticationService authService;
   private final TeacherRepository teacherRepository;
+  private final MaxLessonsLimitRepository maxLessonsLimitRepository;
   private final TeacherMapper teacherMapper;
   private final DtoValidator<TeacherDto> teacherDtoValidator;
 
@@ -69,12 +74,16 @@ public class TeacherService {
     return teacherMapper.teacherToDto(savedTeacher);
   }
 
+  @Transactional
   public TeacherDto update(TeacherDto teacherDto) {
     validateIdIsNotNull(teacherDto);
     validateTeacherDto(teacherDto);
 
     if (teacherRepository.existsById(teacherDto.getId())) {
       Teacher teacherToUpdate = teacherMapper.dtoToTeacher(teacherDto);
+      if (teacherToUpdate.getLimits().getMaxLessonsLimit() == null) {
+        maxLessonsLimitRepository.deleteByTeacherLimits(teacherToUpdate.getLimits());
+      }
       Teacher updatedTeacher = teacherRepository.save(teacherToUpdate);
       return teacherMapper.teacherToDto(updatedTeacher);
     } else {

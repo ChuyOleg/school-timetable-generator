@@ -1,6 +1,8 @@
 package ip91.chui.oleh.model.dto;
 
 
+import ip91.chui.oleh.model.dto.room.RoomDto;
+import ip91.chui.oleh.model.dto.teacher.TeacherDto;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

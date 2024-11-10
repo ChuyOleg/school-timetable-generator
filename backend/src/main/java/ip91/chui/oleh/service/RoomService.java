@@ -2,8 +2,8 @@ package ip91.chui.oleh.service;
 
 import ip91.chui.oleh.exception.RoomDtoValidationException;
 import ip91.chui.oleh.exception.RoomProcessingException;
-import ip91.chui.oleh.model.dto.RoomDto;
-import ip91.chui.oleh.model.entity.Room;
+import ip91.chui.oleh.model.dto.room.RoomDto;
+import ip91.chui.oleh.model.entity.room.Room;
 import ip91.chui.oleh.model.entity.User;
 import ip91.chui.oleh.model.mapping.RoomMapper;
 import ip91.chui.oleh.repository.RoomRepository;

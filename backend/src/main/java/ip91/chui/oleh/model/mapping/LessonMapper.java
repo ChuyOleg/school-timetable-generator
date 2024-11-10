@@ -2,6 +2,7 @@ package ip91.chui.oleh.model.mapping;
 
 import ip91.chui.oleh.model.dto.LessonDto;
 import ip91.chui.oleh.model.entity.Lesson;
+import ip91.chui.oleh.model.mapping.teacher.TeacherMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

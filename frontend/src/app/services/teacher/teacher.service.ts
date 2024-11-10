@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { ErrorService } from "../error.service";
 import { Constants } from "../../config/constants";
-import { ITeacher } from "../../models/teacher";
+import { ITeacher } from "../../models/teacher/teacher";
 import { catchError, Observable, tap, throwError } from "rxjs";
 import { Router } from "@angular/router";
 import { ITeacherProjection } from "../../models/projection/teacher-projection";

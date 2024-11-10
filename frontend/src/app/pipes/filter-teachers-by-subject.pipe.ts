@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ITeacher } from "../models/teacher";
+import { ITeacher } from "../models/teacher/teacher";
 import { ISubject } from "../models/subject";
 
 @Pipe({

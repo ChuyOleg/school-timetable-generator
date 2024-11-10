@@ -1,7 +1,7 @@
 import { LessonLimitsHolder } from "../model/LessonLimitsHolder";
 import { FormControl } from "@angular/forms";
 import { IRoom } from "../../../models/room";
-import { ITeacher } from "../../../models/teacher";
+import { ITeacher } from "../../../models/teacher/teacher";
 import { LessonLimitsGroup } from "../model/LessonLimitsGroup";
 
 export class ValidatorUtils {

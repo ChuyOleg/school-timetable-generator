@@ -5,7 +5,7 @@ import { EDayOfWeek } from "../../../models/enumeration/day-of-week";
 import { IGroup } from "../../../models/group";
 import { ISubject } from "../../../models/subject";
 import { EWeekType } from "../../../models/enumeration/week-type";
-import { ITeacher } from "../../../models/teacher";
+import { ITeacher } from "../../../models/teacher/teacher";
 import { ILessonInTimetableComplexInfo } from "../../../models/util/lesson-in-timetable-complex-info";
 import { TimetableService } from "../../../services/timetable/timetable.service";
 import { ILesson } from "../../../models/lesson";

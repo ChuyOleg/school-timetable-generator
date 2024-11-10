@@ -4,7 +4,7 @@ import { delay, firstValueFrom } from "rxjs";
 import { ITeacherInvalidLoading } from "../../models/util/teacher-invalid-loading";
 import { GroupService } from "../../services/group/group.service";
 import { ILessonLightweight } from "../../models/util/lesson-lightweight";
-import { ITeacher } from "../../models/teacher";
+import { ITeacher } from "../../models/teacher/teacher";
 import { SubjectService } from "../../services/subject/subject.service";
 import { ISubject } from "../../models/subject";
 import { IGroup } from "../../models/group";

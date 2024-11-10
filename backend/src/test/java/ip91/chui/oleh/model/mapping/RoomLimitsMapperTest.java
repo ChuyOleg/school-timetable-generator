@@ -2,8 +2,8 @@ package ip91.chui.oleh.model.mapping;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import ip91.chui.oleh.model.dto.RoomLimitDto;
-import ip91.chui.oleh.model.entity.RoomLimit;
+import ip91.chui.oleh.model.dto.room.RoomLimitDto;
+import ip91.chui.oleh.model.entity.room.RoomLimit;
 import java.time.DayOfWeek;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

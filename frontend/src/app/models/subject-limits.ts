@@ -1,5 +1,5 @@
 import { ISubject } from "./subject";
-import { ITeacher } from "./teacher";
+import { ITeacher } from "./teacher/teacher";
 import { IRoom } from "./room";
 
 export interface ISubjectLimits {

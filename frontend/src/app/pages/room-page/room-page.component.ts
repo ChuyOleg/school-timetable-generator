@@ -25,5 +25,4 @@ export class RoomPageComponent implements OnInit {
       this.loading = false;
     })
   }
-
 }

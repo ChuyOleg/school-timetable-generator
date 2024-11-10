@@ -7,6 +7,8 @@ import ip91.chui.oleh.algorithm.model.Population;
 import ip91.chui.oleh.algorithm.util.TimeSlotsHolder;
 import ip91.chui.oleh.exception.SubjectProcessingException;
 import ip91.chui.oleh.model.dto.*;
+import ip91.chui.oleh.model.dto.room.RoomDto;
+import ip91.chui.oleh.model.dto.teacher.TeacherDto;
 import ip91.chui.oleh.model.entity.User;
 import ip91.chui.oleh.model.enumeration.WeekType;
 import ip91.chui.oleh.model.mapping.GroupMapper;
