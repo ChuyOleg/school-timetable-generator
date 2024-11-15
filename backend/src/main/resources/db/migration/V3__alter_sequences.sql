@@ -12,4 +12,5 @@ ALTER SEQUENCE lessons_order_limit_id_seq INCREMENT BY 10;
 ALTER SEQUENCE max_lessons_limit_id_seq INCREMENT BY 10;
 ALTER SEQUENCE desired_period_limit_id_seq INCREMENT BY 10;
 ALTER SEQUENCE subject_limits_id_seq INCREMENT BY 10;
+ALTER SEQUENCE shifts_intersection_id_seq INCREMENT BY 3;
 ALTER SEQUENCE time_table_id_seq INCREMENT BY 5;
