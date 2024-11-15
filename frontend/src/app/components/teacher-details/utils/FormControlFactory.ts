@@ -7,6 +7,10 @@ export class FormControlFactory {
     return new FormControl<EDayOfWeek | null>(day, Validators.required);
   }
 
+  static shiftFormControl(shift: number | null): FormControl<number | null> {
+    return new FormControl<number | null>(shift, Validators.required);
+  }
+
   static lessonNumberFormControl(value: number | null): FormControl<number | null> {
     return new FormControl<number | null>(value, Validators.required);
   }

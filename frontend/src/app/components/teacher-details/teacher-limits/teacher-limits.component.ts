@@ -99,6 +99,7 @@ export class TeacherLimitsComponent implements OnInit, OnChanges{
     limits.forEach(limit => desiredPeriodConstraints.push({
       id: limit.id,
       day: FormControlFactory.dayFormControl(limit.day),
+      shift: FormControlFactory.shiftFormControl(limit.shift),
       lessonFrom: FormControlFactory.lessonNumberFormControl(limit.lessonFrom),
       lessonTo: FormControlFactory.lessonNumberFormControl(limit.lessonTo) }));
 

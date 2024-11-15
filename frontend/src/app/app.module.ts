@@ -71,6 +71,10 @@ import { DesiredPeriodConstraintsComponent } from './components/teacher-details/
 import { DesiredPeriodBlockComponent } from './components/teacher-details/components/desired-period-block/desired-period-block.component';
 import { LessonsOrderConstraintComponent } from './components/teacher-details/components/lessons-order-constraint/lessons-order-constraint.component';
 import { TranslateLessonsOrderImportanceLevelPipe } from './pipes/translate-lessons-order-importance-level.pipe';
+import { TimePageComponent } from './pages/time-page/time-page.component';
+import { CreateShiftsIntersectionComponent } from './components/time/create-shifts-intersection/create-shifts-intersection.component';
+import { ShiftsIntersectionModalComponent } from './components/time/shifts-intersection-modal/shifts-intersection-modal.component';
+import { ShiftsIntersectionBlockComponent } from './components/time/shifts-intersection-block/shifts-intersection-block.component';
 
 @NgModule({
   declarations: [
@@ -135,6 +139,10 @@ import { TranslateLessonsOrderImportanceLevelPipe } from './pipes/translate-less
     DesiredPeriodBlockComponent,
     LessonsOrderConstraintComponent,
     TranslateLessonsOrderImportanceLevelPipe,
+    TimePageComponent,
+    CreateShiftsIntersectionComponent,
+    ShiftsIntersectionModalComponent,
+    ShiftsIntersectionBlockComponent
   ],
   imports: [
     BrowserModule,
