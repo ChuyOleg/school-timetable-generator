@@ -12,6 +12,12 @@ VALUES
     ('user_2@gmail.com', '$2a$10$EKauRMWhRGAZ94eeARfOfeRx58TlLxCRjLzkzmpK/e3qkoARmlEL2', 'USER');
 
 
+INSERT INTO shifts_intersection(shift_one_lesson_number, shift_two_lesson_number, user_id)
+VALUES
+    (7, 1, 1),
+    (8, 2, 1);
+
+
 INSERT INTO subject(name, user_id, created_date)
 VALUES
     ('Українська мова (письмо)', 1, now()), ('Українська мова (читання, now())', 1, now()), ('Англійська мова', 1, now()),
@@ -34,12 +40,12 @@ VALUES
     ('Трудовий клас (дівчата)', 2, 1, now()), ('Трудовий клас (хлопці)', 2, 1, now());
 
 
-INSERT INTO room_limit(room_id, day, lesson_number_from, lesson_number_to)
+INSERT INTO room_limit(room_id, day, shift, lesson_number_from, lesson_number_to)
 VALUES
-    (1, 'MONDAY', 6, 8),
-    (1, 'WEDNESDAY', 5, 8),
-    (1, 'FRIDAY', 7, 8),
-    (3, 'THURSDAY', 1, 3);
+    (1, 'MONDAY', 2, 5, 8),
+    (1, 'WEDNESDAY', 2, 5, 8),
+    (1, 'FRIDAY', 2, 5, 8),
+    (3, 'THURSDAY', 1, 1, 3);
 
 
 INSERT INTO teacher(name, max_hours_per_week, user_id, created_date)
@@ -121,11 +127,11 @@ VALUES
 (43, 5), (31, 4), (47, 4), (16, 5);
 
 
-INSERT INTO desired_period_limit(teacher_limits_id, day, lesson_from, lesson_to)
+INSERT INTO desired_period_limit(teacher_limits_id, day, shift, lesson_from, lesson_to)
 VALUES
-(43, 'MONDAY', 1, 4), (46, 'MONDAY', 1, 4), (46, 'TUESDAY', 1, 4), (46, 'WEDNESDAY', 1, 4),
-(46, 'THURSDAY', 1, 4), (46, 'FRIDAY', 1, 4), (35, 'MONDAY', 2, 8), (35, 'FRIDAY', 2, 8),
-(37, 'TUESDAY', 3, 8), (37, 'THURSDAY', 3, 8), (32, 'WEDNESDAY', 3, 5), (29, 'FRIDAY', 5, 7);
+(43, 'MONDAY', 1, 1, 4), (46, 'MONDAY', 1, 1, 4), (46, 'TUESDAY', 1, 1, 4), (46, 'WEDNESDAY', 1, 1, 4),
+(46, 'THURSDAY', 1, 1, 4), (46, 'FRIDAY', 1, 1, 4), (35, 'MONDAY', 1, 2, 8), (35, 'FRIDAY', 1, 2, 8),
+(37, 'TUESDAY', 1, 3, 8), (37, 'THURSDAY', 1, 3, 8), (32, 'WEDNESDAY', 1, 3, 5), (29, 'FRIDAY', 1, 5, 7);
 
 
 INSERT INTO class_group(grade_number, letter, shift, teacher_id, user_id, created_date)

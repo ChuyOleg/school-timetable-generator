@@ -1,0 +1,21 @@
+<h3 class="font-bold text-center mt-3 mb-5">Перетин шкільних змін</h3>
+
+<app-shared-loader [isLoading]="loading"></app-shared-loader>
+
+<div
+  *ngIf="!loading && service.shiftsIntersections">
+
+  <app-shifts-intersection-block
+    *ngFor="let shiftsIntersection of service.shiftsIntersections"
+    [shiftsIntersection]="shiftsIntersection"
+  ></app-shifts-intersection-block>
+</div>
+
+<app-shifts-intersection-modal *ngIf="modalService.createIsVisible$ | async" title="Створити нове правило">
+  <app-create-shifts-intersection></app-create-shifts-intersection>
+</app-shifts-intersection-modal>
+
+<button
+  class="rounded-full bg-red-700 text-white fixed right-5 bottom-16 py-2 px-4"
+  (click)="modalService.openCreateModal()"
+>+</button>

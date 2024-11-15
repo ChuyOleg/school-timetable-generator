@@ -82,7 +82,8 @@ public class SubjectService {
   private void validateSubjectDto(SubjectDto subjectDto) {
     Set<String> violations = subjectDtoValidator.validate(subjectDto);
     if (!violations.isEmpty()) {
-      throw new SubjectDtoValidationException(violations.stream().collect(Collectors.joining(System.lineSeparator())));
+      throw new SubjectDtoValidationException(
+          violations.stream().collect(Collectors.joining(System.lineSeparator())));
     }
   }
 

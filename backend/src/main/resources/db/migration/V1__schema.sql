@@ -33,10 +33,12 @@ CREATE TABLE IF NOT EXISTS room_limit (
     id serial PRIMARY KEY ,
     room_id int NOT NULL REFERENCES room(id) ON DELETE CASCADE ,
     day varchar(16) NOT NULL ,
+    shift int NOT NULL ,
     lesson_number_from int NOT NULL ,
     lesson_number_to int NOT NULL ,
 
     CHECK (day in ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY')) ,
+    CHECK (shift >= 1 AND shift <= 2) ,
     CHECK (lesson_number_from >= 1 AND lesson_number_from <= 8) ,
     CHECK (lesson_number_to >= 1 AND lesson_number_to <= 8) ,
     CHECK (lesson_number_from < lesson_number_to)
@@ -90,10 +92,12 @@ CREATE TABLE IF NOT EXISTS desired_period_limit (
     id serial PRIMARY KEY ,
     teacher_limits_id int NOT NULL REFERENCES teacher_limits(id) ON DELETE CASCADE ,
     day varchar(16) NOT NULL ,
+    shift int NOT NULL ,
     lesson_from int NOT NULL ,
     lesson_to int NOT NULL ,
 
     CHECK (day in ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY')) ,
+    CHECK (shift >= 1 AND shift <= 2) ,
     CHECK (lesson_from >= 1 AND lesson_from <= 8) ,
     CHECK (lesson_to >= 1 AND lesson_to <= 8) ,
     CHECK (lesson_from < lesson_to)
@@ -115,6 +119,19 @@ CREATE TABLE IF NOT EXISTS time_slot (
     CHECK (week_type in ('ODD', 'EVEN', 'BOTH')) ,
     CHECK (day in ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY')) ,
     CHECK (lesson_number >= 1 AND lesson_number <= 8)
+);
+
+CREATE TABLE IF NOT EXISTS shifts_intersection (
+    id serial PRIMARY KEY ,
+    shift_one_lesson_number int NOT NULL ,
+    shift_two_lesson_number int NOT NULL ,
+    user_id int NOT NULL REFERENCES users(id) ,
+
+    UNIQUE (user_id, shift_one_lesson_number) ,
+    UNIQUE (user_id, shift_two_lesson_number) ,
+    CHECK (shift_one_lesson_number >= 1 AND shift_one_lesson_number <= 8) ,
+    CHECK (shift_two_lesson_number >= 1 AND shift_two_lesson_number <= 8) ,
+    CHECK (shift_one_lesson_number > shift_two_lesson_number)
 );
 
 CREATE TABLE IF NOT EXISTS class_group (

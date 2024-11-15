@@ -1,7 +1,7 @@
 <div class="w-full flex justify-center relative"
      [ngClass]="{'animate-ping' : isDeleted }">
 
-    <div class="w-1/3 text-center">
+    <div class="w-4/12 text-center">
     <mat-form-field appearance="fill" class="w-full">
       <mat-label>День</mat-label>
       <mat-select [formControl]="constraint.day">
@@ -10,18 +10,27 @@
     </mat-form-field>
   </div>
 
-  <div class="w-1/3 text-center">
-    <mat-form-field appearance="fill" class="w-full ml-2">
-      <mat-label>Від уроку</mat-label>
+  <div class="w-2/12 text-center">
+    <mat-form-field appearance="fill" class="w-full pl-2">
+      <mat-label>Зміна</mat-label>
+      <mat-select [formControl]="constraint.shift">
+        <mat-option *ngFor="let shift of shifts" [value]="shift">{{ shift }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="w-3/12 text-center">
+    <mat-form-field appearance="fill" class="w-full pl-2">
+      <mat-label>Від уроку (включно)</mat-label>
       <mat-select [formControl]="constraint.lessonFrom">
         <mat-option *ngFor="let lessonNumber of lessonNumbers" [value]="lessonNumber">{{ lessonNumber }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
 
-  <div class="w-1/3 text-center">
-    <mat-form-field appearance="fill" class="w-full ml-4">
-      <mat-label>До уроку</mat-label>
+  <div class="w-3/12 text-center">
+    <mat-form-field appearance="fill" class="w-full pl-2">
+      <mat-label>До уроку (включно)</mat-label>
       <mat-select [formControl]="constraint.lessonTo">
         <mat-option *ngFor="let lessonNumber of lessonNumbers" [value]="lessonNumber">{{ lessonNumber }}</mat-option>
       </mat-select>

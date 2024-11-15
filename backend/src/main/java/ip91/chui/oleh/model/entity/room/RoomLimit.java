@@ -42,6 +42,9 @@ public class RoomLimit {
   private DayOfWeek day;
 
   @Column(nullable = false)
+  private int shift;
+
+  @Column(nullable = false)
   private int lessonNumberFrom;
 
   @Column(nullable = false)

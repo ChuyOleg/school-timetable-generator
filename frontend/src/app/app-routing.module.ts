@@ -11,10 +11,12 @@ import { TimetablePageComponent } from "./pages/timetable-page/timetable-page.co
 import { TeacherDetailsPageComponent }
   from "./pages/teacher-details-page/teacher-details-page/teacher-details-page.component";
 import { RoomDetailsPageComponent } from "./pages/room-details-page/room-details-page.component";
+import { TimePageComponent } from "./pages/time-page/time-page.component";
 
 const routes: Routes = [
   { path: 'registration', component: RegisterPageComponent },
   { path: 'login', component: LoginPageComponent },
+  { path: 'time', component: TimePageComponent },
   { path: 'subjects', component: SubjectPageComponent },
   { path: 'teachers', component: TeacherPageComponent },
   { path: 'teachers/:id', component: TeacherDetailsPageComponent },
