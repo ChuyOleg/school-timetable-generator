@@ -21,6 +21,7 @@ export class RoomLimitsComponent implements OnInit, OnChanges {
   constraints: RoomConstraint[];
   days: EDayOfWeek[];
   lessonNumbers: number[];
+  shifts: number[];
   temporaryDeletedLimit: RoomConstraint | null;
 
   constructor(private roomService: RoomService) {}
@@ -28,6 +29,7 @@ export class RoomLimitsComponent implements OnInit, OnChanges {
   addNewConstraint(): void {
     this.constraints.push({
       day: new FormControl<EDayOfWeek | null>(null, [Validators.required]),
+      shift: new FormControl<number | null>(null, [Validators.required]),
       lessonFrom: new FormControl<number | null>(null, [Validators.required]),
       lessonTo: new FormControl<number | null>(null, [Validators.required])
     })
@@ -57,6 +59,7 @@ export class RoomLimitsComponent implements OnInit, OnChanges {
   private areLimitsValid(): boolean {
     return this.constraints.every(constraint =>
       constraint.day.valid
+      && constraint.shift.valid
       && constraint.lessonFrom.valid
       && constraint.lessonTo.valid
       && this.areLessonNumbersValid(constraint) );
@@ -68,7 +71,7 @@ export class RoomLimitsComponent implements OnInit, OnChanges {
 
     if (lessonFrom == null || lessonTo  == null) return true;
 
-    return lessonTo > lessonFrom;
+    return lessonTo >= lessonFrom;
   }
 
   private saveRoom(limits: IRoomLimit[]): void {
@@ -84,6 +87,7 @@ export class RoomLimitsComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.constraints = [];
     this.lessonNumbers = [1, 2, 3, 4, 5, 6, 7, 8];
+    this.shifts = [1, 2];
     this.days = Object.values(EDayOfWeek);
     this.pageState = { isLoaded: false, isDataAlreadyCreated: false, isSubmitButtonPressed: false }
   }
@@ -104,6 +108,7 @@ export class RoomLimitsComponent implements OnInit, OnChanges {
       const constraint: RoomConstraint = {
         id: limit.id,
         day: new FormControl<EDayOfWeek | null>(limit.day, [Validators.required]),
+        shift: new FormControl<number | null>(limit.shift, [Validators.required]),
         lessonFrom: new FormControl<number | null>(limit.lessonNumberFrom, [Validators.required]),
         lessonTo: new FormControl<number | null>(limit.lessonNumberTo, [Validators.required])
       }

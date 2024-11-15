@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PeriodConstraint } from "../../model/constraint/PeriodConstraint";
 import { EDayOfWeek } from "../../../../models/enumeration/day-of-week";
-import { RoomConstraint } from "../../../room-details/model/RoomConstraint";
 
 @Component({
   selector: 'app-desired-period-block',
@@ -12,6 +11,7 @@ export class DesiredPeriodBlockComponent {
   @Input() constraint: PeriodConstraint;
   @Input() days: EDayOfWeek[];
   @Input() lessonNumbers: number[];
+  @Input() shifts: number[]
   @Output() deleteEvent = new EventEmitter<void>;
 
   isDeleted: boolean;
@@ -21,7 +21,7 @@ export class DesiredPeriodBlockComponent {
     this.deleteEvent.emit();
   }
 
-  areLessonNumbersValid(constraint: RoomConstraint): boolean {
+  areLessonNumbersValid(constraint: PeriodConstraint): boolean {
     const lessonFrom = constraint.lessonFrom.value;
     const lessonTo = constraint.lessonTo.value;
 

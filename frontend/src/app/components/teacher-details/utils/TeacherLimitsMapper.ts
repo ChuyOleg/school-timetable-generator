@@ -40,6 +40,7 @@ export class TeacherLimitsMapper {
     return {
       id: constraint.id,
       day: constraint.day.value as EDayOfWeek,
+      shift: constraint.shift.value as number,
       lessonFrom: constraint.lessonFrom.value as number,
       lessonTo: constraint.lessonTo.value as number };
   }

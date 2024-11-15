@@ -34,6 +34,9 @@ public class DesiredPeriodLimit {
   private DayOfWeek day;
 
   @Column(nullable = false)
+  private int shift;
+
+  @Column(nullable = false)
   private int lessonFrom;
 
   @Column(nullable = false)
@@ -45,9 +48,10 @@ public class DesiredPeriodLimit {
   @ToString.Exclude
   private TeacherLimits teacherLimits;
 
-  public DesiredPeriodLimit(Long id, DayOfWeek day, int lessonFrom, int lessonTo) {
+  public DesiredPeriodLimit(Long id, DayOfWeek day, int shift, int lessonFrom, int lessonTo) {
     this.id = id;
     this.day = day;
+    this.shift = shift;
     this.lessonFrom = lessonFrom;
     this.lessonTo = lessonTo;
   }

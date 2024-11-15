@@ -20,6 +20,7 @@ export class ValidatorUtils {
   static areDesiredPeriodLimitsValid(constraints: PeriodConstraint[]): boolean {
     return constraints.every(constraint =>
       constraint.day.valid
+      && constraint.shift.valid
       && constraint.lessonFrom.valid
       && constraint.lessonTo
       && ValidatorUtils.areLessonNumbersValid(constraint) );
@@ -31,6 +32,6 @@ export class ValidatorUtils {
 
     if (lessonFrom == null || lessonTo  == null) return true;
 
-    return lessonTo > lessonFrom;
+    return lessonTo >= lessonFrom;
   }
 }

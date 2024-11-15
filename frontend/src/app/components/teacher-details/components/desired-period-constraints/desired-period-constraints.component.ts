@@ -14,6 +14,7 @@ export class DesiredPeriodConstraintsComponent implements OnInit {
 
   days: EDayOfWeek[];
   lessonNumbers: number[];
+  shifts: number[];
 
   add(): void {
     this.constraints.push(this.buildConstraint());
@@ -29,6 +30,7 @@ export class DesiredPeriodConstraintsComponent implements OnInit {
   private buildConstraint(): PeriodConstraint {
     return {
       day: FormControlFactory.dayFormControl(null),
+      shift: FormControlFactory.shiftFormControl(null),
       lessonFrom: FormControlFactory.lessonNumberFormControl(null),
       lessonTo: FormControlFactory.lessonNumberFormControl(null)
     }
@@ -36,6 +38,7 @@ export class DesiredPeriodConstraintsComponent implements OnInit {
 
   ngOnInit(): void {
     this.lessonNumbers = [1, 2, 3, 4, 5, 6, 7, 8];
+    this.shifts = [1, 2];
     this.days = Object.values(EDayOfWeek);
   }
 }
