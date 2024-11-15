@@ -12,6 +12,7 @@ export class RoomLimitMapper {
     return {
       id: roomConstraint.id,
       day: roomConstraint.day.value as EDayOfWeek,
+      shift: roomConstraint.shift.value as number,
       lessonNumberFrom: roomConstraint.lessonFrom.value as number,
       lessonNumberTo: roomConstraint.lessonTo.value as  number
     }

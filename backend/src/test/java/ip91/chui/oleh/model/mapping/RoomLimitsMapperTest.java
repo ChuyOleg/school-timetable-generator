@@ -22,22 +22,24 @@ final class RoomLimitsMapperTest {
 
   @Test
   void should_Scenario_1() {
-    RoomLimit roomLimit = new RoomLimit(ROOM_LIMIT_ID, null, DayOfWeek.TUESDAY, 4, 6);
+    RoomLimit roomLimit = new RoomLimit(ROOM_LIMIT_ID, null, DayOfWeek.TUESDAY, 1, 4, 6);
     RoomLimitDto roomLimitDto = roomLimitsMapper.roomLimitToDto(roomLimit);
 
     assertEquals(roomLimit.getId(), roomLimitDto.getId());
     assertEquals(roomLimit.getDay(), roomLimitDto.getDay());
+    assertEquals(roomLimit.getShift(), roomLimitDto.getShift());
     assertEquals(roomLimit.getLessonNumberFrom(), roomLimitDto.getLessonNumberFrom());
     assertEquals(roomLimit.getLessonNumberTo(), roomLimitDto.getLessonNumberTo());
   }
 
   @Test
   void should_Scenario_2() {
-    RoomLimitDto roomLimitDto = new RoomLimitDto(ROOM_LIMIT_ID, DayOfWeek.FRIDAY, 5, 7);
+    RoomLimitDto roomLimitDto = new RoomLimitDto(ROOM_LIMIT_ID, DayOfWeek.FRIDAY, 2, 5, 7);
     RoomLimit roomLimit = roomLimitsMapper.dtoToRoomLimit(roomLimitDto);
 
     assertEquals(roomLimitDto.getId(), roomLimit.getId());
     assertEquals(roomLimitDto.getDay(), roomLimit.getDay());
+    assertEquals(roomLimitDto.getShift(), roomLimit.getShift());
     assertEquals(roomLimitDto.getLessonNumberFrom(), roomLimit.getLessonNumberFrom());
     assertEquals(roomLimitDto.getLessonNumberTo(), roomLimit.getLessonNumberTo());
   }

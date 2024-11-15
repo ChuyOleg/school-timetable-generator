@@ -13,6 +13,7 @@ final class DesiredPeriodLimitMapperTest {
 
   private static final Long ID = 1L;
   private static final DayOfWeek DAY = DayOfWeek.TUESDAY;
+  private static final int SHIFT = 1;
   private static final int LESSON_FROM = 3;
   private static final int LESSON_TO = 6;
 
@@ -25,22 +26,24 @@ final class DesiredPeriodLimitMapperTest {
 
   @Test
   void shouldProperlyMapToDto() {
-    var limit = new DesiredPeriodLimit(ID, DayOfWeek.TUESDAY, LESSON_FROM, LESSON_TO);
+    var limit = new DesiredPeriodLimit(ID, DAY, SHIFT, LESSON_FROM, LESSON_TO);
     var limitDto = mapper.toDto(limit);
 
     assertEquals(ID, limitDto.getId());
     assertEquals(DAY, limitDto.getDay());
+    assertEquals(SHIFT, limitDto.getShift());
     assertEquals(LESSON_FROM, limitDto.getLessonFrom());
     assertEquals(LESSON_TO, limitDto.getLessonTo());
   }
 
   @Test
   void shouldProperlyMapToEntity() {
-    var limitDto = new DesiredPeriodLimitDto(ID, DAY, LESSON_FROM, LESSON_TO);
+    var limitDto = new DesiredPeriodLimitDto(ID, DAY, SHIFT, LESSON_FROM, LESSON_TO);
     var limit = mapper.toEntity(limitDto);
 
     assertEquals(ID, limit.getId());
     assertEquals(DAY, limit.getDay());
+    assertEquals(SHIFT, limit.getShift());
     assertEquals(LESSON_FROM, limit.getLessonFrom());
     assertEquals(LESSON_TO, limit.getLessonTo());
   }

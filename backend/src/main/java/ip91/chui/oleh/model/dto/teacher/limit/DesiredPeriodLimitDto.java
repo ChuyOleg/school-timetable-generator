@@ -18,6 +18,11 @@ public class DesiredPeriodLimitDto {
   @NotNull(message = "Day should be specified")
   private DayOfWeek day;
 
+  @NotNull(message = "Group should have shift value")
+  @Min(value = 1, message = "Min value of lessonNumber is 1")
+  @Max(value = 2, message = "Max value of lessonNumber is 2")
+  private int shift;
+
   @NotNull(message = "LessonFrom should be specified")
   @Min(value = 1, message = "Min value of lessonFrom is 1")
   @Max(value = 8, message = "Max value of lessonFrom is 8")

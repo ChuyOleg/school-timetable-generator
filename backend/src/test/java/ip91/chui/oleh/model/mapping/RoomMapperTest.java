@@ -24,7 +24,7 @@ public class RoomMapperTest {
 
   @Test
   public void Should_ConvertRoomToDto_When_RoomIsValid() {
-    RoomLimit roomLimit = new RoomLimit(10L, null, DayOfWeek.MONDAY, 3, 6);
+    RoomLimit roomLimit = new RoomLimit(10L, null, DayOfWeek.MONDAY, 1, 3, 6);
     Set<RoomLimit> roomLimits = Set.of(roomLimit);
 
     Room room = new Room(ROOM_ID, ROOM_NUMBER, CAPACITY, roomLimits, null, LocalDateTime.now(), LocalDateTime.now());
@@ -38,7 +38,7 @@ public class RoomMapperTest {
 
   @Test
   public void Should_ConvertDtoToRoom_When_DtoHasId() {
-    RoomLimitDto roomLimitDto = new RoomLimitDto(10L, DayOfWeek.THURSDAY, 3, 4);
+    RoomLimitDto roomLimitDto = new RoomLimitDto(10L, DayOfWeek.THURSDAY, 1, 3, 4);
     Set<RoomLimitDto> roomLimitsDto = Set.of(roomLimitDto);
 
     RoomDto roomDto = new RoomDto(ROOM_ID, ROOM_NUMBER, CAPACITY, roomLimitsDto);
