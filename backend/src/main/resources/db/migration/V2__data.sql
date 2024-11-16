@@ -1,8 +1,9 @@
 -- Insert all possible combinations into time_slot table
-INSERT INTO time_slot(week_type, day, lesson_number)
-SELECT week_types, days, lesson_numbers
+INSERT INTO time_slot(week_type, day, shift, lesson_number)
+SELECT week_types, days, shifts, lesson_numbers
 FROM unnest(ARRAY['ODD', 'EVEN', 'BOTH']) week_types
          CROSS JOIN unnest(ARRAY['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY']) days
+         CROSS JOIN unnest(ARRAY[1, 2]) shifts
          CROSS JOIN unnest(ARRAY[1, 2, 3, 4, 5, 6, 7, 8]) lesson_numbers;
 
 
@@ -160,8 +161,8 @@ VALUES
 (19, 32, null), (20, 32, null), (21, 32, null),
 (22, 34, null), (23, 34, null), (24, 34, null),
 (25, 35, null), (26, 35, null), (27, 35, null),
-(28, 33, 86), (29, 33, 86),
-(30, 33, 87), (31, 33, 87);
+(28, 33, 153), (29, 33, 153),
+(30, 33, 171), (31, 33, 171);
 
 INSERT INTO subject_limits(group_limits_id, subject_id, hours, teacher_id, room_id, teacher_2_id, room_2_id)
 VALUES

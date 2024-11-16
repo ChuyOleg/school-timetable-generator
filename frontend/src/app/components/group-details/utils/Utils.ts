@@ -31,7 +31,8 @@ export class Utils {
 
   static buildInterschoolCombineInstance(
     pageState: GroupLimitsPageState,
-    interschoolCombine: InterschoolCombine): ITimeSlot | undefined {
+    interschoolCombine: InterschoolCombine,
+    shift: number): ITimeSlot | undefined {
 
     if (!pageState.isInterschoolCombinePicked) {
       return undefined;
@@ -40,6 +41,7 @@ export class Utils {
     return {
       weekType: EWeekType.BOTH,
       day: interschoolCombine.day.value as EDayOfWeek,
+      shift: shift,
       lessonNumber:interschoolCombine.lessonNumber.value as number };
   }
 

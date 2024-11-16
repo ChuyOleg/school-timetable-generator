@@ -83,7 +83,7 @@ export class GroupLimitsBlockComponent implements OnChanges {
       id: this.group.groupLimitsDto?.id,
       subjectLimitsDtoSet: Utils.buildLessonLimitsNew(this.pickedLessonConstraints, this.group),
       maxHoursPerWeek: this.maxHoursPerWeek.value as number,
-      interschoolCombine: Utils.buildInterschoolCombineInstance(this.pageState, this.interschoolCombine)
+      interschoolCombine: Utils.buildInterschoolCombineInstance(this.pageState, this.interschoolCombine, this.group.shift)
     };
   }
 

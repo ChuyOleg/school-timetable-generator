@@ -102,13 +102,13 @@ public class ModelUtil {
 
   private TimeSlotDto getMondayTimeSlotByLessonNumber(int lessonNumber) {
     return switch (lessonNumber) {
-      case 1 -> new TimeSlotDto(1L, 1, DayOfWeek.MONDAY, WeekType.BOTH);
-      case 2 -> new TimeSlotDto(2L, 2, DayOfWeek.MONDAY, WeekType.BOTH);
-      case 3 -> new TimeSlotDto(3L, 3, DayOfWeek.MONDAY, WeekType.BOTH);
-      case 4 -> new TimeSlotDto(4L, 4, DayOfWeek.MONDAY, WeekType.BOTH);
-      case 5 -> new TimeSlotDto(5L, 5, DayOfWeek.MONDAY, WeekType.BOTH);
-      case 6 -> new TimeSlotDto(6L, 6, DayOfWeek.MONDAY, WeekType.BOTH);
-      case 7 -> new TimeSlotDto(7L, 7, DayOfWeek.MONDAY, WeekType.BOTH);
+      case 1 -> new TimeSlotDto(1L, 1, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case 2 -> new TimeSlotDto(2L, 2, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case 3 -> new TimeSlotDto(3L, 3, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case 4 -> new TimeSlotDto(4L, 4, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case 5 -> new TimeSlotDto(5L, 5, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case 6 -> new TimeSlotDto(6L, 6, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case 7 -> new TimeSlotDto(7L, 7, DayOfWeek.MONDAY, 1, WeekType.BOTH);
       default -> throw new RuntimeException();
     };
   }
