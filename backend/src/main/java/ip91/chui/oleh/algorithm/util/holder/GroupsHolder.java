@@ -1,9 +1,9 @@
-package ip91.chui.oleh.algorithm.util;
+package ip91.chui.oleh.algorithm.util.holder;
 
-import ip91.chui.oleh.model.dto.room.RoomDto;
+import ip91.chui.oleh.model.dto.GroupDto;
 import ip91.chui.oleh.model.entity.User;
-import ip91.chui.oleh.model.mapping.RoomMapper;
-import ip91.chui.oleh.repository.RoomRepository;
+import ip91.chui.oleh.model.mapping.GroupMapper;
+import ip91.chui.oleh.repository.GroupRepository;
 import ip91.chui.oleh.service.auth.AuthenticationService;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -17,21 +17,21 @@ import java.util.stream.Collectors;
 @Component
 @RequestScope
 @RequiredArgsConstructor
-public class RoomsHolder {
+public class GroupsHolder {
 
-  private final RoomRepository roomRepository;
-  private final RoomMapper roomMapper;
+  private final GroupRepository groupRepository;
+  private final GroupMapper groupMapper;
   private final AuthenticationService authService;
   @Getter
-  private Set<RoomDto> rooms;
+  private Set<GroupDto> groups;
 
   @PostConstruct
   void afterInit() {
     User user = authService.extractPrincipalFromSecurityContextHolder();
 
-    this.rooms = roomRepository.findAllByUserId(user.getId())
+    this.groups = groupRepository.findAllByUserId(user.getId())
         .stream()
-        .map(roomMapper::roomToDto)
+        .map(groupMapper::groupToDtoLimitedInfo)
         .collect(Collectors.toSet());
   }
 

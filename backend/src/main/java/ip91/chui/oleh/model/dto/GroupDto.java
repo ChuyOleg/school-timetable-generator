@@ -36,6 +36,7 @@ public class GroupDto {
   /* TODO: maybe it's better to create wrapper class with this field
       cause it's used only during algorithm calculations */
   @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Set<LessonDto> lessons;
 
   @Valid

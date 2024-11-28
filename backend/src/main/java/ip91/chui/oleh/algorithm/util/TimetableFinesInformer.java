@@ -1,5 +1,8 @@
 package ip91.chui.oleh.algorithm.util;
 
+import ip91.chui.oleh.algorithm.util.holder.GroupsHolder;
+import ip91.chui.oleh.algorithm.util.holder.RoomsHolder;
+import ip91.chui.oleh.algorithm.util.holder.TimeSlotsHolder;
 import ip91.chui.oleh.model.dto.*;
 import ip91.chui.oleh.model.dto.lightweigth.TimeTableDtoLightWeight;
 import ip91.chui.oleh.model.dto.room.RoomDto;

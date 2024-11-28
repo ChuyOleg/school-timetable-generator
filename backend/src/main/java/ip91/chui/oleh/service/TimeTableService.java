@@ -1,6 +1,6 @@
 package ip91.chui.oleh.service;
 
-import ip91.chui.oleh.algorithm.EvolutionaryAlgorithm;
+import ip91.chui.oleh.algorithm.Algorithm;
 import ip91.chui.oleh.algorithm.util.TimetableFinesInformer;
 import ip91.chui.oleh.exception.TimeTableDtoLightWeightValidationException;
 import ip91.chui.oleh.exception.TimeTableProcessingException;
@@ -25,7 +25,7 @@ public class TimeTableService {
   private static final String TIMETABLE_NOT_FOUND_MSG = "Timetable hasn't been found for current user";
   private static final String TIMETABLE_ID_SHOULD_BE_NOT_NULL_MSG = "You have to specify ID of the timetable";
 
-  private final EvolutionaryAlgorithm algorithm;
+  private final Algorithm algorithm;
   private final TimetableFinesInformer finesInformer;
   private final AuthenticationService authService;
   private final TimeTableRepository timeTableRepository;

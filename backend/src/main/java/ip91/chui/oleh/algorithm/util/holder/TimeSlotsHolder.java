@@ -1,4 +1,4 @@
-package ip91.chui.oleh.algorithm.util;
+package ip91.chui.oleh.algorithm.util.holder;
 
 import ip91.chui.oleh.exception.TimeSlotProcessingException;
 import ip91.chui.oleh.model.dto.TimeSlotDto;
