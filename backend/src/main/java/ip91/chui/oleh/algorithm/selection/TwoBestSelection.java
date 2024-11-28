@@ -2,7 +2,6 @@ package ip91.chui.oleh.algorithm.selection;
 
 import ip91.chui.oleh.algorithm.model.Individual;
 import ip91.chui.oleh.algorithm.model.Population;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.List;
  * The class performs selection by choosing the best two individuals from the population.
  * @author Chui Oleh
  */
-@Component
 public class TwoBestSelection implements Selection {
 
   /**

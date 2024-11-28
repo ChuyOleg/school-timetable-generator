@@ -3,7 +3,6 @@ package ip91.chui.oleh.algorithm.selection;
 import ip91.chui.oleh.algorithm.model.Individual;
 import ip91.chui.oleh.algorithm.model.Population;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.Random;
  * The class performs selection by choosing the best individual and a random individual from the population.
  * @author Chui Oleh
  */
-@Component
 @RequiredArgsConstructor
 public class OneBestOneRandomSelection implements Selection {
 

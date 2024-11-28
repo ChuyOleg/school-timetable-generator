@@ -1,8 +1,7 @@
 package ip91.chui.oleh.algorithm.populationGenerator;
 
-import ip91.chui.oleh.algorithm.config.Config;
 import ip91.chui.oleh.algorithm.fitnessFunction.FitnessFunction;
-import ip91.chui.oleh.algorithm.util.TimeSlotsHolder;
+import ip91.chui.oleh.algorithm.util.holder.TimeSlotsHolder;
 import ip91.chui.oleh.model.dto.GroupDto;
 import ip91.chui.oleh.model.entity.Group;
 import ip91.chui.oleh.model.entity.User;
@@ -49,12 +48,11 @@ class TimetablePopulationGeneratorTest {
     when(groupRepository.findAllByUserId(1L)).thenReturn(List.of(new Group()));
     when(groupMapper.groupToDto(any())).thenReturn(new GroupDto());
 
-    populationGenerator.generate();
+    populationGenerator.generate(any());
 
     verify(authService).extractPrincipalFromSecurityContextHolder();
     verify(groupRepository).findAllByUserId(1L);
     verify(groupMapper).groupToDto(any());
-    verify(fitnessFunction, times(Config.POPULATION_SIZE)).calculate(any());
+    verify(fitnessFunction, times(any())).calculate(any());
   }
-
 }

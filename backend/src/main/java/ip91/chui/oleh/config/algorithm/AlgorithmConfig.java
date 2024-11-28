@@ -6,7 +6,6 @@ import ip91.chui.oleh.algorithm.crossover.Crossover;
 import ip91.chui.oleh.algorithm.fitnessFunction.FitnessFunction;
 import ip91.chui.oleh.algorithm.generationReplacement.GenerationReplacement;
 import ip91.chui.oleh.algorithm.mutation.Mutation;
-import ip91.chui.oleh.algorithm.mutation.utils.ProblematicLessonFinder;
 import ip91.chui.oleh.algorithm.populationGenerator.PopulationGenerator;
 import ip91.chui.oleh.algorithm.selection.Selection;
 import ip91.chui.oleh.config.properties.algorithm.AlgorithmComponentsProperties;
@@ -24,7 +23,7 @@ public class AlgorithmConfig {
   @Bean
   public Algorithm evolutionaryAlgorithm(
       AlgorithmConfigProperties config, AlgorithmComponentsProperties props,
-      FitnessFunction fitnessFunction, ApplicationContext context, ProblematicLessonFinder finder) {
+      FitnessFunction fitnessFunction, ApplicationContext context) {
 
     PopulationGenerator populationGenerator =
         (PopulationGenerator) context.getBean(props.getPopulationGeneratorName());
@@ -35,6 +34,6 @@ public class AlgorithmConfig {
         (GenerationReplacement) context.getBean(props.getGenerationReplacementName());
 
     return new EvolutionaryAlgorithm(config, populationGenerator,
-        selection, crossover, mutation, fitnessFunction, generationReplacement, finder);
+        selection, crossover, mutation, fitnessFunction, generationReplacement);
   }
 }
