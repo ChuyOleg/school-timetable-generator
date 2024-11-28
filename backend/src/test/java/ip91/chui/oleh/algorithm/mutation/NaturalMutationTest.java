@@ -1,9 +1,7 @@
 package ip91.chui.oleh.algorithm.mutation;
 
-import ip91.chui.oleh.algorithm.config.Config;
-import ip91.chui.oleh.algorithm.fitnessFunction.FitnessFunction;
 import ip91.chui.oleh.algorithm.model.Individual;
-import ip91.chui.oleh.algorithm.util.TimeSlotsHolder;
+import ip91.chui.oleh.algorithm.util.holder.TimeSlotsHolder;
 import ip91.chui.oleh.model.dto.*;
 import ip91.chui.oleh.model.dto.room.RoomDto;
 import ip91.chui.oleh.model.dto.teacher.TeacherDto;
@@ -23,18 +21,16 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class TimetableMutationTest {
+class NaturalMutationTest {
 
   private static long nextLessonId = 1L;
 
-  @Mock
-  private FitnessFunction fitnessFunction;
   @Mock
   private Random random;
   @Mock
   private TimeSlotsHolder timeSlotsHolder;
   @InjectMocks
-  private TimetableMutation mutation;
+  private NaturalMutation mutation;
 
   @Test
   void ShouldNot_Mutate() {
@@ -48,12 +44,13 @@ class TimetableMutationTest {
 
     individuals.add(individual);
 
-    when(random.nextInt(Config.MUTATION_MEASURE)).thenReturn(Config.MUTATION_PERCENTAGE);
+    final int mutationMeasure = 100;
+    final int mutationPercentage = 10;
+    when(random.nextInt(mutationMeasure)).thenReturn(mutationPercentage);
 
-    mutation.process(individuals);
+    mutation.process(individuals, mutationMeasure, mutationPercentage);
 
     verify(random, Mockito.times(1)).nextInt(anyInt());
-    verify(fitnessFunction).calculate(individual);
   }
 
   @Test
@@ -68,13 +65,14 @@ class TimetableMutationTest {
 
     individuals.add(individual);
 
-    when(random.nextInt(Config.MUTATION_MEASURE)).thenReturn(Config.MUTATION_PERCENTAGE - 1);
+    final int mutationMeasure = 100;
+    final int mutationPercentage = 10;
+    when(random.nextInt(mutationMeasure)).thenReturn(mutationPercentage - 1);
     when(random.nextInt(lessonDtoSet.size())).thenCallRealMethod();
 
-    mutation.process(individuals);
+    mutation.process(individuals, mutationMeasure, mutationPercentage);
 
     verify(random, Mockito.times(3)).nextInt(anyInt());
-    verify(fitnessFunction).calculate(individual);
   }
 
   private Set<LessonDto> createLessons(GroupDto group) {
@@ -116,13 +114,13 @@ class TimetableMutationTest {
 
   private TimeSlotDto getTimeSlotByLessonNumber(int lessonNumber) {
     return switch (lessonNumber) {
-      case 1 -> new TimeSlotDto(1L, 1, DayOfWeek.MONDAY, WeekType.BOTH);
-      case 2 -> new TimeSlotDto(2L, 2, DayOfWeek.MONDAY, WeekType.BOTH);
-      case 3 -> new TimeSlotDto(3L, 3, DayOfWeek.MONDAY, WeekType.BOTH);
-      case 4 -> new TimeSlotDto(4L, 4, DayOfWeek.MONDAY, WeekType.BOTH);
-      case 5 -> new TimeSlotDto(5L, 5, DayOfWeek.MONDAY, WeekType.BOTH);
-      case 6 -> new TimeSlotDto(6L, 6, DayOfWeek.MONDAY, WeekType.BOTH);
-      case 7 -> new TimeSlotDto(7L, 7, DayOfWeek.MONDAY, WeekType.BOTH);
+      case 1 -> new TimeSlotDto(1L, 1, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case 2 -> new TimeSlotDto(2L, 2, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case 3 -> new TimeSlotDto(3L, 3, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case 4 -> new TimeSlotDto(4L, 4, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case 5 -> new TimeSlotDto(5L, 5, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case 6 -> new TimeSlotDto(6L, 6, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case 7 -> new TimeSlotDto(7L, 7, DayOfWeek.MONDAY, 1, WeekType.BOTH);
       default -> throw new RuntimeException();
     };
   }

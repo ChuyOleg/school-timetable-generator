@@ -115,7 +115,7 @@ public class GroupService {
     TimeSlot combine = group.getGroupLimits().getInterschoolCombine();
     if (combine.getId() == null) {
       TimeSlot timeSlotInDB = timeSlotRepository
-          .findTimeSlotByWeekTypeAndDayAndLessonNumber(combine.getWeekType(), combine.getDay(), combine.getLessonNumber())
+          .findTimeSlotByWeekTypeAndDayAndShiftAndLessonNumber(combine.getWeekType(), combine.getDay(), combine.getShift(), combine.getLessonNumber())
           .orElseThrow(() -> new TimeSlotProcessingException(
               String.format(TIMESLOT_NOT_FOUND_BY_VALUES, combine.getWeekType(), combine.getDay(), combine.getLessonNumber())
           ));

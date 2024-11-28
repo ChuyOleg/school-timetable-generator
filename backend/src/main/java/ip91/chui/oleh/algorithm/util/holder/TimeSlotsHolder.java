@@ -1,4 +1,4 @@
-package ip91.chui.oleh.algorithm.util;
+package ip91.chui.oleh.algorithm.util.holder;
 
 import ip91.chui.oleh.exception.TimeSlotProcessingException;
 import ip91.chui.oleh.model.dto.TimeSlotDto;
@@ -35,12 +35,12 @@ public class TimeSlotsHolder {
         .collect(Collectors.toSet());
   }
 
-  public TimeSlotDto getTimeSlotByFields(WeekType weekType, DayOfWeek day, int lessonNumber) {
+  public TimeSlotDto getTimeSlotByFields(WeekType weekType, DayOfWeek day, int shift, int lessonNumber) {
     return timeSlots
         .stream()
         .filter(timeslot ->
             timeslot.getWeekType().equals(weekType) &&
-            timeslot.getDay().equals(day) &&
+            timeslot.getDay().equals(day) && timeslot.getShift() == shift &&
             timeslot.getLessonNumber() == lessonNumber
         )
         .findFirst()

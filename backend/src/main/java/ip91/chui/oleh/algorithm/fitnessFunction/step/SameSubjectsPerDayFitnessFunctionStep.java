@@ -18,8 +18,7 @@ import lombok.RequiredArgsConstructor;
  *
  * @author Oleh Chui
  */
-// todo: 05/10/24 I need to think about renaming, the name is too big for now.
-// todo: 05/10/24 Do I need any Logs here?
+// ToDo: 17/11/24 artificial mutation can be somehow used here
 @RequiredArgsConstructor
 public class SameSubjectsPerDayFitnessFunctionStep implements FitnessFunctionStep {
 

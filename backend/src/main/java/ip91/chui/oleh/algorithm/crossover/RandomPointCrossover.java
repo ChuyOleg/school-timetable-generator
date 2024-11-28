@@ -2,11 +2,9 @@ package ip91.chui.oleh.algorithm.crossover;
 
 import ip91.chui.oleh.algorithm.crossover.chromosomeController.ChromosomeController;
 import ip91.chui.oleh.algorithm.model.Individual;
-import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
-@Component
 public class RandomPointCrossover extends AbstractPointCrossover {
 
   private final Random random;

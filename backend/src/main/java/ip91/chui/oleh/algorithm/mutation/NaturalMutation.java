@@ -1,33 +1,28 @@
 package ip91.chui.oleh.algorithm.mutation;
 
-import ip91.chui.oleh.algorithm.config.Config;
-import ip91.chui.oleh.algorithm.fitnessFunction.FitnessFunction;
 import ip91.chui.oleh.algorithm.model.Individual;
-import ip91.chui.oleh.algorithm.util.TimeSlotsHolder;
+import ip91.chui.oleh.algorithm.util.holder.TimeSlotsHolder;
 import ip91.chui.oleh.model.dto.GroupDto;
 import ip91.chui.oleh.model.dto.LessonDto;
 import ip91.chui.oleh.model.dto.TimeSlotDto;
 import ip91.chui.oleh.model.enumeration.WeekType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Random;
 
-@Component
 @RequiredArgsConstructor
-public class TimetableMutation implements Mutation {
+public class NaturalMutation implements Mutation {
 
-  private final FitnessFunction fitnessFunction;
-  private final Random random;
   private final TimeSlotsHolder timeSlotsHolder;
+  private final Random random;
 
   @Override
-  public void process(List<Individual> individuals) {
+  public void process(List<Individual> individuals, int mutationMeasure, int mutationPercentage) {
     individuals.forEach(individual -> {
       for (int geneNum = 0; geneNum < individual.getChromosome().length; geneNum++) {
-        if (shouldMutate()) {
+        if (shouldMutate(mutationMeasure, mutationPercentage)) {
           GroupDto group = (GroupDto) individual.getChromosome()[geneNum];
           Object[] lessons = group.getLessons().toArray();
 
@@ -40,8 +35,6 @@ public class TimetableMutation implements Mutation {
           swapTimeSlots(group, timeSlot1, timeSlot2);
         }
       }
-
-      individual.setFitness(fitnessFunction.calculate(individual));
     });
   }
 
@@ -86,25 +79,20 @@ public class TimetableMutation implements Mutation {
         .filter(lesson -> isLessonsMatchDayAndLessonNumber(lesson, timeSlot2.getDay(), timeSlot2.getLessonNumber()))
         .toList();
 
-    lessons1.forEach(lesson -> lesson.setTimeSlotDto(
-        timeSlotsHolder.getTimeSlotByFields(
-            lesson.getTimeSlotDto().getWeekType(), timeSlot2.getDay(), timeSlot2.getLessonNumber()
-        )
-    ));
+    lessons1.forEach(lesson -> lesson.setTimeSlotDto(timeSlotsHolder.getTimeSlotByFields(
+        lesson.getTimeSlotDto().getWeekType(),
+        timeSlot2.getDay(), group.getShift(), timeSlot2.getLessonNumber()) ));
 
-    lessons2.forEach(lesson -> lesson.setTimeSlotDto(
-        timeSlotsHolder.getTimeSlotByFields(
-            lesson.getTimeSlotDto().getWeekType(), timeSlot1.getDay(), timeSlot1.getLessonNumber()
-        )
-    ));
+    lessons2.forEach(lesson -> lesson.setTimeSlotDto(timeSlotsHolder.getTimeSlotByFields(
+        lesson.getTimeSlotDto().getWeekType(),
+        timeSlot1.getDay(), group.getShift(), timeSlot1.getLessonNumber()) ));
   }
 
   private boolean isLessonsMatchDayAndLessonNumber(LessonDto lesson, DayOfWeek day, int lessonNumber) {
     return lesson.getTimeSlotDto().getDay().equals(day) && lesson.getTimeSlotDto().getLessonNumber() == lessonNumber;
   }
 
-  private boolean shouldMutate() {
-    return random.nextInt(Config.MUTATION_MEASURE) < Config.MUTATION_PERCENTAGE;
+  private boolean shouldMutate(int mutationMeasure, int mutationPercentage) {
+    return random.nextInt(mutationMeasure) < mutationPercentage;
   }
-
 }

@@ -5,5 +5,6 @@ export interface ITimeSlot {
   id?: number
   lessonNumber: number
   day: EDayOfWeek
+  shift: number
   weekType: EWeekType
 }

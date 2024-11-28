@@ -38,6 +38,7 @@ public class DefaultDtoFactoryUtil {
   public final int DEFAULT_TIMESLOT_LESSON_NUM = 1;
   public final DayOfWeek DEFAULT_TIMESLOT_DAY_OF_WEEK = DayOfWeek.MONDAY;
   public final WeekType DEFAULT_TIMESLOT_WEEK_TYPE = WeekType.BOTH;
+  public final int DEFAULT_TIMESLOT_SHIFT = 1;
 
   public GroupDto group(int lessonsCount) {
     GroupDto group = primitiveGroup();
@@ -102,6 +103,6 @@ public class DefaultDtoFactoryUtil {
 
   private TimeSlotDto timeslot() {
     return new TimeSlotDto(DEFAULT_TIMESLOT_ID, DEFAULT_TIMESLOT_LESSON_NUM,
-        DEFAULT_TIMESLOT_DAY_OF_WEEK, DEFAULT_TIMESLOT_WEEK_TYPE);
+        DEFAULT_TIMESLOT_DAY_OF_WEEK, DEFAULT_TIMESLOT_SHIFT, DEFAULT_TIMESLOT_WEEK_TYPE);
   }
 }

@@ -113,11 +113,13 @@ CREATE TABLE IF NOT EXISTS time_slot (
     id serial PRIMARY KEY ,
     week_type varchar(16) NOT NULL,
     day varchar(16) NOT NULL ,
+    shift int NOT NULL ,
     lesson_number int NOT NULL ,
 
-    UNIQUE (week_type, day, lesson_number) ,
+    UNIQUE (week_type, day, shift, lesson_number) ,
     CHECK (week_type in ('ODD', 'EVEN', 'BOTH')) ,
     CHECK (day in ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY')) ,
+    CHECK (shift >= 1 AND shift <= 2) ,
     CHECK (lesson_number >= 1 AND lesson_number <= 8)
 );
 

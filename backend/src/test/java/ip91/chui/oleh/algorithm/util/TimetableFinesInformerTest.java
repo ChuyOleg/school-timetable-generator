@@ -1,5 +1,8 @@
 package ip91.chui.oleh.algorithm.util;
 
+import ip91.chui.oleh.algorithm.util.holder.GroupsHolder;
+import ip91.chui.oleh.algorithm.util.holder.RoomsHolder;
+import ip91.chui.oleh.algorithm.util.holder.TimeSlotsHolder;
 import ip91.chui.oleh.model.dto.*;
 import ip91.chui.oleh.model.dto.lightweigth.LessonDtoLightWeight;
 import ip91.chui.oleh.model.dto.lightweigth.TimeTableDtoLightWeight;
@@ -210,13 +213,13 @@ class TimetableFinesInformerTest {
 
   private TimeSlotDto getTimeSlotById(long timeSlotId) {
     return switch ((int) timeSlotId) {
-      case (int) TIME_SLOT_ID_1 -> new TimeSlotDto(TIME_SLOT_ID_1, 1, DayOfWeek.MONDAY, WeekType.BOTH);
-      case (int) TIME_SLOT_ID_2 -> new TimeSlotDto(TIME_SLOT_ID_2, 2, DayOfWeek.MONDAY, WeekType.BOTH);
-      case (int) TIME_SLOT_ID_3 -> new TimeSlotDto(TIME_SLOT_ID_3, 3, DayOfWeek.MONDAY, WeekType.BOTH);
-      case (int) TIME_SLOT_ID_4 -> new TimeSlotDto(TIME_SLOT_ID_4, 4, DayOfWeek.MONDAY, WeekType.BOTH);
-      case (int) TIME_SLOT_ID_5 -> new TimeSlotDto(TIME_SLOT_ID_5, 5, DayOfWeek.MONDAY, WeekType.BOTH);
-      case (int) TIME_SLOT_ID_6 -> new TimeSlotDto(TIME_SLOT_ID_6, 6, DayOfWeek.MONDAY, WeekType.BOTH);
-      case (int) TIME_SLOT_ID_7 -> new TimeSlotDto(TIME_SLOT_ID_7, 7, DayOfWeek.MONDAY, WeekType.BOTH);
+      case (int) TIME_SLOT_ID_1 -> new TimeSlotDto(TIME_SLOT_ID_1, 1, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case (int) TIME_SLOT_ID_2 -> new TimeSlotDto(TIME_SLOT_ID_2, 2, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case (int) TIME_SLOT_ID_3 -> new TimeSlotDto(TIME_SLOT_ID_3, 3, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case (int) TIME_SLOT_ID_4 -> new TimeSlotDto(TIME_SLOT_ID_4, 4, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case (int) TIME_SLOT_ID_5 -> new TimeSlotDto(TIME_SLOT_ID_5, 5, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case (int) TIME_SLOT_ID_6 -> new TimeSlotDto(TIME_SLOT_ID_6, 6, DayOfWeek.MONDAY, 1, WeekType.BOTH);
+      case (int) TIME_SLOT_ID_7 -> new TimeSlotDto(TIME_SLOT_ID_7, 7, DayOfWeek.MONDAY, 1, WeekType.BOTH);
       default -> throw new RuntimeException();
     };
   }

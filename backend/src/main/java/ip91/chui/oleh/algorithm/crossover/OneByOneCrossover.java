@@ -3,13 +3,11 @@ package ip91.chui.oleh.algorithm.crossover;
 import ip91.chui.oleh.algorithm.model.Individual;
 import ip91.chui.oleh.model.dto.GroupDto;
 import ip91.chui.oleh.model.dto.LessonDto;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 public class OneByOneCrossover implements Crossover {
 
   @Override
