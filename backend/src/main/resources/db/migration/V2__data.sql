@@ -21,7 +21,7 @@ VALUES
 
 INSERT INTO subject(name, user_id, created_date)
 VALUES
-    ('Українська мова (письмо)', 1, now()), ('Українська мова (читання, now())', 1, now()), ('Англійська мова', 1, now()),
+    ('Українська мова (письмо)', 1, now()), ('Українська мова (читання)', 1, now()), ('Англійська мова', 1, now()),
     ('Математика', 1, now()), ('Я досліджую світ', 1, now()), ('Дизайн і технології', 1, now()),
     ('Образотворче мистецтво', 1, now()), ('Фізична культура', 1, now()), ('Інформатика', 1, now()),
     ('Українська мова', 1, now()), ('Українська література', 1, now()), ('Німецька мова', 1, now()),
@@ -109,17 +109,17 @@ VALUES
 
 INSERT INTO lessons_order_limit(teacher_limits_id, importance_level)
 VALUES
-(1, 'HIGH'), (2, 'MEDIUM'), (3, 'MEDIUM'), (4, 'MEDIUM'), (5, 'HIGH'),
-(6, 'MEDIUM'), (7, 'MEDIUM'), (8, 'MEDIUM'), (9, 'LOW'), (10, 'HIGH'),
-(11, 'HIGH'), (12, 'LOW'), (13, 'HIGH'), (14, 'MEDIUM'), (15, 'HIGH'),
-(16, 'HIGH'), (17, 'MEDIUM'), (18, 'MEDIUM'), (19, 'LOW'), (20, 'HIGH'),
-(21, 'LOW'), (22, 'LOW'), (23, 'MEDIUM'), (24, 'HIGH'), (25, 'HIGH'),
-(26, 'HIGH'), (27, 'HIGH'), (28, 'HIGH'), (29, 'MEDIUM'), (30, 'HIGH'),
-(31, 'LOW'), (32, 'HIGH'), (33, 'MEDIUM'), (34, 'HIGH'), (35, 'LOW'),
-(36, 'HIGH'), (37, 'MEDIUM'), (38, 'HIGH'), (39, 'MEDIUM'), (40, 'MEDIUM'),
-(41, 'LOW'), (42, 'HIGH'), (43, 'MEDIUM'), (44, 'LOW'), (45, 'MEDIUM'),
-(46, 'MEDIUM'), (47, 'MEDIUM'), (48, 'MEDIUM'), (49, 'HIGH'), (50, 'MEDIUM'),
-(51, 'LOW'), (52, 'HIGH'), (53, 'MEDIUM'), (54, 'LOW'), (55, 'HIGH'),
+(1, 'LOW'), (2, 'MEDIUM'), (3, 'MEDIUM'), (4, 'MEDIUM'), (5, 'MEDIUM'),
+(6, 'MEDIUM'), (7, 'MEDIUM'), (8, 'MEDIUM'), (9, 'LOW'), (10, 'LOW'),
+(11, 'LOW'), (12, 'LOW'), (13, 'LOW'), (14, 'MEDIUM'), (15, 'MEDIUM'),
+(16, 'LOW'), (17, 'MEDIUM'), (18, 'MEDIUM'), (19, 'LOW'), (20, 'LOW'),
+(21, 'LOW'), (22, 'LOW'), (23, 'MEDIUM'), (24, 'HIGH'), (25, 'MEDIUM'),
+(26, 'MEDIUM'), (27, 'MEDIUM'), (28, 'LOW'), (29, 'MEDIUM'), (30, 'HIGH'),
+(31, 'LOW'), (32, 'LOW'), (33, 'MEDIUM'), (34, 'MEDIUM'), (35, 'LOW'),
+(36, 'LOW'), (37, 'MEDIUM'), (38, 'MEDIUM'), (39, 'MEDIUM'), (40, 'MEDIUM'),
+(41, 'LOW'), (42, 'LOW'), (43, 'MEDIUM'), (44, 'LOW'), (45, 'MEDIUM'),
+(46, 'MEDIUM'), (47, 'MEDIUM'), (48, 'MEDIUM'), (49, 'MEDIUM'), (50, 'MEDIUM'),
+(51, 'LOW'), (52, 'MEDIUM'), (53, 'MEDIUM'), (54, 'LOW'), (55, 'HIGH'),
 (56, 'MEDIUM'), (57, 'HIGH'), (58, 'MEDIUM'), (59, 'MEDIUM');
 
 
