@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import ip91.chui.oleh.IndividualFactoryUtil;
 import ip91.chui.oleh.algorithm.fitnessFunction.FitnessFunctionContext;
+import ip91.chui.oleh.algorithm.fitnessFunction.utils.LessonsExtractor;
 import ip91.chui.oleh.algorithm.model.Individual;
+import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +23,7 @@ final class TeacherTimeslotCollisionsFitnessFunctionStepTest {
   void setUp() {
     step = new TeacherTimeslotCollisionsFitnessFunctionStep(
         TEACHER_MAX_LESSONS_AT_SAME_TIME_LIMIT, TEACHER_MAX_LESSONS_AT_SAME_TIME_FINE);
-    context = new FitnessFunctionContext();
-    context.setFitnessScore(INITIAL_FITNESS_SCORE);
+    context = new FitnessFunctionContext(new ArrayList<>(), INITIAL_FITNESS_SCORE, null);
   }
 
   @Test
@@ -32,7 +33,9 @@ final class TeacherTimeslotCollisionsFitnessFunctionStepTest {
 
     Individual individual = IndividualFactoryUtil.individualWithUniqueSubjectIdsPerGroup(groupCount, lessonsCount);
 
+    context.getLessons().addAll(LessonsExtractor.fromIndividual(individual));
     step.calculate(individual, context);
+
     assertEquals(INITIAL_FITNESS_SCORE + groupCount * lessonsCount, context.getFitnessScore());
   }
 }

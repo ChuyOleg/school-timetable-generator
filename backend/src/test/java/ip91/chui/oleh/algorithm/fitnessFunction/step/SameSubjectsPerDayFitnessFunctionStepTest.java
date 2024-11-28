@@ -1,4 +1,4 @@
-package ip91.chui.oleh.algorithm.fitnessFunction;
+package ip91.chui.oleh.algorithm.fitnessFunction.step;
 
 import static ip91.chui.oleh.IndividualFactoryUtil.individualWithDuplicatedSubjectIdsPerGroup;
 import static ip91.chui.oleh.IndividualFactoryUtil.individualWithUniqueSubjectIdsPerGroup;
@@ -7,10 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import ip91.chui.oleh.algorithm.DefaultDtoFactoryUtil;
 import ip91.chui.oleh.algorithm.DtoFactoryUtil;
 import ip91.chui.oleh.algorithm.ModelUtil;
-import ip91.chui.oleh.algorithm.fitnessFunction.step.SameSubjectsPerDayFitnessFunctionStep;
+import ip91.chui.oleh.algorithm.fitnessFunction.FitnessFunctionContext;
+import ip91.chui.oleh.algorithm.fitnessFunction.utils.LessonsExtractor;
 import ip91.chui.oleh.algorithm.model.Individual;
 import ip91.chui.oleh.model.dto.GroupDto;
 import ip91.chui.oleh.model.dto.LessonDto;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -34,8 +36,7 @@ final class SameSubjectsPerDayFitnessFunctionStepTest {
   void setUp() {
     step = new SameSubjectsPerDayFitnessFunctionStep(
         DEFAULT_SAME_SUBJECTS_PER_DAY_LIMIT, DEFAULT_SAME_SUBJECTS_PER_DAY_FINE);
-    context = new FitnessFunctionContext();
-    context.setFitnessScore(INITIAL_FITNESS_SCORE);
+    context = new FitnessFunctionContext(new ArrayList<>(), INITIAL_FITNESS_SCORE, null);
   }
 
   @ParameterizedTest
@@ -43,6 +44,7 @@ final class SameSubjectsPerDayFitnessFunctionStepTest {
   void shouldCalculateFitnessScoreProperlyForStraightforwardIndividual(
       Individual individual, long expectedFitnessScore) {
 
+    context.getLessons().addAll(LessonsExtractor.fromIndividual(individual));
     step.calculate(individual, context);
     assertEquals(INITIAL_FITNESS_SCORE + expectedFitnessScore, context.getFitnessScore());
   }
@@ -61,7 +63,11 @@ final class SameSubjectsPerDayFitnessFunctionStepTest {
 
   @Test
   void shouldNotAddFineWhenSubgroupLessonHasSameSubjectButDifferentTeachers() {
-    step.calculate(individualWithTwoSubgroupLessons(), context);
+    Individual individual = individualWithTwoSubgroupLessons();
+
+    context.getLessons().addAll(LessonsExtractor.fromIndividual(individual));
+    step.calculate(individual, context);
+
     assertEquals(INITIAL_FITNESS_SCORE, context.getFitnessScore());
   }
 
