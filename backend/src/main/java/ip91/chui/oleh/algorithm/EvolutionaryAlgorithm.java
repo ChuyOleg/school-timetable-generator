@@ -1,7 +1,7 @@
 package ip91.chui.oleh.algorithm;
 
-import ip91.chui.oleh.algorithm.config.Config;
 import ip91.chui.oleh.algorithm.crossover.Crossover;
+import ip91.chui.oleh.algorithm.fitnessFunction.FitnessFunction;
 import ip91.chui.oleh.algorithm.generationReplacement.GenerationReplacement;
 import ip91.chui.oleh.algorithm.model.Individual;
 import ip91.chui.oleh.algorithm.model.Population;
@@ -10,163 +10,100 @@ import ip91.chui.oleh.algorithm.model.RuntimeInfo;
 import ip91.chui.oleh.algorithm.mutation.Mutation;
 import ip91.chui.oleh.algorithm.populationGenerator.PopulationGenerator;
 import ip91.chui.oleh.algorithm.selection.Selection;
-import ip91.chui.oleh.model.dto.GroupDto;
-import ip91.chui.oleh.model.dto.LessonDto;
+import ip91.chui.oleh.algorithm.util.IndividualMapper;
+import ip91.chui.oleh.algorithm.util.LoggerUtils;
+import ip91.chui.oleh.config.properties.algorithm.AlgorithmConfigProperties;
 import ip91.chui.oleh.model.dto.TimeTableDto;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import java.util.Objects;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
-@Component
-public class EvolutionaryAlgorithm {
+@Log4j2
+@RequiredArgsConstructor
+public class EvolutionaryAlgorithm implements Algorithm {
 
-  private static final int ONE_MILLISECOND_IN_NANOSECONDS = 1000000;
+  private final AlgorithmConfigProperties config;
 
   private final PopulationGenerator populationGenerator;
   private final Selection selection;
   private final Crossover crossover;
   private final Mutation mutation;
+  private final FitnessFunction fitnessFunction;
   private final GenerationReplacement generationReplacement;
 
-  public EvolutionaryAlgorithm(
-      PopulationGenerator populationGenerator,
-      @Qualifier("twoBestSelection") Selection selection,
-      @Qualifier("randomPointCrossover") Crossover crossover,
-      Mutation mutation, GenerationReplacement generationReplacement
-  ) {
-
-    this.populationGenerator = populationGenerator;
-    this.selection = selection;
-    this.crossover = crossover;
-    this.mutation = mutation;
-    this.generationReplacement = generationReplacement;
-  }
-
   public TimeTableDto generate() {
-    if (Config.TEST_PERFORMANCE_ITERATION_NUM > 0) {
-      testPerformance();
-    }
+    Result result = generateInternal();
 
-    Population population = populationGenerator.generate();
-    RuntimeInfo info = new RuntimeInfo(null, 0);
-    Result result = run(population, info);
+    LoggerUtils.logUltimateResult(result);
 
-    Set<LessonDto> lessons = Arrays.stream(result.getBestIndividual().getChromosome())
-        .map(gene -> (GroupDto) gene)
-        .flatMap(group -> group.getLessons().stream())
-        .collect(Collectors.toSet());
-
-    System.out.println("---------------------------------------");
-    System.out.println("Generation: " + result.getGeneration());
-    System.out.println("Score: " + result.getBestIndividual().getFitness());
-
-    return new TimeTableDto(null, lessons);
+    return IndividualMapper.toTimetableDto(result.getBestIndividual());
   }
 
-  private Result run(Population population, RuntimeInfo info) {
-    sortPopulationBasedOnTaskType(population);
-    int generationCounter = 0;
+  private Result generateInternal() {
+    Population population = populationGenerator.generate(config.getPopulationSize());
+    sortPopulation(population);
+    RuntimeInfo runtimeInfo = new RuntimeInfo();
+    changeBestIndividualIfPossible(population, runtimeInfo);
 
-    while (canAlgorithmContinue(generationCounter, info)) {
+    int generationCounter = 0;
+    long executionStart = System.nanoTime();
+
+    while (canAlgorithmContinue(generationCounter, runtimeInfo)) {
+      long selectionStart = System.nanoTime();
       List<Individual> bestParents = selection.process(population);
+//      StatsUtils.collectSelectionTime((System.nanoTime() - selectionStart), generationCounter);
 
       List<Individual> offspring = crossover.process(bestParents);
-
-      mutation.process(offspring);
+      mutation.process(offspring, config.getMutationMeasure(), config.getMutationPercentage());
+      fitnessFunction.calculate(offspring, runtimeInfo);
 
       generationReplacement.process(population, offspring);
 
-      sortPopulationBasedOnTaskType(population);
+      sortPopulation(population);
+      changeBestIndividualIfPossible(population, runtimeInfo);
 
-      changeBestIndividualBasedOnTaskTypeIfPossible(population, info);
+
+//      StatsUtils.collectFitnessFunctionStepsInfo(generationCounter);
+      LoggerUtils.logTransientResult(generationCounter, runtimeInfo);
 
       generationCounter++;
+
+      if (generationCounter > 0 && generationCounter % 250 == 0) {
+        log.info("Transient. Generation: {}. Time: {}", generationCounter, ((System.nanoTime() - executionStart) / 1_000_000_000));
+      }
     }
 
-    return new Result(info.getBestIndividual(), generationCounter);
+    log.info("Done. Generation: {}. Time: {}", generationCounter, ((System.nanoTime() - executionStart) / 1_000_000_000));
+
+    return new Result(runtimeInfo.getBestIndividual(), generationCounter);
   }
 
-  private void sortPopulationBasedOnTaskType(Population population) {
-    switch (Config.TASK_TYPE) {
-      case MAXIMIZATION -> population.individuals().sort(Comparator.comparingInt(Individual::getFitness));
-      case MINIMIZATION -> population.individuals().sort((i1, i2) -> i2.getFitness() - i1.getFitness());
-    }
+  private void sortPopulation(Population population) {
+    population.individuals().sort(Comparator.comparingInt(Individual::getFitness).reversed());
   }
 
   private boolean canAlgorithmContinue(int generationCounter, RuntimeInfo info) {
-    return info.getBestIndividual() == null ||
-        (generationCounter < Config.MAX_GENERATION_NUMBER &&
-        info.getBestIndividualNotChangeCounter() < Config.GENERATION_WITHOUT_CHANGING_LIMIT &&
-        !isIndividualPerfect(info)
-        );
+    return generationCounter < config.getMaxGenerationNumber()
+        && info.getBestIndividualNotChangeCounter() < config.getGenerationWithoutChangingLimit()
+        && !isIndividualPerfect(info);
   }
 
   private boolean isIndividualPerfect(RuntimeInfo info) {
-    return switch (Config.TASK_NAME) {
-      case TIMETABLE -> info.getBestIndividual().getFitness() == 0;
-    };
+    return info.getBestIndividual().getFitness() == 0;
   }
 
-  private void changeBestIndividualBasedOnTaskTypeIfPossible(Population population, RuntimeInfo info) {
-    Individual bestInPopulation = population.individuals().get(population.individuals().size() - 1);
+  private void changeBestIndividualIfPossible(Population population, RuntimeInfo runtimeInfo) {
+    Individual bestIndividual = population.individuals().get(population.individuals().size() - 1);
 
-    switch (Config.TASK_TYPE) {
-      case MAXIMIZATION ->
-          changeBestIndividualIfPossible(info, bestInPopulation, (ind) -> ind.getFitness() > info.getBestIndividual().getFitness());
-      case MINIMIZATION ->
-          changeBestIndividualIfPossible(info, bestInPopulation, (ind) -> ind.getFitness() < info.getBestIndividual().getFitness());
-    }
-  }
-
-  private void changeBestIndividualIfPossible(RuntimeInfo info, Individual individual, Predicate<Individual> predicate) {
-    if (info.getBestIndividual() == null || predicate.test(individual)) {
-      info.setBestIndividual(individual);
-      info.setBestIndividualNotChangeCounter(0);
-    } else {
-      info.setBestIndividualNotChangeCounter(info.getBestIndividualNotChangeCounter() + 1);
-    }
-  }
-
-  private void testPerformance() {
-    warmUpMachine();
-
-    int resultFailCount = 0;
-    long midDurationTime = 0;
-    int midFitness = 0;
-
-    for (int iter = 0; iter < Config.TEST_PERFORMANCE_ITERATION_NUM; iter++) {
-      long startTime = System.nanoTime();
-      Population population = populationGenerator.generate();
-      RuntimeInfo info = new RuntimeInfo(null, 0);
-      Result result = run(population, info);
-      long endTime = System.nanoTime();
-
-      long duration = (endTime - startTime);
-      midDurationTime += duration;
-      midFitness += result.getBestIndividual().getFitness();
-
-      if (result.getBestIndividual().getFitness() != 0) {
-        resultFailCount++;
-      }
-      System.out.println("Iter: " + iter +  " | Score: " + result.getBestIndividual().getFitness());
+    if (Objects.nonNull(runtimeInfo.getBestIndividual()) && runtimeInfo.getBestIndividual().getFitness() <= bestIndividual.getFitness()) {
+      runtimeInfo.incrementBestIndividualNotChangeCounter();
+      return;
     }
 
-    midDurationTime = (midDurationTime / Config.TEST_PERFORMANCE_ITERATION_NUM) / ONE_MILLISECOND_IN_NANOSECONDS;
-    midFitness = midFitness / Config.TEST_PERFORMANCE_ITERATION_NUM;
-
-    System.out.println("Duration: " + midDurationTime + " | midFitness: " + midFitness + " | resultFail: " + resultFailCount);
+    runtimeInfo.setBestIndividual(bestIndividual);
+    runtimeInfo.resetBestIndividualNotChangeCounter();
   }
-
-  private void warmUpMachine() {
-    Population population = populationGenerator.generate();
-    RuntimeInfo info = new RuntimeInfo(null, 0);
-    run(population, info);
-  }
-
 }

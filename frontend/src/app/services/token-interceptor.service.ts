@@ -31,5 +31,4 @@ export class TokenInterceptorService implements HttpInterceptor {
       req.url.includes('authenticate') ||
       req.url.includes('existsByEmail');
   }
-
 }

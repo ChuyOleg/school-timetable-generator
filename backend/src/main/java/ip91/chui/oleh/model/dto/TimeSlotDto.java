@@ -25,6 +25,11 @@ public class TimeSlotDto {
   @NotNull(message = "Day should be specified")
   private DayOfWeek day;
 
+  @NotNull(message = "Group should have shift value")
+  @Min(value = 1, message = "Min value of shift is 1")
+  @Max(value = 2, message = "Max value of shift is 2")
+  private int shift;
+
   @NotNull(message = "WeekType should be specified")
   private WeekType weekType;
 

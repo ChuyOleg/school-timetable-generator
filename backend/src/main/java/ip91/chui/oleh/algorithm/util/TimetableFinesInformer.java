@@ -1,7 +1,12 @@
 package ip91.chui.oleh.algorithm.util;
 
+import ip91.chui.oleh.algorithm.util.holder.GroupsHolder;
+import ip91.chui.oleh.algorithm.util.holder.RoomsHolder;
+import ip91.chui.oleh.algorithm.util.holder.TimeSlotsHolder;
 import ip91.chui.oleh.model.dto.*;
 import ip91.chui.oleh.model.dto.lightweigth.TimeTableDtoLightWeight;
+import ip91.chui.oleh.model.dto.room.RoomDto;
+import ip91.chui.oleh.model.dto.teacher.TeacherDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -143,7 +148,7 @@ public class TimetableFinesInformer {
   }
 
   private TeacherDto getTeacherFromTeachersById(Long id, Map<Long, TeacherDto> teachersById) {
-    teachersById.putIfAbsent(id, new TeacherDto(id, null, null, 0));
+    teachersById.putIfAbsent(id, new TeacherDto(id, null, null, 0, null));
     return teachersById.get(id);
   }
 

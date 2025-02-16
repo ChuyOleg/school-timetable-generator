@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { ErrorService } from "../error.service";
 import { Constants } from "../../config/constants";
-import { ITeacher } from "../../models/teacher";
+import { ITeacher } from "../../models/teacher/teacher";
 import { catchError, Observable, tap, throwError } from "rxjs";
 import { Router } from "@angular/router";
 import { ITeacherProjection } from "../../models/projection/teacher-projection";
@@ -30,6 +30,13 @@ export class TeacherService {
     return this.http.get<ITeacher[]>(`${this.baseUrl}teachers`)
       .pipe(
         tap(teachers => this.teachers = teachers),
+        catchError(error => this.errorHandler(error, this.defaultErrorMsg))
+      )
+  }
+
+  getById(id: number): Observable<ITeacher> {
+    return this.http.get<ITeacher>(`${this.baseUrl}teachers/${id}`)
+      .pipe(
         catchError(error => this.errorHandler(error, this.defaultErrorMsg))
       )
   }

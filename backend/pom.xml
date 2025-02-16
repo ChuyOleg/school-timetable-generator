@@ -52,12 +52,21 @@
 			<scope>test</scope>
 		</dependency>
 
+<!--		ToDo: 06/10/24 Do I really need this one? Check documentation:
+<!- https://docs.spring.io/spring-boot/docs/3.0.2/reference/html/configuration-metadata.html#appendix.configuration-metadata.annotation-processor&ndash;&gt;-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 <!--		SWAGGER -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.0.2</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -118,6 +127,22 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.newrelic.agent.java</groupId>
+			<artifactId>newrelic-java</artifactId>
+			<version>8.16.0</version>
+			<scope>provided</scope>
+			<type>zip</type>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.newrelic.agent.java/newrelic-api -->
+		<dependency>
+			<groupId>com.newrelic.agent.java</groupId>
+			<artifactId>newrelic-api</artifactId>
+			<version>8.16.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-inline</artifactId>
 			<version>4.8.1</version>
@@ -142,6 +167,33 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<!-- Unzip New Relic Java agent into target/ -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.1</version>
+				<executions>
+					<execution>
+						<id>unpack-newrelic</id>
+						<phase>package</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>com.newrelic.agent.java</includeGroupIds>
+							<includeArtifactIds>newrelic-java</includeArtifactIds>
+							<!-- you can optionally exclude files -->
+							<!-- <excludes>**/newrelic.yml</excludes> -->
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<outputDirectory>${project.build.directory}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 

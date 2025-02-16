@@ -3,15 +3,12 @@ package ip91.chui.oleh.algorithm.crossover;
 import ip91.chui.oleh.algorithm.model.Individual;
 import ip91.chui.oleh.model.dto.GroupDto;
 import ip91.chui.oleh.model.dto.LessonDto;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 public class OneByOneCrossover implements Crossover {
-
 
   @Override
   public List<Individual> process(List<Individual> individuals) {
@@ -41,7 +38,6 @@ public class OneByOneCrossover implements Crossover {
     return offspring;
   }
 
-  // TODO: maybe creating a new Group is redundant, so mutation create new Lesson (think)
   private void setGeneFromParentToChild(Individual parent, Individual child, int geneNum) {
     GroupDto group = (GroupDto) parent.getChromosome()[geneNum];
     child.getChromosome()[geneNum] = GroupDto.builder()
@@ -57,4 +53,5 @@ public class OneByOneCrossover implements Crossover {
         )
         .build();
   }
+
 }

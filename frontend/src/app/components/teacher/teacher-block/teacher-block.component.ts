@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ITeacher } from "../../../models/teacher";
+import { ITeacher } from "../../../models/teacher/teacher";
 import { TeacherService } from "../../../services/teacher/teacher.service";
 import { TeacherModalService } from "../../../services/teacher/teacher-modal.service";
 import { DialogService } from "../../../services/dialog.service";

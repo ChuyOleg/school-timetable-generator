@@ -1,0 +1,49 @@
+<form *ngIf="isLoaded" (ngSubmit)="submit()">
+
+  <div class="mb-4 mt-4 w-full flex justify-around">
+    <div class="w-1/2 text-center font-bold">Зміна 1</div>
+    <div class="w-1/2 text-center font-bold">Зміна 2</div>
+  </div>
+
+  <div class="mt-2 w-full flex justify-around">
+    <div>
+      <div class="text-center">
+        <mat-form-field appearance="fill" class="w-full  pl-2">
+          <mat-label>Номер уроку</mat-label>
+          <mat-select [formControl]="shiftOneLessonNumberForm">
+            <mat-option *ngFor="let lessonNumber of lessonNumbers" [value]="lessonNumber">{{ lessonNumber }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <p
+        class="text-red-600 font-mono font-bold"
+        *ngIf="shiftOneLessonNumberForm.errors?.isLessonNumberAlreadyUsed"
+      >Цей номер уроку вже використовується</p>
+    </div>
+
+    <div>
+      <div class="text-center">
+        <mat-form-field appearance="fill" class="w-full pl-2">
+          <mat-label>Номер уроку</mat-label>
+          <mat-select [formControl]="shiftTwoLessonNumberForm">
+            <mat-option *ngFor="let lessonNumber of lessonNumbers" [value]="lessonNumber">{{ lessonNumber }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <p
+        class="text-red-600 font-mono font-bold"
+        *ngIf="shiftTwoLessonNumberForm.errors?.isLessonNumberAlreadyUsed"
+      >Цей номер уроку вже використовується</p>
+    </div>
+  </div>
+
+  <p
+    class="text-center text-red-600 font-mono font-bold mb-2"
+    *ngIf="shiftOneLessonNumberForm.errors?.invalidLessonOrder || shiftTwoLessonNumberForm.errors?.invalidLessonOrder"
+  >Урок в другій зміні повинен мати менше значення</p>
+
+  <app-shared-create-cancel-buttons (buttonClick)="modalService.closeCreateModal()"></app-shared-create-cancel-buttons>
+
+</form>

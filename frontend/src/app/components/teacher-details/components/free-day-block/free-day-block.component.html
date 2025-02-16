@@ -1,0 +1,19 @@
+<div class="w-full flex justify-center"
+     [ngClass]="{'animate-ping' : isDeleted }">
+  <div class="w-1/3 text-center relative">
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>День</mat-label>
+      <mat-select [formControl]="constraint.day">
+        <mat-option *ngFor="let day of days" [value]="day">{{ day | translateDay }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button
+      type="button"
+      class="absolute -right-16 py-4 px-3 bg-transparent hover:bg-red-500
+             text-red-700 font-semibold hover:text-white py-2 px-4 border border-2
+              border-red-500 hover:border-transparent rounded"
+      (click)="delete()"
+    >&times;</button>
+  </div>
+</div>

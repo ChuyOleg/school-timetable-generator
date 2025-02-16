@@ -1,0 +1,23 @@
+<div *ngIf="teacher">
+  <h2 class="text-center text-lg mt-2 font-bold">
+    {{ teacher.name }}
+  </h2>
+  <h3 class="text-center text-lg font-bold">
+<!--    <mat-icon class="italic text-lg font-bold pt-1">people</mat-icon> {{ teacher. .capacity }}-->
+  </h3>
+</div>
+
+<app-teacher-limits [teacher]="teacher">
+</app-teacher-limits>
+
+<button
+  routerLink="/teachers"
+  class="absolute left-5 top-[70px]
+   flex items-center px-4 py-2 font-medium text-white bg-gray-700 rounded-full
+   hover:bg-gray-800 focus:outline-none focus:ring focus:ring-gray-300"
+>
+  <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M14.71 17.71a1 1 0 0 1-1.42 0L8.7 12.41a1 1 0 0 1 0-1.42l4.59-4.58a1 1 0 1 1 1.42 1.42L11.83 11H20a1 1 0 0 1 0 2h-8.17l3.88 3.88a1 1 0 0 1 0 1.42z" />
+  </svg>
+  <span>назад</span>
+</button>

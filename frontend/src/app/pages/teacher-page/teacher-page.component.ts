@@ -25,5 +25,4 @@ export class TeacherPageComponent implements OnInit {
       this.loading = false;
     })
   }
-
 }

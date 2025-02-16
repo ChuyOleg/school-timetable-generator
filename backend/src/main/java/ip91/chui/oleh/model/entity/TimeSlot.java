@@ -24,6 +24,9 @@ public class TimeSlot {
   private DayOfWeek day;
 
   @Column(nullable = false)
+  private int shift;
+
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private WeekType weekType;
 

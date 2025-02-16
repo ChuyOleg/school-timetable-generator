@@ -1,19 +1,21 @@
 package ip91.chui.oleh.algorithm.populationGenerator;
 
-import ip91.chui.oleh.algorithm.config.Config;
 import ip91.chui.oleh.algorithm.fitnessFunction.FitnessFunction;
 import ip91.chui.oleh.algorithm.model.Individual;
 import ip91.chui.oleh.algorithm.model.Population;
-import ip91.chui.oleh.algorithm.util.TimeSlotsHolder;
+import ip91.chui.oleh.algorithm.util.holder.RoomsHolder;
+import ip91.chui.oleh.algorithm.util.holder.TeacherHolder;
+import ip91.chui.oleh.algorithm.util.holder.TimeSlotsHolder;
 import ip91.chui.oleh.exception.SubjectProcessingException;
 import ip91.chui.oleh.model.dto.*;
+import ip91.chui.oleh.model.dto.room.RoomDto;
+import ip91.chui.oleh.model.dto.teacher.TeacherDto;
 import ip91.chui.oleh.model.entity.User;
 import ip91.chui.oleh.model.enumeration.WeekType;
 import ip91.chui.oleh.model.mapping.GroupMapper;
 import ip91.chui.oleh.repository.GroupRepository;
 import ip91.chui.oleh.service.auth.AuthenticationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.util.*;
@@ -21,7 +23,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@Component
 @RequiredArgsConstructor
 public class TimetablePopulationGenerator implements PopulationGenerator {
 
@@ -34,17 +35,19 @@ public class TimetablePopulationGenerator implements PopulationGenerator {
   private final GroupMapper groupMapper;
   private final FitnessFunction fitnessFunction;
   private final TimeSlotsHolder timeSlotsHolder;
+  private final TeacherHolder teacherHolder;
+  private final RoomsHolder roomsHolder;
   private final Random random;
 
   @Override
-  public Population generate() {
+  public Population generate(int populationSize) {
     User user = authService.extractPrincipalFromSecurityContextHolder();
 
     List<GroupDto> groups = fetchGroupsFromDbByUserId(user.getId());
 
-    List<Individual> individuals = new ArrayList<>(Config.POPULATION_SIZE);
+    List<Individual> individuals = new ArrayList<>(populationSize);
 
-    for (int individualNum = 0; individualNum < Config.POPULATION_SIZE; individualNum++) {
+    for (int individualNum = 0; individualNum < populationSize; individualNum++) {
       Object[] chromosome = groups
           .stream()
           .map(group -> GroupDto
@@ -106,15 +109,20 @@ public class TimetablePopulationGenerator implements PopulationGenerator {
     SubjectDto subject = pickRandomSubject(availableSubjects);
     SubjectLimitsDto subjectLimits = fetchSubjectLimitsFromGroupLimits(group.getGroupLimitsDto(), subject.getName());
 
-    TimeSlotDto timeSlot = timeSlotsHolder.getTimeSlotByFields(WeekType.BOTH, day, lessonNumber);
-    TeacherDto teacher = subjectLimits.getTeacherDto();
-    RoomDto room = subjectLimits.getRoomDto();
+    TimeSlotDto timeSlot = timeSlotsHolder.getTimeSlotByFields(WeekType.BOTH, day, group.getShift(), lessonNumber);
+    TeacherDto teacher = teacherHolder.getTeacherById(subjectLimits.getTeacherDto().getId());
+
+    RoomDto room = Objects.nonNull(subjectLimits.getRoomDto())
+        ? roomsHolder.getRoomById(subjectLimits.getRoomDto().getId())
+        : null;
 
     lessons.add(new LessonDto(null, group, teacher, subject, room, timeSlot));
 
     if (subjectLimits.getTeacherDto2() != null) {
-      TeacherDto teacher2 = subjectLimits.getTeacherDto2();
-      RoomDto room2 = subjectLimits.getRoomDto2();
+      TeacherDto teacher2 = teacherHolder.getTeacherById(subjectLimits.getTeacherDto2().getId());
+      RoomDto room2 = Objects.nonNull(subjectLimits.getRoomDto2())
+          ? roomsHolder.getRoomById(subjectLimits.getRoomDto2().getId())
+          : null;
       lessons.add(new LessonDto(null, group, teacher2, subject, room2, timeSlot));
     }
   }
@@ -131,9 +139,11 @@ public class TimetablePopulationGenerator implements PopulationGenerator {
       throw new SubjectProcessingException(HALF_SUBJECT_CANT_HAVE_SUBGROUPS_ERROR);
     }
 
-    TimeSlotDto timeSlot = timeSlotsHolder.getTimeSlotByFields(week, day, lessonNumber);
-    TeacherDto teacher = subjectLimits.getTeacherDto();
-    RoomDto room = subjectLimits.getRoomDto();
+    TimeSlotDto timeSlot = timeSlotsHolder.getTimeSlotByFields(week, day, group.getShift(), lessonNumber);
+    TeacherDto teacher = teacherHolder.getTeacherById(subjectLimits.getTeacherDto().getId());
+    RoomDto room = Objects.nonNull(subjectLimits.getRoomDto())
+        ? roomsHolder.getRoomById(subjectLimits.getRoomDto().getId())
+        : null;
 
     lessons.add(new LessonDto(null, group, teacher, subject, room, timeSlot));
   }
@@ -220,6 +230,7 @@ public class TimetablePopulationGenerator implements PopulationGenerator {
     return groupRepository.findAllByUserId(userId)
         .stream()
         .map(groupMapper::groupToDto)
+        .filter(group -> group.getGradeNumber() > 6 && group.getGradeNumber() < 11)
         .collect(Collectors.toList());
   }
 

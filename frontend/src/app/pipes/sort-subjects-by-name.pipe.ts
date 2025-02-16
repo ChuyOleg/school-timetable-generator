@@ -11,5 +11,4 @@ export class SortSubjectsByNamePipe implements PipeTransform {
       return s1.name.localeCompare(s2.name);
     })
   }
-
 }

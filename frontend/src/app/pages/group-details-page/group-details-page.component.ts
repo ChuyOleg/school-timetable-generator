@@ -15,12 +15,10 @@ export class GroupDetailsPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private groupService: GroupService,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.groupId = Number(this.route.snapshot.paramMap.get('id'));
     this.groupService.getById(this.groupId).subscribe(group => this.group = group);
   }
-
 }

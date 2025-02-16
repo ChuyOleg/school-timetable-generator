@@ -1,5 +1,6 @@
 package ip91.chui.oleh.model.dto;
 
+import ip91.chui.oleh.model.dto.teacher.TeacherDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -35,6 +36,7 @@ public class GroupDto {
   /* TODO: maybe it's better to create wrapper class with this field
       cause it's used only during algorithm calculations */
   @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Set<LessonDto> lessons;
 
   @Valid

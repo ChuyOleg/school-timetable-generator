@@ -1,4 +1,4 @@
-import { ITeacher } from "./teacher";
+import { ITeacher } from "./teacher/teacher";
 import { ISubject } from "./subject";
 import { IRoom } from "./room";
 import { ITimeSlot } from "./time-slot";

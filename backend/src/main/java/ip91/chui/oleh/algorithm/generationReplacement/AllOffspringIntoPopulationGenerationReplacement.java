@@ -2,12 +2,10 @@ package ip91.chui.oleh.algorithm.generationReplacement;
 
 import ip91.chui.oleh.algorithm.model.Individual;
 import ip91.chui.oleh.algorithm.model.Population;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class AllOffspringIntoPopulationGenerationReplacement implements GenerationReplacement {
 
   @Override

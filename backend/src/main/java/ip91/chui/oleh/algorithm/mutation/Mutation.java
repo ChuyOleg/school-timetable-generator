@@ -17,6 +17,5 @@ public interface Mutation {
    *
    * @param individuals A list of individuals to be processed by mutation.
    */
-  void process(List<Individual> individuals);
-
+  void process(List<Individual> individuals, int mutationMeasure, int mutationPercentage);
 }

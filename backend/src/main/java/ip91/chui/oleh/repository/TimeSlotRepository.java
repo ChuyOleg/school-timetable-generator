@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface TimeSlotRepository extends JpaRepository<TimeSlot, Long> {
 
-  Optional<TimeSlot> findTimeSlotByWeekTypeAndDayAndLessonNumber(WeekType weekType, DayOfWeek day, int lessonNumber);
-
+  Optional<TimeSlot> findTimeSlotByWeekTypeAndDayAndShiftAndLessonNumber(
+      WeekType weekType, DayOfWeek day, int shift, int lessonNumber);
 }

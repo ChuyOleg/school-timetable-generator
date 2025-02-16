@@ -1,0 +1,26 @@
+<form *ngIf="pageState.isLoaded" (ngSubmit)="submit()" class="mt-5">
+
+  <app-free-day-constraints
+    [constraints]="constraints.freeDayConstraints">
+  </app-free-day-constraints>
+
+  <app-desired-period-constraints
+    [constraints]="constraints.desiredPeriodConstraints">
+  </app-desired-period-constraints>
+
+  <app-max-lessons-constraint
+    [constraint]="constraints.maxLessonPerDayConstraint">
+  </app-max-lessons-constraint>
+
+  <app-lessons-order-constraint
+    [constraint]="constraints.lessonsOrderConstraint">
+  </app-lessons-order-constraint>
+
+  <div class="text-center mt-8">
+    <button
+      type="submit"
+      class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold
+       hover:text-white py-2 px-4 border border-2 border-blue-500 hover:border-transparent rounded"
+    >Зберегти</button>
+  </div>
+</form>

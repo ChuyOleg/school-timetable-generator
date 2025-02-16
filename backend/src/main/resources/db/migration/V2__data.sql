@@ -1,8 +1,9 @@
 -- Insert all possible combinations into time_slot table
-INSERT INTO time_slot(week_type, day, lesson_number)
-SELECT week_types, days, lesson_numbers
+INSERT INTO time_slot(week_type, day, shift, lesson_number)
+SELECT week_types, days, shifts, lesson_numbers
 FROM unnest(ARRAY['ODD', 'EVEN', 'BOTH']) week_types
          CROSS JOIN unnest(ARRAY['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY']) days
+         CROSS JOIN unnest(ARRAY[1, 2]) shifts
          CROSS JOIN unnest(ARRAY[1, 2, 3, 4, 5, 6, 7, 8]) lesson_numbers;
 
 
@@ -12,9 +13,15 @@ VALUES
     ('user_2@gmail.com', '$2a$10$EKauRMWhRGAZ94eeARfOfeRx58TlLxCRjLzkzmpK/e3qkoARmlEL2', 'USER');
 
 
+INSERT INTO shifts_intersection(shift_one_lesson_number, shift_two_lesson_number, user_id)
+VALUES
+    (7, 1, 1),
+    (8, 2, 1);
+
+
 INSERT INTO subject(name, user_id, created_date)
 VALUES
-    ('Українська мова (письмо)', 1, now()), ('Українська мова (читання, now())', 1, now()), ('Англійська мова', 1, now()),
+    ('Українська мова (письмо)', 1, now()), ('Українська мова (читання)', 1, now()), ('Англійська мова', 1, now()),
     ('Математика', 1, now()), ('Я досліджую світ', 1, now()), ('Дизайн і технології', 1, now()),
     ('Образотворче мистецтво', 1, now()), ('Фізична культура', 1, now()), ('Інформатика', 1, now()),
     ('Українська мова', 1, now()), ('Українська література', 1, now()), ('Німецька мова', 1, now()),
@@ -32,6 +39,14 @@ VALUES
     ('Хімічний кабінет', 1, 1, now()), ('Фізичний кабінет', 1, 1, now()),
     ('Комп`ютерний клас №1', 1, 1, now()), ('Комп`ютерний клас №2', 1, 1, now()),
     ('Трудовий клас (дівчата)', 2, 1, now()), ('Трудовий клас (хлопці)', 2, 1, now());
+
+
+INSERT INTO room_limit(room_id, day, shift, lesson_number_from, lesson_number_to)
+VALUES
+    (1, 'MONDAY', 2, 5, 8),
+    (1, 'WEDNESDAY', 2, 5, 8),
+    (1, 'FRIDAY', 2, 5, 8),
+    (3, 'THURSDAY', 1, 1, 3);
 
 
 INSERT INTO teacher(name, max_hours_per_week, user_id, created_date)
@@ -76,6 +91,50 @@ VALUES
 (56, 16), (57, 16), (58, 3), (59, 3);
 
 
+INSERT INTO teacher_limits(teacher_id)
+VALUES
+(1), (2), (3), (4), (5), (6), (7), (8), (9), (10),
+(11), (12), (13), (14), (15), (16), (17), (18), (19), (20),
+(21), (22), (23), (24), (25), (26), (27), (28), (29), (30),
+(31), (32), (33), (34), (35), (36), (37), (38), (39), (40),
+(41), (42), (43), (44), (45), (46), (47), (48), (49), (50),
+(51), (52), (53), (54), (55), (56), (57), (58), (59);
+
+
+INSERT INTO free_day_limit(teacher_limits_id, day)
+VALUES
+(24, 'FRIDAY'), (18, 'TUESDAY'), (27, 'THURSDAY'), (30, 'FRIDAY'), (26, 'MONDAY'),
+(26, 'THURSDAY'), (38, 'TUESDAY'), (38, 'WEDNESDAY'), (45, 'MONDAY'), (50, 'WEDNESDAY');
+
+
+INSERT INTO lessons_order_limit(teacher_limits_id, importance_level)
+VALUES
+(1, 'LOW'), (2, 'MEDIUM'), (3, 'MEDIUM'), (4, 'MEDIUM'), (5, 'MEDIUM'),
+(6, 'MEDIUM'), (7, 'MEDIUM'), (8, 'MEDIUM'), (9, 'LOW'), (10, 'LOW'),
+(11, 'LOW'), (12, 'LOW'), (13, 'LOW'), (14, 'MEDIUM'), (15, 'MEDIUM'),
+(16, 'LOW'), (17, 'MEDIUM'), (18, 'MEDIUM'), (19, 'LOW'), (20, 'LOW'),
+(21, 'LOW'), (22, 'LOW'), (23, 'MEDIUM'), (24, 'HIGH'), (25, 'MEDIUM'),
+(26, 'MEDIUM'), (27, 'MEDIUM'), (28, 'LOW'), (29, 'MEDIUM'), (30, 'HIGH'),
+(31, 'LOW'), (32, 'LOW'), (33, 'MEDIUM'), (34, 'MEDIUM'), (35, 'LOW'),
+(36, 'LOW'), (37, 'MEDIUM'), (38, 'MEDIUM'), (39, 'MEDIUM'), (40, 'MEDIUM'),
+(41, 'LOW'), (42, 'LOW'), (43, 'MEDIUM'), (44, 'LOW'), (45, 'MEDIUM'),
+(46, 'MEDIUM'), (47, 'MEDIUM'), (48, 'MEDIUM'), (49, 'MEDIUM'), (50, 'MEDIUM'),
+(51, 'LOW'), (52, 'MEDIUM'), (53, 'MEDIUM'), (54, 'LOW'), (55, 'HIGH'),
+(56, 'MEDIUM'), (57, 'HIGH'), (58, 'MEDIUM'), (59, 'MEDIUM');
+
+
+INSERT INTO max_lessons_limit(teacher_limits_id, count)
+VALUES
+(43, 5), (31, 4), (47, 4), (16, 5);
+
+
+INSERT INTO desired_period_limit(teacher_limits_id, day, shift, lesson_from, lesson_to)
+VALUES
+(43, 'MONDAY', 1, 1, 4), (46, 'MONDAY', 1, 1, 4), (46, 'TUESDAY', 1, 1, 4), (46, 'WEDNESDAY', 1, 1, 4),
+(46, 'THURSDAY', 1, 1, 4), (46, 'FRIDAY', 1, 1, 4), (35, 'MONDAY', 1, 2, 8), (35, 'FRIDAY', 1, 2, 8),
+(37, 'TUESDAY', 1, 3, 8), (37, 'THURSDAY', 1, 3, 8), (32, 'WEDNESDAY', 1, 3, 5), (29, 'FRIDAY', 1, 5, 7);
+
+
 INSERT INTO class_group(grade_number, letter, shift, teacher_id, user_id, created_date)
 VALUES
 (1, 'А', 1, 1, 1, now()), (1, 'Б', 1, 2, 1, now()), (1, 'В', 1, 3, 1, now()),
@@ -102,8 +161,8 @@ VALUES
 (19, 32, null), (20, 32, null), (21, 32, null),
 (22, 34, null), (23, 34, null), (24, 34, null),
 (25, 35, null), (26, 35, null), (27, 35, null),
-(28, 33, 86), (29, 33, 86),
-(30, 33, 87), (31, 33, 87);
+(28, 33, 153), (29, 33, 153),
+(30, 33, 171), (31, 33, 171);
 
 INSERT INTO subject_limits(group_limits_id, subject_id, hours, teacher_id, room_id, teacher_2_id, room_2_id)
 VALUES

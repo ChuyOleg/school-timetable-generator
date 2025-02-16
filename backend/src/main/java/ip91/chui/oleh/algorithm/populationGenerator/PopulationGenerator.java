@@ -8,6 +8,6 @@ import ip91.chui.oleh.algorithm.model.Population;
  */
 public interface PopulationGenerator {
 
-  Population generate();
+  Population generate(int populationSize);
 
 }

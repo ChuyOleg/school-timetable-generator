@@ -40,7 +40,8 @@ export class EditRoomComponent {
       this.roomService.edit({
         id: this.roomService.roomToEdit.id,
         name: this.form.value.name as string,
-        capacity: this.form.value.capacity as number
+        capacity: this.form.value.capacity as number,
+        roomLimitDtoSet: this.roomService.roomToEdit.roomLimitDtoSet
       }).subscribe(() => {
         this.roomNameExist = false;
         this.modalService.closeUpdateModal();

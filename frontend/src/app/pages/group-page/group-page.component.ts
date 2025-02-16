@@ -16,8 +16,7 @@ export class GroupPageComponent implements OnInit {
   constructor(
     public groupService: GroupService,
     public modalService: GroupModalService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -25,5 +24,4 @@ export class GroupPageComponent implements OnInit {
       this.loading = false;
     })
   }
-
 }

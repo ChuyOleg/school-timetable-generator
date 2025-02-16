@@ -47,7 +47,8 @@ export class EditTeacherComponent implements OnInit {
         id: this.teacherService.teacherToEdit.id,
         name: this.form.value.name as string,
         subjectDtoSet: this.form.value.subjectDtoSet as ISubject[],
-        maxHoursPerWeek: this.form.value.maxHoursPerWeek as number
+        maxHoursPerWeek: this.form.value.maxHoursPerWeek as number,
+        limits: this.teacherService.teacherToEdit.limits
       }).subscribe(() => {
         this.teacherNameExist = false;
         this.modalService.closeUpdateModal();
